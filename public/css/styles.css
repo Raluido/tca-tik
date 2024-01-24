@@ -1,0 +1,94 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: gray;
+}
+
+header>div {
+    display: grid;
+    grid-template-columns: 15% 70% 15%;
+}
+
+#logo,
+#mobileMenu {
+    width: 100%;
+    height: auto;
+    text-align: center;
+}
+
+#logo img {
+    width: 10em;
+    height: auto;
+}
+
+#mobileMenu img {
+    width: 2em;
+    height: auto;
+}
+
+#desktopMenu {
+    display: none;
+}
+
+#login {
+    display: flex;
+    align-items: center;
+}
+
+#loginForm {
+    width: 50%;
+    margin: 0 auto;
+}
+
+#loginForm .loginInputs {
+    margin-top: 1em;
+}
+
+#loginForm .loginSubmit {
+    margin-top: 1.5em;
+    text-align: center;
+}
+
+#messages {
+    padding: 2em 2em 0 2em;
+}
+
+.controlPanel {
+    margin-top: 1.5em;
+    padding: 1em;
+}
+
+.controlPanelElements {
+    display: flex;
+    justify-content: center;
+    margin-top: 2em;
+    padding: 2em;
+    border: 1px solid gray;
+}
+
+.controlPanelElements>div {
+    width: 6em;
+    height: 3em;
+    border: 1px solid gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.controlPanelElements>div:nth-child(-n+2) {
+    margin-right: .5em;
+}
+
+.controlPanelElements h4 {
+    text-align: center;
+}
+
+footer {
+    position: absolute;
+    bottom: 0px;
+}
