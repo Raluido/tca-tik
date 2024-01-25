@@ -64,28 +64,28 @@ header>div {
 }
 
 .controlPanelElements {
-    display: flex;
-    justify-content: center;
     margin-top: 2em;
-    padding: 2em;
+    padding: 1em;
     border: 1px solid gray;
 }
 
-.controlPanelElements>div {
-    width: 6em;
-    height: 3em;
-    border: 1px solid gray;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.controlPanelElements summary {
+    width: fit-content;
 }
 
-.controlPanelElements>div:nth-child(-n+2) {
-    margin-right: .5em;
+.controlPanelElements details {
+    background: #eee;
+    color: #444;
+    padding: 18px;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
 }
 
 .controlPanelElements h4 {
-    text-align: center;
+    text-align: end;
+    margin-right: 5em;
 }
 
 footer {

@@ -27,11 +27,9 @@
                 <td class="">{{$product->description}}</td>
                 <td class="">{{$product->price}}</td>
                 <td class="">{{$product->observations}}</td>
-                <td class=""><a href="{{ route('products.createForm') }}" class="">Crear</a></td>
-                <td class=""><a href="{{ route('products.editForm') }}" class="">Editar</a></td>
-                {{ html()->form('DELETE', '/products/delete/' . $product->id) }}
-                {{ html()->submit('Borrar')->class([]) }}
-                {{ html()->form()->close() }}
+                <td class=""></td>
+                <td class="">{{$product->observations}}</td>
+                <td class="">{{$product->observations}}</td>
             </tr>
             @endforeach
         </tbody>
