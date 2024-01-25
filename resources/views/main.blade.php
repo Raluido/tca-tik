@@ -14,6 +14,10 @@
 
     <h4>Bienvenido al panel de administrador</h4>
 
+    <div id="messages">
+        @include('layouts.partials.messages')
+    </div>
+
     <div class="controlPanelElements">
         <details class="">
             <summary class="">Productos</summary>

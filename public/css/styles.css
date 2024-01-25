@@ -88,6 +88,23 @@ header>div {
     margin-right: 5em;
 }
 
+#createForm {
+    padding: 2em;
+}
+
+#createForm form {
+    padding: 2em;
+}
+
+#createForm .createInput {
+    margin-top: 1em;
+}
+
+#createForm .createSubmitInput {
+    margin-top: 2em;
+    text-align: center;
+}
+
 footer {
     position: absolute;
     bottom: 0px;

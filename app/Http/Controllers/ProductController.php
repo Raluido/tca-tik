@@ -20,6 +20,8 @@ class ProductController extends Controller
     {
         $categories = Category::all();
 
+        if(count($categories) == 0) return redirect()->back()->withErrors('Para crear un artículo primero debe hacer creado al menos una categoría.');
+
         return view('products.createForm', ['categories' => $categories]);
     }
 

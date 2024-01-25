@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Http\Requests\CreateCategoryRequest;
+use Illuminate\Support\Facades\Log;
 
 class CategoryController extends Controller
 {
@@ -22,7 +23,9 @@ class CategoryController extends Controller
 
     public function create(CreateCategoryRequest $request)
     {
-        $newcategory = Category::create($request->validated());
+        Category::create($request->validated());
+
+        return redirect()->back()->withSuccess('La categoría se ha creado correctamente!!');
     }
 
     public function editForm(Category $category)

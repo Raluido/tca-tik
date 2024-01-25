@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="">
-    @if(count($products) == 0)
+    @if(!isset($products) || $products === null)
     <p class="">Aún no has creado ningún producto.</p>
     @else
     <table class="">
@@ -20,7 +20,7 @@
             </tr>
         </thead>
         <tbody class="">
-            @foreach (@products as $product)
+            @foreach ($products as $product)
             <tr class="">
                 <td class="">{{$product->name}}</td>
                 <td class="">{{$product->category}}</td>

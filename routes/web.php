@@ -17,7 +17,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
     Route::get('/', function () {
         return view('main');
-    });
+    })->name('main');
 
     Route::group(['middleware' => 'guest'], function () {
         Route::get('login', 'LoginController@show')->name('login.show');
