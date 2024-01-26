@@ -30,21 +30,23 @@ class CategoryController extends Controller
 
     public function editForm(Category $category)
     {
-        $categories = Category::all();
-
         return view('categories.createForm', ['category' => $category]);
     }
 
-    public function edit(CreateCategoryRequest $request)
+    public function edit(CreateCategoryRequest $request, Category $category)
     {
-        $editcategory = Category::where('id', $request->id)->update($request->validated());
+        $update = Category::find($category->id);
+
+        $update->update($request->validated());
 
         return redirect()->back()->withSuccess('La categoría se ha actulizado correctamente.');
     }
 
     public function delete(Category $category)
     {
-        category::where('id', $category->id)->delete();
+        $delete = Category::find($category->id);
+
+        $delete->delete();
 
         return redirect()->back()->withSuccess('La categoría se ha eliminado correctamente');
     }

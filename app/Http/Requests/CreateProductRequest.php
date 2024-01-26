@@ -21,8 +21,10 @@ class CreateProductRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id = $this->id;
+
         return [
-            'name' => 'required|max:25',
+            'name' => 'required|max:25|unique:products,name,' . $id,
             'product_has_category' => 'required',
             'price' => 'required|decimal:2|between:1,10'
         ];

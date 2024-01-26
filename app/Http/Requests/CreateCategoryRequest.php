@@ -21,8 +21,10 @@ class CreateCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id = $this->id;
+
         return [
-            'name' => 'required|max:25',
+            'name' => 'required|max:25|unique:categories,name,' . $id,
             'description' => 'required|between:5,100',
             'prefix' => 'required|between:2,3'
         ];
@@ -33,7 +35,8 @@ class CreateCategoryRequest extends FormRequest
         return [
             'name.required' => 'Has de añadir un nombre para el artículo.',
             'name.max' => 'El nombre de la categoría no puede superar 25 caracteres.',
-            'description.required' => 'La descripción del artículo debe de estar entre los 5 y los 100 caracteres.',
+            'description.required' => 'Has de añadir una descripción de la categoría.',
+            'description.between' => 'La descripción del artículo debe de estar entre los 5 y los 100 caracteres.',
             'prefix.required' => 'Has de añadir un prefijo para la categoría.',
             'prefix.between' => 'El prefijo de contener entre 2 y 3 caracteres.',
 

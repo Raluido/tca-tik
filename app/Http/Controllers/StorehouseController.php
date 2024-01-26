@@ -22,7 +22,9 @@ class StorehouseController extends Controller
 
     public function create(CreateStorehouseRequest $request)
     {
-        $newStorehouse = Storehouse::create($request->validated());
+        Storehouse::create($request->validated());
+
+        return redirect()->back()->withSuccess('El almacén se ha creado correctamente.');
     }
 
     public function editForm(Storehouse $storehouse)
@@ -30,16 +32,20 @@ class StorehouseController extends Controller
         return view('storehouses.createForm', ['storehouse' => $storehouse]);
     }
 
-    public function edit(CreateStorehouseRequest $request)
+    public function edit(CreateStorehouseRequest $request, Storehouse $storehouse)
     {
-        $editStorehouse = Storehouse::where('id', $request->id)->update($request->validated());
+        $update = Storehouse::find($storehouse->id);
+
+        $update->update($request->validated());
 
         return redirect()->back()->withSuccess('El almacén se ha actulizado correctamente.');
     }
 
     public function delete(Storehouse $storehouse)
     {
-        Storehouse::where('id', $storehouse->id)->delete();
+        $delete = Storehouse::find($storehouse->id);
+
+        $delete->delete();
 
         return redirect()->back()->withSuccess('El almacén se ha eliminado correctamente');
     }

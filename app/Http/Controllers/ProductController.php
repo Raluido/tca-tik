@@ -20,14 +20,16 @@ class ProductController extends Controller
     {
         $categories = Category::all();
 
-        if(count($categories) == 0) return redirect()->back()->withErrors('Para crear un artículo primero debe hacer creado al menos una categoría.');
+        if (count($categories) == 0 || is_null($categories)) return redirect()->back()->withErrors('Para crear un artículo primero debe hacer creado al menos una categoría.');
 
         return view('products.createForm', ['categories' => $categories]);
     }
 
     public function create(CreateProductRequest $request)
     {
-        $newProduct = Product::create($request->validated());
+        Product::create($request->validated());
+
+        return redirect()->back()->withSuccess('El producto se ha creado correctamente.');
     }
 
     public function editForm(Product $product)
@@ -37,16 +39,20 @@ class ProductController extends Controller
         return view('products.editForm', ['categories' => $categories, 'product' => $product]);
     }
 
-    public function edit(CreateProductRequest $request)
+    public function edit(CreateProductRequest $request, Product $product)
     {
-        $editProduct = Product::where('id', $request->id)->update($request->validated());
+        $update = Product::find($product->id);
+
+        $update->update($request->validated());
 
         return redirect()->back()->withSuccess('El producto se ha actulizado correctamente.');
     }
 
     public function delete(Product $product)
     {
-        Product::where('id', $product->id)->delete();
+        $delete = Product::find($product->id);
+
+        $delete->delete();
 
         return redirect()->back()->withSuccess('El producto se ha eliminado correctamente');
     }
