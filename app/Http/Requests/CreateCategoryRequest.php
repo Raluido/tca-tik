@@ -35,6 +35,7 @@ class CreateCategoryRequest extends FormRequest
         return [
             'name.required' => 'Has de añadir un nombre para el artículo.',
             'name.max' => 'El nombre de la categoría no puede superar 25 caracteres.',
+            'name.unique' => 'Ya existe una categoría con ese nombre.',
             'description.required' => 'Has de añadir una descripción de la categoría.',
             'description.between' => 'La descripción del artículo debe de estar entre los 5 y los 100 caracteres.',
             'prefix.required' => 'Has de añadir un prefijo para la categoría.',

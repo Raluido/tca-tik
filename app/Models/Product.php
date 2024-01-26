@@ -11,13 +11,26 @@ class Product extends Model
 {
     use HasFactory;
 
-    public function category()
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'product_has_category',
+        'name',
+        'price',
+        'observations',
+        'description'
+    ];
+
+    public function categoryProduct()
     {
-        $this->hasOne(Category::class);
+        return $this->belongsTo(Category::class, 'product_has_category');
     }
 
     public function storehouses()
     {
-        $this->belongsToMany(Storehouse::class);
+        return $this->belongsToMany(Storehouse::class);
     }
 }

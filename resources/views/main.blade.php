@@ -4,7 +4,7 @@
 
 @guest
 
-<h4>Bienvenido, logueese para acceder al panel de administrador</h4>
+<h4 id="mainWelcome">Bienvenido! <br><br> Logueese para acceder al panel de administrador.</h4>
 
 @endguest
 

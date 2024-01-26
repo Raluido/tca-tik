@@ -2,20 +2,28 @@
 
 @section('content')
 
-<div class="">
+<div id="crudForm">
+
+    <h4 class="">Crear nuevo almacén</h4>
+
+    <div id="messages">
+        @include('layouts.partials.messages')
+    </div>
+
     <form action="{{ route('storehouses.create') }}" method="post" class="">
         @csrf
-        <div class="">
+        <div class="inputForm">
             <input type="text" name="name" class="" placeholder="Nombre">
         </div>
-        <div class="">
+        <div class="inputForm">
             <textarea name="description" id="" cols="30" rows="10" class="" placeholder="Descriptión del almacén"></textarea>
         </div>
-        <div class="">
+        <div class="inputForm">
             <input type="text" name="address" class="" placeholder="Dirección">
         </div>
-        <div class="">
-            <input type="submit" value="Crear" class="">
+        <div class="submitForm">
+            <input type="submit" value="Crear" class="greenButton text-white">
+            <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Menú principal</a></button>
         </div>
     </form>
 </div>

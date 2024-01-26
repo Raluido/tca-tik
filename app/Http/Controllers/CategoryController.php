@@ -30,7 +30,7 @@ class CategoryController extends Controller
 
     public function editForm(Category $category)
     {
-        return view('categories.createForm', ['category' => $category]);
+        return view('categories.editForm', ['category' => $category]);
     }
 
     public function edit(CreateCategoryRequest $request, Category $category)

@@ -28,16 +28,9 @@ class RouteServiceProvider extends ServiceProvider
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
 
-        RateLimiter::for('login', function () {
+        RateLimiter::for('login', function (Request $request) {
             Limit::perMinute(5);
         });
-
-        // Route::middleware(['throttle:login'])->get('login', function () {
-        //     $limiterName = 'login';
-        //     $limit_key = 'login';
-        //     $key = md5($limiterName . $limit_key);
-        //     return RateLimiter::attempts($key);
-        // });
 
         $this->routes(function () {
             Route::middleware('api')

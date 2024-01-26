@@ -15,16 +15,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
-    
     Route::get('/', function () {
         return view('main');
     })->name('main');
-    
-    Route::group(['middleware' => 'throttle:login'], function () {
-        Route::get('login', 'LoginController@show')->name('login.show');
-    });
 
+    Route::get('login', 'LoginController@show')->name('login.show');
+
+    Route::middleware(['throttle:login'])->group(function () {
         Route::post('login', 'LoginController@login')->name('login.perform');
+    });
 
     Route::group(['middleware' => 'auth'], function () {
         Route::get('logout', 'LoginController@logout')->name('login.logout');

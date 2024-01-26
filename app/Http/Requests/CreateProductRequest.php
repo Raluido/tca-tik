@@ -26,7 +26,9 @@ class CreateProductRequest extends FormRequest
         return [
             'name' => 'required|max:25|unique:products,name,' . $id,
             'product_has_category' => 'required',
-            'price' => 'required|decimal:2|between:1,10'
+            'price' => 'required|decimal:2|between:1,10',
+            'observations' => 'required',
+            'description' => 'required'
         ];
     }
 

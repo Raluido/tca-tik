@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Http\Requests\CreateProductRequest;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -50,6 +51,7 @@ class ProductController extends Controller
 
     public function delete(Product $product)
     {
+        log::info("fsdf");
         $delete = Product::find($product->id);
 
         $delete->delete();

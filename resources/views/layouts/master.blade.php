@@ -24,6 +24,9 @@
 
 </body>
 
+<script type="module" src="{{ asset('js/showMobileMenu.js') }}" defer></script>
+
 @yield('js')
+
 
 </html>

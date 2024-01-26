@@ -2,33 +2,38 @@
 
 @section('content')
 
-<div id="createForm">
+<div id="crudForm">
 
-    <h4 class="">Crear nueva producto</h4>
+    <h4 class="">Crear nuevo producto</h4>
+
+    <div id="messages">
+        @include('layouts.partials.messages')
+    </div>
 
     <form action="{{ route('products.create') }}" method="post" class="">
         @csrf
-        <div class="createInput">
+        <div class="inputForm">
             <input type="text" name="name" class="" placeholder="Nombre">
         </div>
-        <div class="createInput">
-            <select name="category" id="" class="">
+        <div class="inputForm">
+            <select name="product_has_category" id="" class="">
                 @foreach($categories as $category)
                 <option value="{{ $category->id }}" class="">{{ $category->name }}</option>
                 @endforeach
             </select>
         </div>
-        <div class="createInput">
+        <div class="inputForm">
             <input name="price" class="" type="number" step="0.01" placeholder="Precio">
         </div>
-        <div class="createInput">
+        <div class="inputForm">
             <textarea name="description" id="" cols="30" rows="10" class="" placeholder="Descriptión del producto"></textarea>
         </div>
-        <div class="createInput">
-            <textarea name="" id="" cols="30" rows="10" class="" placeholder="Observaciones"></textarea>
+        <div class="inputForm">
+            <textarea name="observations" id="" cols="30" rows="10" class="" placeholder="Observaciones"></textarea>
         </div>
-        <div class="createSubmitInput">
-            <input type="submit" value="Crear" class="">
+        <div class="submitForm">
+            <input type="submit" value="Crear" class="greenButton text-white">
+            <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Menú principal</a></button>
         </div>
     </form>
 

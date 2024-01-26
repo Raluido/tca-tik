@@ -2,23 +2,26 @@
 
 @section('content')
 
-<div id="messages">
-    @include('layouts.partials.messages')
-</div>
+<div id="crudForm">
 
-<div id="loginForm">
+    <h4 class="">Logueate</h4>
+
+    <div id="messages">
+        @include('layouts.partials.messages')
+    </div>
 
     <form method="post" action="{{ route('login.perform') }}">
         @csrf
 
-        <div class="loginInputs">
+        <div class="inputForm">
             <input type="text" name="name" placeholder="Usuario" require="required">
         </div>
-        <div class="loginInputs">
+        <div class="inputForm">
             <input type="text" name="password" placeholder="Contraseña" require="required">
         </div>
-        <div class="loginSubmit">
-            <input type="submit" class="" value="Acceder">
+        <div class="submitForm">
+            <input type="submit" value="Acceder" class="greenButton text-white">
+            <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Menú principal</a></button>
         </div>
 
     </form>

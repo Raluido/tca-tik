@@ -3,6 +3,9 @@
 @section('content')
 
 <div class="">
+
+    <h4 class="">Editar almacén.</h4>
+
     <form action="{{ route('storehouses.edit') }}" method="post" class="">
         @csrf
         <div class="">
