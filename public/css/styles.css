@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+main {
+    min-height: 60vh;
+}
+
 a {
     text-decoration: none;
     color: gray;
@@ -52,6 +56,10 @@ ul li {
 
 .text-white {
     color: white;
+}
+
+header {
+    height: 5vh;
 }
 
 header>div {
@@ -189,8 +197,8 @@ td {
 }
 
 footer {
-    position: absolute;
-    bottom: 0px;
+    height: 35vh;
+    bottom: 0;
     padding: 1em;
     width: 100%;
     text-align: center;

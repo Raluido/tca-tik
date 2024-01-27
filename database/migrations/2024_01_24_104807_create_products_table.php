@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('product_has_category')->constrained(table: 'categories', column: 'id');
             $table->string('name');
             $table->float('price', 0, 2);
+            $table->string('prefix');
             $table->text('observations');
             $table->text('description');
             $table->timestamps();

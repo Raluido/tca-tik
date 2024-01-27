@@ -26,7 +26,8 @@ class CreateProductRequest extends FormRequest
         return [
             'name' => 'required|max:25|unique:products,name,' . $id,
             'product_has_category' => 'required',
-            'price' => 'required|decimal:2|between:1,10',
+            'price' => 'required|numeric|between:0,9999.99',
+            'prefix' => 'required|between:1,3',
             'observations' => 'required',
             'description' => 'required'
         ];
@@ -39,8 +40,9 @@ class CreateProductRequest extends FormRequest
             'name.max' => 'El nombre del artículo no debe exceder los 25 caracteres.',
             'product_has_category.required' => 'Tienes que indicar una categoría para el artículo.',
             'price.required' => 'Tienes que indicar un precio para el artículo.',
-            'price-decimal' => 'Tienes que indicar dos decimales al precio.',
-            'price.between' => 'La cuantía del precio no puede superar las 10 cifras.',
+            'price.numeric' => 'Tienes que indicar un valor numerico.',
+            'price.between' => 'La cuantía del precio no puede superar las 4 cifras.',
+            'prefix.required' => 'Tienes que indicar una referencia para el artículo.',
         ];
     }
 }

@@ -20,6 +20,7 @@ class Product extends Model
         'product_has_category',
         'name',
         'price',
+        'prefix',
         'observations',
         'description'
     ];
@@ -31,6 +32,6 @@ class Product extends Model
 
     public function storehouses()
     {
-        return $this->belongsToMany(Storehouse::class);
+        return $this->belongsToMany(Storehouse::class, 'product_storehouse', 'product_storehouses', 'product_storehouse_has_products', 'product_storehouse_has_storehouses');
     }
 }

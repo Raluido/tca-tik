@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Storehouse;
 use App\Http\Requests\CreateProductRequest;
 use Illuminate\Support\Facades\Log;
 
@@ -21,9 +22,11 @@ class ProductController extends Controller
     {
         $categories = Category::all();
 
+        $storehouses = Storehouse::all();
+
         if (count($categories) == 0 || is_null($categories)) return redirect()->back()->withErrors('Para crear un artículo primero debe hacer creado al menos una categoría.');
 
-        return view('products.createForm', ['categories' => $categories]);
+        return view('products.createForm', ['categories' => $categories, 'storehouses' => $storehouses]);
     }
 
     public function create(CreateProductRequest $request)
@@ -51,7 +54,6 @@ class ProductController extends Controller
 
     public function delete(Product $product)
     {
-        log::info("fsdf");
         $delete = Product::find($product->id);
 
         $delete->delete();

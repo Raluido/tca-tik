@@ -54,5 +54,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::put('{storehouse}/edit', 'StorehouseController@edit')->name('storehouses.edit');
             Route::delete('{storehouse}/delete', 'StorehouseController@delete')->name('storehouses.delete');
         });
+
+        Route::group(['prefix' => 'storehousesManagement'], function () {
+            Route::get('showall', 'StorehousesManagementController@showall')->name('storehousesManagement.showall');
+            Route::get('addProduct', 'StorehousesManagementController@addProduct')->name('storehousesManagement.addProduct');
+        });
     });
 });

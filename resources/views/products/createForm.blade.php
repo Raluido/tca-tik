@@ -26,6 +26,9 @@
             <input name="price" class="" type="number" step="0.01" placeholder="Precio">
         </div>
         <div class="inputForm">
+            <input name="prefix" class="" type="text" placeholder="identificador del producto">
+        </div>
+        <div class="inputForm">
             <textarea name="description" id="" cols="30" rows="10" class="" placeholder="Descriptión del producto"></textarea>
         </div>
         <div class="inputForm">
@@ -42,5 +45,5 @@
 @endsection
 
 @section('js')
-
+<script class="" type="module" src="{{ asset('js/addStorehouses.js') }}" defer></script>
 @endsection

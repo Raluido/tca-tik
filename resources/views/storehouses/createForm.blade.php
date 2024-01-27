@@ -21,6 +21,9 @@
         <div class="inputForm">
             <input type="text" name="address" class="" placeholder="Dirección">
         </div>
+        <div class="inputForm">
+            <input type="text" name="prefix" class="" placeholder="identificador del almacén">
+        </div>
         <div class="submitForm">
             <input type="submit" value="Crear" class="greenButton text-white">
             <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Menú principal</a></button>

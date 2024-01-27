@@ -3,6 +3,12 @@
 @section('content')
 
 <div class="">
+    <h4 class="">Tabla de categorías</h4>
+
+    <div id="messages">
+        @include('layouts.partials.messages')
+    </div>
+
     @if(is_null($categories) || count($categories) == 0)
     <p class="">Aún no has creado ningún producto.</p>
     @else
@@ -29,6 +35,10 @@
         </tbody>
     </table>
     @endif
+    <div class="submitForm">
+        <button class="greenButton"><a href="{{ route('categories.createForm') }}" class="text-white">Crear</a></button>
+        <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Menú principal</a></button>
+    </div>
 </div>
 
 @endsection

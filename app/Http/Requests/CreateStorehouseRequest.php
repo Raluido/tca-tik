@@ -11,7 +11,7 @@ class CreateStorehouseRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,7 +26,8 @@ class CreateStorehouseRequest extends FormRequest
         return [
             'name' => 'required|max:25|unique:storehouses,name,' . $id,
             'description' => 'required|between:5,100',
-            'address' => 'required|between:5,100'
+            'address' => 'required|between:5,100',
+            'prefix' => 'required|between:2,4'
         ];
     }
 
@@ -40,6 +41,8 @@ class CreateStorehouseRequest extends FormRequest
             'description.between' => 'La descripción del almacén debe de estar entre los 5 y los 100 caracteres.',
             'address.required' => 'Has de añadir una dirección del almacén.',
             'address.between' => 'La dirección del almacén debe de estar entre los 5 y los 100 caracteres.',
+            'prefix.required' => 'Has de añadir una descriptión del almacén un identificador del almacén.',
+            'prefix.between' => 'El identificador del almacén debe de estar entre los 2 y los 4 caracteres.',
 
         ];
     }
