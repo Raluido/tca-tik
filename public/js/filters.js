@@ -1,13 +1,18 @@
 $(window).on('load', function () {
+    let url = document.getElementById('url').value;
     $('#filterByStorehouse').on('change', function () {
         let storehouseSelected = $('#filterByStorehouse').val();
         let categorySelected = $('#filterByCategory').val();
+        if (storehouseSelected == 0 && categorySelected == 0) {
+            window.location.href = url + '/storehousesManagement/showall';
+            return;
+        }
         $.ajax({
             type: 'GET',
-            url: '/storehousesManagement/ajaxCall/' + storehouseSelected + '/' + categorySelected,
+            url: '/storehousesManagement/filterBy/' + storehouseSelected + '/' + categorySelected,
             data: {},
             success: function () {
-                window.location.href = 'http://tca-tik.com.devel/storehousesManagement/showByStorehouse/' + storehouseSelected + '/' + categorySelected;
+                window.location.href = url + '/storehousesManagement/showBy/' + storehouseSelected + '/' + categorySelected;
             }
         })
     })
@@ -15,13 +20,16 @@ $(window).on('load', function () {
     $('#filterByCategory').on('change', function () {
         let categorySelected = $('#filterByCategory').val();
         let storehouseSelected = $('#filterByStorehouse').val();
+        if (storehouseSelected == 0 && categorySelected == 0) {
+            window.location.href = url + '/storehousesManagement/showall';
+            return;
+        }
         $.ajax({
             type: 'GET',
-            url: '/storehousesManagement/ajaxCall/' + categorySelected + '/' + storehouseSelected,
+            url: '/storehousesManagement/filterBy/' + storehouseSelected + '/' + categorySelected,
             data: {},
             success: function () {
-                console.log('aqui');
-                window.location.href = 'http://tca-tik.com.devel/storehousesManagement/showByCategory/' + categorySelected + '/' + storehouseSelected;
+                window.location.href = url + '/storehousesManagement/showBy/' + storehouseSelected + '/' + categorySelected;
             }
         })
     })

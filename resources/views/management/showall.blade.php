@@ -7,12 +7,14 @@
     <h4>Gestión de almacenes</h4>
 
     <select name="" id="filterByStorehouse" class="">
+        <option value="0" class="">Todos</option>
         @foreach($storehouses as $storehouse)
         <option value="{{ $storehouse->id }}">{{ $storehouse->name }}</option>
         @endforeach
     </select>
 
     <select name="" id="filterByCategory" class="">
+        <option value="0" class="">Todas</option>
         @foreach($categories as $category)
         <option value="{{ $category->id }}">{{ $category->name }}</option>
         @endforeach
@@ -42,11 +44,11 @@
         </thead>
         <tbody class="">
             @foreach ($storehouses as $storehouse)
+            @foreach ($storehouse->products as $product)
             <tr class="">
                 <td class="">{{$storehouse->name}}</td>
                 <td class="">{{$storehouse->prefix}}</td>
                 <td class="">{{$storehouse->description}}</td>
-                @foreach ($storehouse->products as $product)
                 <td class="">{{$product->name}}</td>
                 <td class="">{{$product->price}}</td>
                 <td class="">{{$product->prefix}}</td>
@@ -57,18 +59,19 @@
                     {{ html()->submit('Borrar')->class(['grayButton', 'text-white']) }}
                     {{ html()->form()->close() }}
                 </td>
-                @endforeach
             </tr>
+            @endforeach
             @endforeach
         </tbody>
     </table>
     @endif
     <div class="submitForm">
-        <button class="greenButton"><a href="{{ route('storehousesManagement.addProductForm') }}" class="text-white">Añadir</a></button>
         <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Menú principal</a></button>
     </div>
 
 </div>
+
+<input type="hidden" value="{{ env('APP_URL') }}" id="url">
 
 @endsection
 

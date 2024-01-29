@@ -7,12 +7,14 @@
     <h4>Gestión de almacenes</h4>
 
     <select name="" id="filterByStorehouse" class="">
+        <option value="true" class="">Todos</option>
         @foreach($storehouses as $storehouse)
         <option value="{{ $storehouse->id }}" {{ ($storehouseSelectedId == $storehouse->id) ? 'selected' : '' }}>{{ $storehouse->name }}</option>
         @endforeach
     </select>
 
     <select name="" id="filterByCategory" class="">
+        <option value="true" class="">Todas</option>
         @foreach($categories as $category)
         <option value="{{ $category->id }}" {{ ($categorySelectedId == $category->id) ? 'selected' : '' }}>{{ $category->name }}</option>
         @endforeach
@@ -60,7 +62,6 @@
     </table>
     @endif
     <div class="submitForm">
-        <button class="greenButton"><a href="{{ route('storehousesManagement.addProduct') }}" class="text-white">Añadir</a></button>
         <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Menú principal</a></button>
     </div>
 
@@ -68,7 +69,7 @@
 
 @endsection
 
-
+<input type="hidden" value="{{ env('APP_URL') }}" id="url">
 
 @section('js')
 <script class="" src="{{ asset('js/filters.js') }}" defer></script>

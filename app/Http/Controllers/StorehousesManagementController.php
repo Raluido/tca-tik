@@ -21,46 +21,62 @@ class StorehousesManagementController extends Controller
         return view('management.showall', ['storehouses' => $storehouses, 'categories' => $categories]);
     }
 
-    public function addProductForm()
+    public function filterBy($filter)
     {
-        $storehouses = Storehouse::all();
-
-        $products = Product::all();
-
-        return view('management.addToStorehouseForm', ['storehouses' => $storehouses, 'products' => $products]);
+        return $filter;
     }
 
-    public function filterByStorehouse($storehouseSelected)
-    {
-        return $storehouseSelected;
-    }
-
-    public function showByStorehouse($storehouseSelectedId, $categorySelectedId)
+    public function showBy($storehouseSelectedId, $categorySelectedId)
     {
         $storehouses = Storehouse::all();
 
         $categories = Category::all();
 
-        $storehouseSelected = Storehouse::find($storehouseSelectedId);
+        if ($storehouseSelectedId == 0 && $categorySelectedId != 0) {
+            $filtered = Db::table('storehouses')
+                ->select('products.product_has_category as id', 'storehouses.name as name', 'storehouses.prefix as prefix', 'storehouses.description as description', 'products.id as pid', 'products.name as pname',  'products.price as pprice', 'products.prefix as pprefix', 'categories.name as pcategory')
+                ->join('product_storehouses', 'storehouses.id', '=', 'product_storehouses.product_storehouse_has_storehouses')
+                ->join('products', 'products.id', '=', 'product_storehouses.product_storehouse_has_products')
+                ->join('categories', 'categories.id', '=', 'products.product_has_category')
+                ->where('categories.id', '=', $categorySelectedId)
+                ->orderBy('categories.id')
+                ->get();
+        } elseif ($categorySelectedId == 0 && $storehouseSelectedId != 0) {
+            $filtered = Db::table('storehouses')
+                ->select('products.product_has_category as id', 'storehouses.name as name', 'storehouses.prefix as prefix', 'storehouses.description as description', 'products.id as pid', 'products.name as pname',  'products.price as pprice', 'products.prefix as pprefix', 'categories.name as pcategory')
+                ->join('product_storehouses', 'storehouses.id', '=', 'product_storehouses.product_storehouse_has_storehouses')
+                ->join('products', 'products.id', '=', 'product_storehouses.product_storehouse_has_products')
+                ->join('categories', 'categories.id', '=', 'products.product_has_category')
+                ->where('storehouses.id', '=', $storehouseSelectedId)
+                ->orderBy('categories.id')
+                ->get();
+        } else {
+            $filtered = Db::table('storehouses')
+                ->select('products.product_has_category as id', 'storehouses.name as name', 'storehouses.prefix as prefix', 'storehouses.description as description', 'products.id as pid', 'products.name as pname',  'products.price as pprice', 'products.prefix as pprefix', 'categories.name as pcategory')
+                ->join('product_storehouses', 'storehouses.id', '=', 'product_storehouses.product_storehouse_has_storehouses')
+                ->join('products', 'products.id', '=', 'product_storehouses.product_storehouse_has_products')
+                ->join('categories', 'categories.id', '=', 'products.product_has_category')
+                ->where('storehouses.id', '=', $storehouseSelectedId)
+                ->where('categories.id', '=', $categorySelectedId)
+                ->orderBy('categories.id')
+                ->get();
+        }
 
-        return view('management.showByStorehouse', ['storehouseSelected' => $storehouseSelected, 'storehouses' => $storehouses, 'categories' => $categories, 'storehouseSelectedId' => $storehouseSelectedId, 'categorySelectedId' => $categorySelectedId]);
+        return view('management.showByFiltered', ['filtered' => $filtered, 'storehouses' => $storehouses, 'categories' => $categories, 'storehouseSelectedId' => $storehouseSelectedId, 'categorySelectedId' => $categorySelectedId]);
     }
 
-    public function showByCategory($categorySelectedId, $storehouseSelectedId)
+    public function searchByProduct($storehouseSelectedId, $categorySelectedId, $inputSearch)
     {
-        $storehouses = Storehouse::all();
-
-        $categories = Category::all();
-
-        $categorySelected = Db::table('storehouses')
+        $product = Db::table('storehouses')
             ->select('products.product_has_category as id', 'storehouses.name as name', 'storehouses.prefix as prefix', 'storehouses.description as description', 'products.id as pid', 'products.name as pname',  'products.price as pprice', 'products.prefix as pprefix', 'categories.name as pcategory')
             ->join('product_storehouses', 'storehouses.id', '=', 'product_storehouses.product_storehouse_has_storehouses')
             ->join('products', 'products.id', '=', 'product_storehouses.product_storehouse_has_products')
             ->join('categories', 'categories.id', '=', 'products.product_has_category')
+            ->where('storehouses.id', '=', $storehouseSelectedId)
             ->where('categories.id', '=', $categorySelectedId)
+            ->where('products.name', 'LIKE', '%' . $inputSearch . '%')
+            ->orderBy('categories.id')
             ->get();
-
-        return view('management.showByCat', ['categorySelected' => $categorySelected, 'storehouses' => $storehouses, 'categories' => $categories, 'storehouseSelectedId' => $storehouseSelectedId, 'categorySelectedId' => $categorySelectedId]);
     }
 
     public function addToStorehouse($storehouse, $product)
