@@ -13,7 +13,8 @@
     <form action="{{ route('products.create') }}" method="post" class="">
         @csrf
         <div class="inputForm">
-            <input type="text" name="name" class="" placeholder="Nombre">
+            <input type="text" name="name" id="nameValidator" placeholder="Nombre">
+            <h5 id="nameError"></h5>
         </div>
         <div class="inputForm">
             <select name="product_has_category" id="" class="">
@@ -23,19 +24,23 @@
             </select>
         </div>
         <div class="inputForm">
-            <input name="price" class="" type="number" step="0.01" placeholder="Precio">
+            <input name="price" class="" type="number" step="0.01" id="priceValidator" placeholder="Precio">
+            <h5 id="priceError"></h5>
         </div>
         <div class="inputForm">
-            <input name="prefix" class="" type="text" placeholder="identificador del producto">
+            <input name="prefix" class="" type="text" id="prefixValidator" placeholder="identificador del producto">
+            <h5 id="prefixError"></h5>
         </div>
         <div class="inputForm">
-            <textarea name="description" id="" cols="30" rows="10" class="" placeholder="Descriptión del producto"></textarea>
+            <textarea name="description" cols="30" rows="10" class="" id="descriptionValidator" placeholder="Descriptión del producto"></textarea>
+            <h5 id="descriptionError"></h5>
         </div>
         <div class="inputForm">
-            <textarea name="observations" id="" cols="30" rows="10" class="" placeholder="Observaciones"></textarea>
+            <textarea name="observations" cols="30" rows="10" class="" id="observationsValidator" placeholder="Observaciones"></textarea>
+            <h5 id="observationsError"></h5>
         </div>
         <div class="submitForm">
-            <input type="submit" value="Crear" class="greenButton text-white">
+            <input type="submit" value="Crear" id="submitForm" class="greenButton text-white">
             <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Menú principal</a></button>
         </div>
     </form>
@@ -46,4 +51,5 @@
 
 @section('js')
 <script class="" type="module" src="{{ asset('js/addStorehouses.js') }}" defer></script>
+<script class="" type="module" src="{{ asset('js/validator.js') }}" defer></script>
 @endsection

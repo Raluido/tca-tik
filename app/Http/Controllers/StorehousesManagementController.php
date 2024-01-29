@@ -21,6 +21,22 @@ class StorehousesManagementController extends Controller
         return view('management.showall', ['storehouses' => $storehouses, 'categories' => $categories]);
     }
 
+    public function addToStoreHouseForm()
+    {
+        $storehouses = Storehouse::all();
+
+        $products = Product::all();
+
+        return view('management.addToStorehouseForm', ['storehouses' => $storehouses, 'products' => $products]);
+    }
+
+    public function productsCounter(Request $request)
+    {
+        $products = Db::table('product_storehouses')->where('product_storehouse_has_storehouses', $request->storehouseId)->where('product_storehouse_has_products', $request->productId)->count();
+
+        return $products;
+    }
+
     public function filterBy($filter)
     {
         return $filter;
@@ -61,6 +77,8 @@ class StorehousesManagementController extends Controller
                 ->orderBy('categories.id')
                 ->get();
         }
+
+        log::info($filtered);
 
         return view('management.showByFiltered', ['filtered' => $filtered, 'storehouses' => $storehouses, 'categories' => $categories, 'storehouseSelectedId' => $storehouseSelectedId, 'categorySelectedId' => $categorySelectedId]);
     }

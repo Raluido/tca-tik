@@ -64,6 +64,7 @@
     </table>
     @endif
     <div class="submitForm">
+        <button class="greenButton"><a href="{{ route('storehousesManagement.addToStoreHouseForm') }}" class="text-white">Añadir</a></button>
         <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Menú principal</a></button>
     </div>
 

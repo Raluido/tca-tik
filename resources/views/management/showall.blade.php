@@ -6,6 +6,8 @@
 
     <h4>Gestión de almacenes</h4>
 
+    <input type="text" id="inputSearch" placeholder="Búsqueda por producto">
+
     <select name="" id="filterByStorehouse" class="">
         <option value="0" class="">Todos</option>
         @foreach($storehouses as $storehouse)
@@ -66,6 +68,7 @@
     </table>
     @endif
     <div class="submitForm">
+        <button class="greenButton"><a href="{{ route('storehousesManagement.addToStoreHouseForm') }}" class="text-white">Añadir</a></button>
         <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Menú principal</a></button>
     </div>
 

@@ -18,6 +18,13 @@ class ProductController extends Controller
         return view('products.showall', ['products' => $products]);
     }
 
+    public function showone(Product $product)
+    {
+        $product = Product::find($product->id);
+
+        return view('products.showone', ['product' => $product]);
+    }
+
     public function createForm()
     {
         $categories = Category::all();
