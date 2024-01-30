@@ -8,19 +8,21 @@
 
     <input type="text" id="inputSearch" placeholder="Búsqueda por producto">
 
-    <select name="" id="filterByStorehouse" class="">
-        <option value="0" class="">Todos</option>
-        @foreach($storehouses as $storehouse)
-        <option value="{{ $storehouse->id }}">{{ $storehouse->name }}</option>
-        @endforeach
-    </select>
-
-    <select name="" id="filterByCategory" class="">
-        <option value="0" class="">Todas</option>
-        @foreach($categories as $category)
-        <option value="{{ $category->id }}">{{ $category->name }}</option>
-        @endforeach
-    </select>
+    <div class="filters">
+        <h5 class="">Filtros</h5>
+        <select name="" id="filterByStorehouse" class="">
+            <option value="0" class="">Todos</option>
+            @foreach($storehouses as $storehouse)
+            <option value="{{ $storehouse->id }}">{{ $storehouse->name }}</option>
+            @endforeach
+        </select>
+        <select name="" id="filterByCategory" class="">
+            <option value="0" class="">Todas</option>
+            @foreach($categories as $category)
+            <option value="{{ $category->id }}">{{ $category->name }}</option>
+            @endforeach
+        </select>
+    </div>
 
     <div id="messages">
         @include('layouts.partials.messages')
@@ -68,7 +70,6 @@
     </table>
     @endif
     <div class="submitForm">
-        <button class="greenButton"><a href="{{ route('storehousesManagement.addToStoreHouseForm') }}" class="text-white">Añadir</a></button>
         <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Menú principal</a></button>
     </div>
 

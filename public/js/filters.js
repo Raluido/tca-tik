@@ -1,6 +1,6 @@
 $(window).on('load', function () {
     let url = document.getElementById('url').value;
-    $('#filterByStorehouse').on('change', function () {
+    $('#filterByStorehouse').on('change', function (e) {
         let storehouseSelected = $('#filterByStorehouse').val();
         let categorySelected = $('#filterByCategory').val();
         if (storehouseSelected == 0 && categorySelected == 0) {

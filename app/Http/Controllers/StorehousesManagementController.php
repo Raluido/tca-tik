@@ -21,15 +21,6 @@ class StorehousesManagementController extends Controller
         return view('management.showall', ['storehouses' => $storehouses, 'categories' => $categories]);
     }
 
-    public function addToStoreHouseForm()
-    {
-        $storehouses = Storehouse::all();
-
-        $products = Product::all();
-
-        return view('management.addToStorehouseForm', ['storehouses' => $storehouses, 'products' => $products]);
-    }
-
     public function productsCounter(Request $request)
     {
         $products = Db::table('product_storehouses')->where('product_storehouse_has_storehouses', $request->storehouseId)->where('product_storehouse_has_products', $request->productId)->count();
@@ -46,6 +37,8 @@ class StorehousesManagementController extends Controller
     {
         $storehouses = Storehouse::all();
 
+        $products = Product::all();
+
         $categories = Category::all();
 
         if ($storehouseSelectedId == 0 && $categorySelectedId != 0) {
@@ -55,7 +48,7 @@ class StorehousesManagementController extends Controller
                 ->join('products', 'products.id', '=', 'product_storehouses.product_storehouse_has_products')
                 ->join('categories', 'categories.id', '=', 'products.product_has_category')
                 ->where('categories.id', '=', $categorySelectedId)
-                ->orderBy('categories.id')
+                ->orderBy('products.id')
                 ->get();
         } elseif ($categorySelectedId == 0 && $storehouseSelectedId != 0) {
             $filtered = Db::table('storehouses')
@@ -64,7 +57,7 @@ class StorehousesManagementController extends Controller
                 ->join('products', 'products.id', '=', 'product_storehouses.product_storehouse_has_products')
                 ->join('categories', 'categories.id', '=', 'products.product_has_category')
                 ->where('storehouses.id', '=', $storehouseSelectedId)
-                ->orderBy('categories.id')
+                ->orderBy('products.id')
                 ->get();
         } else {
             $filtered = Db::table('storehouses')
@@ -74,13 +67,11 @@ class StorehousesManagementController extends Controller
                 ->join('categories', 'categories.id', '=', 'products.product_has_category')
                 ->where('storehouses.id', '=', $storehouseSelectedId)
                 ->where('categories.id', '=', $categorySelectedId)
-                ->orderBy('categories.id')
+                ->orderBy('products.id')
                 ->get();
         }
 
-        log::info($filtered);
-
-        return view('management.showByFiltered', ['filtered' => $filtered, 'storehouses' => $storehouses, 'categories' => $categories, 'storehouseSelectedId' => $storehouseSelectedId, 'categorySelectedId' => $categorySelectedId]);
+        return view('management.showByFiltered', ['filtered' => $filtered, 'storehouses' => $storehouses, 'categories' => $categories, 'products' => $products, 'storehouseSelectedId' => $storehouseSelectedId, 'categorySelectedId' => $categorySelectedId]);
     }
 
     public function searchByProduct($storehouseSelectedId, $categorySelectedId, $inputSearch)
@@ -101,15 +92,17 @@ class StorehousesManagementController extends Controller
     {
         Product_storehouse::create(['product_storehouse_has_products' => $product, 'product_storehouse_has_storehouses' => $storehouse]);
 
-        return true;
+        $products = Db::table('product_storehouses')->where('product_storehouse_has_storehouses', $storehouse)->where('product_storehouse_has_products', $product)->count();
+
+        return $products;
     }
 
     public function removeFromStorehouse(Storehouse $storehouse, Product $product)
     {
-        $delete = Db::table('product_storehouses')->where('product_storehouse_has_products', $product->id)->where('product_storehouse_has_storehouses', $storehouse->id)->latest('updated_at');
+        $delete = Db::table('product_storehouses')->where('product_storehouse_has_products', $product->id)->where('product_storehouse_has_storehouses', $storehouse->id)->orderBy('id')->limit(1)->delete();
 
-        $delete->delete();
+        $products = Db::table('product_storehouses')->where('product_storehouse_has_storehouses', $storehouse->id)->where('product_storehouse_has_products', $product->id)->count();
 
-        return redirect()->back()->withSuccess("Hemos eliminado una unidad del almacén");
+        return $products;
     }
 }
