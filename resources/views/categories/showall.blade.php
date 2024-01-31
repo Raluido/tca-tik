@@ -2,38 +2,43 @@
 
 @section('content')
 
-<div class="">
-    <h4 class="">Tabla de categorías</h4>
+<div id="showall">
+
+    <h3 class="">Tabla de categorías</h3>
 
     <div id="messages">
         @include('layouts.partials.messages')
     </div>
 
     @if(is_null($categories) || count($categories) == 0)
-    <p class="">Aún no has creado ningún producto.</p>
+    <p id="noItems">Aún no has creado ninguna categoría.</p>
     @else
-    <table class="">
-        <thead class="">
-            <tr class="">
-                <th class="">Nombre</th>
-                <th class="">Descripción</th>
-                <th class="">Prefijo</th>
-                <th class="">Editar</th>
-                <th class="">Eliminar</th>
-            </tr>
-        </thead>
-        <tbody class="">
-            @foreach ($categories as $category)
-            <tr class="">
-                <td class="">{{$category->name}}</td>
-                <td class="">{{$category->description}}</td>
-                <td class="">{{$category->prefix}}</td>
-                <td class=""><a href="{{ route('categories.editForm', [$category->id]) }}" class="">Editar</a></td>
-                <td class="">{{$category->prefix}}</td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <div class="tableContainer">
+        <table class="">
+            <thead class="">
+                <tr class="">
+                    <th class="">Nombre</th>
+                    <th class="">Descripción</th>
+                    <th class="">Prefijo</th>
+                    <th class="">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="">
+                @foreach ($categories as $category)
+                <tr class="">
+                    <td class="">{{$category->name}}</td>
+                    <td class="">{{$category->description}}</td>
+                    <td class="">{{$category->prefix}}</td>
+                    <td class=""><button class="blueButton"><a href="{{ route('categories.editForm', [$category->id]) }}" class="text-white">Editar</a></button>
+                        {{ html()->form('DELETE', '/categories/' . $category->id . '/delete')->open() }}
+                        {{ html()->submit('Borrar')->class(['redButton', 'text-white']) }}
+                        {{ html()->form()->close() }}
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
     @endif
     <div class="submitForm">
         <button class="greenButton"><a href="{{ route('categories.createForm') }}" class="text-white">Crear</a></button>

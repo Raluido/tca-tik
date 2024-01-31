@@ -1,5 +1,5 @@
 @if(Session::get('errors'))
-{{ $errors->first() }}
+<h5 class="" style="margin:2em 2em 0 2m">{{ $errors->first() }}</h5>
 @elseif(Session::get('success'))
-{{ Session::get('success') }}
+<h5 class="" style="margin:1em">{{ Session::get('success') }}</h5>
 @endif

@@ -9,10 +9,10 @@ $(window).on('load', function () {
         }
         $.ajax({
             type: 'GET',
-            url: '/storehousesManagement/filterBy/' + storehouseSelected + '/' + categorySelected,
+            url: '/storehousesManagement/' + storehouseSelected + '/' + categorySelected + '/filterBy',
             data: {},
             success: function () {
-                window.location.href = url + '/storehousesManagement/showBy/' + storehouseSelected + '/' + categorySelected;
+                window.location.href = url + '/storehousesManagement/' + storehouseSelected + '/' + categorySelected + '/showBy';
             }
         })
     })
@@ -26,10 +26,10 @@ $(window).on('load', function () {
         }
         $.ajax({
             type: 'GET',
-            url: '/storehousesManagement/filterBy/' + storehouseSelected + '/' + categorySelected,
+            url: '/storehousesManagement/' + storehouseSelected + '/' + categorySelected + '/filterBy',
             data: {},
             success: function () {
-                window.location.href = url + '/storehousesManagement/showBy/' + storehouseSelected + '/' + categorySelected;
+                window.location.href = url + '/storehousesManagement/' + storehouseSelected + '/' + categorySelected + '/showBy';
             }
         })
     })

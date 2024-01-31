@@ -31,7 +31,7 @@ class ProductController extends Controller
 
         $storehouses = Storehouse::all();
 
-        if (count($categories) == 0 || is_null($categories)) return redirect()->back()->withErrors('Para crear un artículo primero debe hacer creado al menos una categoría.');
+        if (count($categories) == 0 || is_null($categories)) return redirect()->back()->withErrors('Para crear un artículo primero debe haber creado al menos una categoría.');
 
         return view('products.createForm', ['categories' => $categories, 'storehouses' => $storehouses]);
     }

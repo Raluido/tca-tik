@@ -10,4 +10,9 @@ use Illuminate\Support\Facades\Log;
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
+
+    public function showmain()
+    {
+        return view('main');
+    }
 }

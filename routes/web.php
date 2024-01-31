@@ -15,9 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
-    Route::get('/', function () {
-        return view('main');
-    })->name('main');
+    Route::get('/', 'GeneralController@showmain')->name('main');
 
     Route::get('login', 'LoginController@show')->name('login.show');
 
@@ -49,7 +47,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         Route::group(['prefix' => 'storehouses'], function () {
             Route::get('showall', 'StorehouseController@showall')->name('storehouses.showall');
-            Route::get('createForm', 'StorehouseControllsearcher@createForm')->name('storehouses.createForm');
+            Route::get('createForm', 'StorehouseController@createForm')->name('storehouses.createForm');
             Route::post('create', 'StorehouseController@create')->name('storehouses.create');
             Route::get('{storehouse}/editForm', 'StorehouseController@editForm')->name('storehouses.editForm');
             Route::put('{storehouse}/edit', 'StorehouseController@edit')->name('storehouses.edit');
@@ -59,10 +57,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::group(['prefix' => 'storehousesManagement'], function () {
             Route::get('showall', 'StorehousesManagementController@showall')->name('storehousesManagement.showall');
             Route::post('productsCounter', 'StorehousesManagementController@productsCounter')->name('storehousesManagement.productsCounter');
-            Route::get('filterBy/{storehouseSelected}/{categorySelected}', 'StorehousesManagementController@filterBy')->name('storehousesManagement.filterBy');
+            Route::get('{storehouseSelected}/{categorySelected}/filterBy', 'StorehousesManagementController@filterBy')->name('storehousesManagement.filterBy');
             Route::get('{search}/searchBy', 'StorehousesManagementController@searchByProduct')->name('storehousesManagement.searchBy');
-            Route::get('showBy/{storehouseSelected}/{categorySelected}/{productSelected?}/{search?}', 'StorehousesManagementController@showBy')->name('storehousesManagement.showBy');
-            Route::get('addToStorehouse/{storehouse}/{product}', 'StorehousesManagementController@addToStorehouse')->name('storehousesManagement.addToStorehouse');
+            Route::get('{storehouseSelected}/{categorySelected}/{productSelected?}/{search?}/showBy', 'StorehousesManagementController@showBy')->name('storehousesManagement.showBy');
+            Route::get('{storehouse}/{product}/addToStorehouse', 'StorehousesManagementController@addToStorehouse')->name('storehousesManagement.addToStorehouse');
             Route::get('{storehouse}/{product}/delete', 'StorehousesManagementController@removeFromStorehouse')->name('storehousesManagement.removeFromStorehouse');
         });
     });

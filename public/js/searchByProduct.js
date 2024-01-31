@@ -12,7 +12,7 @@ $(window).on('load', function () {
             success: function (data) {
                 console.log(data);
                 data.forEach(element => {
-                    $('#searchDropdown').append("<a href='" + url + "/storehousesManagement/showBy/" + storehouseSelected + "/" + categorySelected + "/" + productSelected + "/" + element.id + " ' style='display:block; margin-bottom:.5em;'>" + element.name + "</a>");
+                    $('#searchDropdown').append("<a href='" + url + "/storehousesManagement/" + storehouseSelected + "/" + categorySelected + "/" + productSelected + "/" + element.id + "/showBy" + " ' style='display:block; margin-bottom:.5em;'>" + element.name + "</a>");
                     $('#searchDropdown').removeClass('d-none');
                     $('#searchDropdown').addClass('d-block');
                 });

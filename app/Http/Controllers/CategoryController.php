@@ -39,7 +39,7 @@ class CategoryController extends Controller
 
         $update->update($request->validated());
 
-        return redirect()->back()->withSuccess('La categoría se ha actulizado correctamente.');
+        return redirect()->back()->withSuccess('La categoría se ha actualizado correctamente.');
     }
 
     public function delete(Category $category)
