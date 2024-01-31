@@ -9,7 +9,7 @@ $(window).on('load', function () {
             url: '/storehousesManagement/addToStorehouse/' + $('#filterByStorehouse').val() + '/' + $('#productsCounter').val(),
             data: {},
             success: function (data) {
-                window.location.href = url + '/storehousesManagement/' + storehouseSelected + '/' + categorySelected + '/' + productSelected + '/showBy';
+                window.location.href = url + '/storehousesManagement/showBy/' + storehouseSelected + '/' + categorySelected + '/' + productSelected;
             }
         })
     })
@@ -23,7 +23,7 @@ $(window).on('load', function () {
             url: '/storehousesManagement/' + $('#filterByStorehouse').val() + '/' + $('#productsCounter').val() + '/delete',
             data: {},
             success: function (data) {
-                window.location.href = url + '/storehousesManagement/' + storehouseSelected + '/' + categorySelected + '/' + productSelected + '/showBy';
+                window.location.href = url + '/storehousesManagement/showBy/' + storehouseSelected + '/' + categorySelected + '/' + productSelected;
             }
         })
     })

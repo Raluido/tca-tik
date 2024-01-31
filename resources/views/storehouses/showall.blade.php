@@ -32,7 +32,7 @@
                     <td class="">{{$storehouse->address}}</td>
                     <td class=""><button class="blueButton"><a href="{{ route('storehouses.editForm', [$storehouse->id]) }}" class="text-white">Editar</a></button></td>
                     <td class="">{{ html()->form('DELETE', '/storehouses/' . $storehouse->id . '/delete')->open() }}
-                        {{ html()->submit('Borrar')->class(['grayButton', 'text-white']) }}
+                        {{ html()->submit('Borrar')->class(['redButton', 'text-white']) }}
                         {{ html()->form()->close() }}
                     </td>
                 </tr>

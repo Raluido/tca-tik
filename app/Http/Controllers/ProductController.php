@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Storehouse;
+use App\Models\Product_storehouse;
 use App\Http\Requests\CreateProductRequest;
 use Illuminate\Support\Facades\Log;
 
@@ -50,7 +51,7 @@ class ProductController extends Controller
         return view('products.editForm', ['categories' => $categories, 'product' => $product]);
     }
 
-    public function edit(CreateProductRequest $request, Product $product)
+    public function edit(Product $product, CreateProductRequest $request)
     {
         $update = Product::find($product->id);
 
@@ -61,10 +62,12 @@ class ProductController extends Controller
 
     public function delete(Product $product)
     {
+        Product_storehouse::where('product_storehouse_has_products', $product->id)->delete();
+
         $delete = Product::find($product->id);
 
         $delete->delete();
 
-        return redirect()->back()->withSuccess('El producto se ha eliminado correctamente');
+        return $delete;
     }
 }

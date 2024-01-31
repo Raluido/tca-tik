@@ -4,29 +4,37 @@
 
 <div id="showall">
 
-    <h4>Gestión de almacenes</h4>
+    <h3>Gestión de almacenes</h3>
 
     <input type="text" id="inputSearch" placeholder="Búsqueda por producto">
     <div class="d-none" id="searchDropdown"></div>
 
-    <div class="filters">
-        <h5 class="">Filtros</h5>
-        <select name="" id="filterByStorehouse" class="">
-            <option value="0" class="">Todos</option>
-            @foreach($storehouses as $storehouse)
-            <option value="{{ $storehouse->id }}" {{ ($storehouse->id == $storehouseSelectedId) ? 'selected' : '' }}>{{ $storehouse->name }}</option>
-            @endforeach
-        </select>
-        <select name="" id="filterByCategory" class="">
-            <option value="0" class="">Todas</option>
-            @foreach($categories as $category)
-            <option value="{{ $category->id }}" {{ ($category->id == $categorySelectedId) ? 'selected' : '' }}>{{ $category->name }}</option>
-            @endforeach
-        </select>
+    <div id="filters">
+        <h4 class="">Filtros</h4>
+        <div class="innerFilters">
+            <div class="">
+                <label for="filterByStorehouse" class="">Almacenes</label>
+                <select name="" id="filterByStorehouse" class="">
+                    <option value="0" class="">Todos</option>
+                    @foreach($storehouses as $storehouse)
+                    <option value="{{ $storehouse->id }}" {{ ($storehouse->id == $storehouseSelectedId) ? 'selected' : '' }}>{{ $storehouse->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="">
+                <label for="filterByCategory" class="">Categorias</label>
+                <select name="" id="filterByCategory" class="">
+                    <option value="0" class="">Todas</option>
+                    @foreach($categories as $category)
+                    <option value="{{ $category->id }}" {{ ($category->id == $categorySelectedId) ? 'selected' : '' }}>{{ $category->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
     </div>
 
-    <div class="">
-        <h5 class="">Añadir nuevo</h5>
+    <div id="addProductTable">
+        <h3 class="">Añadir nuevo</h3>
         <table class="">
             <thead class="">
                 <tr class="">
@@ -60,34 +68,38 @@
     @if(!isset($storehouses) || is_null($storehouses))
     <p class="">Aún no has creado ningún almacén.</p>
     @else
-    <h5 class="">Productos en stock</h5>
-    <table class="">
-        <thead class="">
-            <tr class="">
-                <th class="">Nombre</th>
-                <th class="">Prefijo</th>
-                <th class="">Descripción</th>
-                <th class="">Productos</th>
-                <th class="">Precio</th>
-                <th class="">Identificador del producto</th>
-                <th class="">Categoría del producto</th>
-            </tr>
-        </thead>
-        <tbody class="">
-            @foreach($filtered as $index)
-            <tr class="">
-                <td class="">{{$index->name}}</td>
-                <td class="">{{$index->prefix}}</td>
-                <td class="">{{$index->description}}</td>
-                <td class="">{{$index->pname}}</td>
-                <td class="">{{$index->pprice}}</td>
-                <td class="">{{$index->pprefix}}</td>
-                <td class="">{{$index->pcategory}}</td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-    @endif
+    <div id="stockProducts">
+        <h3 class="">Productos en stock</h3>
+        <table class="">
+            <thead class="">
+                <tr class="">
+                    <th class="">Nombre</th>
+                    <th class="">Prefijo</th>
+                    <th class="">Descripción</th>
+                    <th class="">Productos</th>
+                    <th class="">Precio</th>
+                    <th class="">Identificador del producto</th>
+                    <th class="">Categoría del producto</th>
+                    <th class="">Total</th>
+                </tr>
+            </thead>
+            <tbody class="">
+                @foreach($filtered as $index)
+                <tr class="">
+                    <td class="">{{$index->name}}</td>
+                    <td class="">{{$index->prefix}}</td>
+                    <td class="">{{$index->description}}</td>
+                    <td class="">{{$index->pname}}</td>
+                    <td class="">{{$index->pprice}}</td>
+                    <td class="">{{$index->pprefix}}</td>
+                    <td class="">{{$index->pcategory}}</td>
+                    <td class="">{{$index->total}}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        @endif
+    </div>
     <div class="submitForm">
         <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Menú principal</a></button>
     </div>

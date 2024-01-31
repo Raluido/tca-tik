@@ -6,6 +6,9 @@
 
     <h3>Gestión de almacenes</h3>
 
+    <input type="text" id="inputSearch" placeholder="Búsqueda por producto">
+    <div class="d-none" id="searchDropdown"></div>
+
     <div id="filters">
         <h4 class="">Filtros</h4>
         <div class="innerFilters">
@@ -48,30 +51,21 @@
                     <th class="">Precio</th>
                     <th class="">Identificador del producto</th>
                     <th class="">Categoría del producto</th>
-                    <th class="">Editar</th>
-                    <th class="">Añadir</th>
-                    <th class="">Eliminar</th>
+                    <th class="">Stocks</th>
                 </tr>
             </thead>
             <tbody class="">
-                @foreach ($storehouses as $storehouse)
-                @foreach ($storehouse->products as $product)
+                @foreach($storehouses as $index)
                 <tr class="">
-                    <td class="">{{$storehouse->name}}</td>
-                    <td class="">{{$storehouse->prefix}}</td>
-                    <td class="">{{$storehouse->description}}</td>
-                    <td class="">{{$product->name}}</td>
-                    <td class="">{{$product->price}}</td>
-                    <td class="">{{$product->prefix}}</td>
-                    <td class="">{{$product->categoryProduct->name}}</td>
-                    <td class=""><button class="blueButton"><a href="{{ route('products.editForm', [$product->id]) }}" class="text-white">Editar</a></button></td>
-                    <td class=""><button class="greenButton text-white" data-str="{{ $storehouse->id }}" data-prd="{{ $product->id }}" id="addProductToStorehouse">Añadir</button></td>
-                    <td class="">{{ html()->form('DELETE', '/storehousesManagement/' . $storehouse->id . '/' . $product->id . '/delete')->open() }}
-                        {{ html()->submit('Borrar')->class(['grayButton', 'text-white']) }}
-                        {{ html()->form()->close() }}
-                    </td>
+                    <td class="">{{$index->name}}</td>
+                    <td class="">{{$index->prefix}}</td>
+                    <td class="">{{$index->description}}</td>
+                    <td class="">{{$index->pname}}</td>
+                    <td class="">{{$index->pprice}}</td>
+                    <td class="">{{$index->pprefix}}</td>
+                    <td class="">{{$index->pcategory}}</td>
+                    <td class="">{{$index->total}}</td>
                 </tr>
-                @endforeach
                 @endforeach
             </tbody>
         </table>
@@ -84,10 +78,12 @@
 </div>
 
 <input type="hidden" value="{{ env('APP_URL') }}" id="url">
+<input type="hidden" value="0" id="productsCounter">
 
 @endsection
 
 @section('js')
 <script class="" src="{{ asset('js/filters.js') }}" defer></script>
 <script class="" src="{{ asset('js/addToStorehouse.js') }}" defer></script>
+<script class="" src="{{ asset('js/searchByProduct.js') }}" defer></script>
 @endsection

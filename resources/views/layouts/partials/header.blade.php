@@ -10,6 +10,7 @@
             <li class=""><a href="{{ route('main') }}" class="">Quienes somos</a></li>
         </ul>
     </div>
+    <div id="desktopMenuDummie"></div>
     <div id="logo">
         <img src="{{ Storage::url('logo.jpeg') }}" alt="" class="">
     </div>
@@ -23,11 +24,11 @@
 </div>
 <nav id="desktopMenu">
     <ul class="">
-        <li class="">Principal</li>
-        <li class="">Productos</li>
-        <li class="">Almacenes</li>
-        <li class="">Categorías</li>
-        <li class="">Blog</li>
-        <li class="">Quienes somos</li>
+        <li class=""><a href="{{ route('main') }}" class="">Principal</a></li>
+        <li class=""><a href="{{ route('products.showall') }}" class="">Productos</a></li>
+        <li class=""><a href="{{ route('storehouses.showall') }}" class="">Almacenes</a></li>
+        <li class=""><a href="{{ route('categories.showall') }}" class="">Categorías</a></li>
+        <li class=""><a href="{{ route('main') }}" class="">Blog</a></li>
+        <li class=""><a href="{{ route('main') }}" class="">Quienes somos</a></li>
     </ul>
 </nav>

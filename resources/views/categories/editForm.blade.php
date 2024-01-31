@@ -23,7 +23,9 @@
             <input type="text" name="prefix" value="{{ $category->prefix }}" placeholder="identificador de categoría">
         </div>
         <div class="submitForm">
-            <input type="submit" value="Editar" class="">
+            <input type="submit" value="Editar" class="greenButton text-white">
+            <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Menú principal</a></button>
+
         </div>
     </form>
 </div>

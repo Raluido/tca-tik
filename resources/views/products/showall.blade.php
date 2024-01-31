@@ -36,7 +36,7 @@
                     <td class="">{{$product->observations}}</td>
                     <td class=""><button class="greenButton"><a href="{{ route('products.showone', [$product->id]) }}" class="text-white">Mostrar</a></button></td>
                     <td class=""><button class="blueButton"><a href="{{ route('products.editForm', [$product->id]) }}" class="text-white">Editar</a></button>
-                        <button class="redButton text-white" value="{{ $product->id }}" id="deleteProduct">Eliminar</button>
+                        <button class="redButton text-white deleteProduct" value="{{ $product->id }}">Eliminar</button>
                     </td>
                 </tr>
                 @endforeach

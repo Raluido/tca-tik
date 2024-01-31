@@ -12,7 +12,7 @@ $(window).on('load', function () {
             url: '/storehousesManagement/' + storehouseSelected + '/' + categorySelected + '/filterBy',
             data: {},
             success: function () {
-                window.location.href = url + '/storehousesManagement/' + storehouseSelected + '/' + categorySelected + '/showBy';
+                window.location.href = url + '/storehousesManagement/showBy/' + storehouseSelected + '/' + categorySelected;
             }
         })
     })
@@ -29,7 +29,7 @@ $(window).on('load', function () {
             url: '/storehousesManagement/' + storehouseSelected + '/' + categorySelected + '/filterBy',
             data: {},
             success: function () {
-                window.location.href = url + '/storehousesManagement/' + storehouseSelected + '/' + categorySelected + '/showBy';
+                window.location.href = url + '/storehousesManagement/showBy/' + storehouseSelected + '/' + categorySelected;
             }
         })
     })

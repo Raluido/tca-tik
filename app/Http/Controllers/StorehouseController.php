@@ -29,7 +29,7 @@ class StorehouseController extends Controller
 
     public function editForm(Storehouse $storehouse)
     {
-        return view('storehouses.createForm', ['storehouse' => $storehouse]);
+        return view('storehouses.editForm', ['storehouse' => $storehouse]);
     }
 
     public function edit(CreateStorehouseRequest $request, Storehouse $storehouse)

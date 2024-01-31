@@ -5,12 +5,12 @@ $(window).on('load', function () {
 
     function nameValidator() {
         let nameVal = $('#nameValidator');
-        let nameError = true;
+        let nameErr = true;
         if (2 < nameVal.val().length && nameVal.val().length < 26) {
             nameVal.css('border', '1px solid green');
             $('#nameError').text('');
-            nameError = false;
-            return false;
+            nameErr = false;
+            return nameErr;
         } else {
             nameVal.css('border', '1px solid red');
             $('#nameError').text("El nombre del artículo debe de estar entre los 3 y los 25 caracteres");
@@ -24,12 +24,12 @@ $(window).on('load', function () {
     function priceValidator() {
         let priceVal = $('#priceValidator');
         let regex = /([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9])+\.[0-9]{2}/;
-        let priceError = true;
+        let priceErr = true;
         if (regex.test(priceVal.val())) {
             priceVal.css('border', '1px solid green');
             $('#priceError').text('');
-            priceError = false;
-            return false;
+            priceErr = false;
+            return priceErr;
         } else {
             priceVal.css('border', '1px solid red');
             $('#priceError').text("El rango del precio debe de estar entre los 0 y 9999,99 incluyendo dos decimales siempre.");
@@ -42,12 +42,12 @@ $(window).on('load', function () {
 
     function prefixValidator() {
         let prefixVal = $('#prefixValidator');
-        let prefixError = true;
+        let prefixErr = true;
         if (0 < prefixVal.val().length && prefixVal.val().length < 4) {
             prefixVal.css('border', '1px solid green');
             $('#prefixError').text('');
-            prefixError = false;
-            return false;
+            prefixErr = false;
+            return prefixErr;
         } else {
             prefixVal.css('border', '1px solid red');
             $('#prefixError').text("El rango del prefijo debe de estar entre los 1 y 3.");
@@ -60,12 +60,12 @@ $(window).on('load', function () {
 
     function observationsValidator() {
         let observationsVal = $('#observationsValidator');
-        let observationsError = true;
+        let observationsErr = true;
         if (observationsVal.val().length < 101) {
             observationsVal.css('border', '1px solid green');
             $('#observationsError').text('');
-            observationsError = false;
-            return false;
+            observationsErr = false;
+            return observationsErr;
         } else {
             observationsVal.css('border', '1px solid red');
             $('#observationsError').text("El número maximo de caracteres es de 100.");
@@ -78,12 +78,12 @@ $(window).on('load', function () {
 
     function descriptionValidator() {
         let descriptionVal = $('#descriptionValidator');
-        let descriptionError = true;
+        let descriptionErr = true;
         if (descriptionVal.val().length < 501) {
             descriptionVal.css('border', '1px solid green');
             $('#descriptionError').text('');
-            descriptionError = false;
-            return false;
+            descriptionErr = false;
+            return descriptionErr;
         } else {
             descriptionVal.css('border', '1px solid red');
             $('#descriptionError').text("El número maximo de caracteres es de 500.");
@@ -96,7 +96,7 @@ $(window).on('load', function () {
         prefixValidator();
         observationsValidator();
         descriptionValidator();
-        if (nameError == false && prefixError == false && priceError == false && descriptionError == false && observationsError == false) {
+        if (nameErr == false && prefixErr == false && priceErr == false && descriptionErr == false && observationsErr == false) {
             $('#sendForm').on('submit', function () {
             })
         } else {

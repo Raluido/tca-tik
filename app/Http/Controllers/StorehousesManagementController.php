@@ -14,7 +14,11 @@ class StorehousesManagementController extends Controller
 {
     public function showall()
     {
-        $storehouses = Storehouse::all();
+        $storehouses = Db::select("SELECT products.product_has_category AS id, storehouses.name AS name, storehouses.prefix AS prefix, storehouses.description AS description, products.id AS pid, products.name AS pname, products.price AS pprice, products.prefix AS pprefix, categories.name AS pcategory, product_storehouses.product_storehouse_has_products, product_storehouses.product_storehouse_has_storehouses, COUNT(*) as total FROM storehouses
+        INNER JOIN product_storehouses ON product_storehouses.product_storehouse_has_storehouses = storehouses.id
+        INNER JOIN products ON products.id = product_storehouses.product_storehouse_has_products
+        INNER JOIN categories ON categories.id = products.product_has_category
+        GROUP BY product_storehouses.product_storehouse_has_products, product_storehouses.product_storehouse_has_storehouses, products.product_has_category, storehouses.name, storehouses.prefix, storehouses.description, products.id, products.name, products.price, products.prefix, categories.name");
 
         $categories = Category::all();
 
@@ -47,6 +51,7 @@ class StorehousesManagementController extends Controller
         $storeWhere = "WHERE storehouses.id = " . $storehouseSelectedId;
         $andWhere = "AND categories.id = " . $categorySelectedId;
         $andSearchWhere = "AND products.id = " . $searchProductId;
+        $searchWhere = "WHERE products.id = " . $searchProductId;
 
         if ($storehouseSelectedId == 0 && $categorySelectedId != 0 && $searchProductId == '') {
             $fillWheres = $catWhere;
@@ -60,18 +65,20 @@ class StorehousesManagementController extends Controller
             $fillWheres = $storeWhere  . ' ' .  $andSearchWhere;
         } elseif ($categorySelectedId != 0 && $storehouseSelectedId != 0 && $searchProductId != '') {
             $fillWheres = $storeWhere  . ' ' .  $andWhere . ' ' . $andSearchWhere;
+        } else {
+            $fillWheres = $searchWhere;
         }
 
-        $filtered = Db::select("SELECT products.product_has_category AS id, storehouses.name AS name, storehouses.prefix AS prefix, storehouses.description AS description, products.id AS pid, products.name AS pname, products.price AS pprice, products.prefix AS pprefix, categories.name AS pcategory FROM storehouses
+        $filtered = Db::select("SELECT products.product_has_category AS id, storehouses.name AS name, storehouses.prefix AS prefix, storehouses.description AS description, products.id AS pid, products.name AS pname, products.price AS pprice, products.prefix AS pprefix, categories.name AS pcategory, product_storehouses.product_storehouse_has_products, product_storehouses.product_storehouse_has_storehouses, COUNT(*) as total FROM storehouses
         INNER JOIN product_storehouses ON product_storehouses.product_storehouse_has_storehouses = storehouses.id
         INNER JOIN products ON products.id = product_storehouses.product_storehouse_has_products
         INNER JOIN categories ON categories.id = products.product_has_category
-        $fillWheres");
+        $fillWheres GROUP BY product_storehouses.product_storehouse_has_products, product_storehouses.product_storehouse_has_storehouses, products.product_has_category, storehouses.name, storehouses.prefix, storehouses.description, products.id, products.name, products.price, products.prefix, categories.name");
 
         return view('management.showByFiltered', ['filtered' => $filtered, 'storehouses' => $storehouses, 'categories' => $categories, 'products' => $products, 'storehouseSelectedId' => $storehouseSelectedId, 'categorySelectedId' => $categorySelectedId, 'productSelectedId' => $productSelectedId]);
     }
 
-    public function searchByProduct($inputSearch)
+    public function searchByProduct($inputSearch = '')
     {
         $productFiltered = Db::table('products')
             ->select('products.id', 'products.name')
@@ -92,7 +99,7 @@ class StorehousesManagementController extends Controller
 
     public function removeFromStorehouse(Storehouse $storehouse, Product $product)
     {
-        $delete = Db::table('product_storehouses')->where('product_storehouse_has_products', $product->id)->where('product_storehouse_has_storehouses', $storehouse->id)->orderBy('id')->limit(1)->delete();
+        Db::table('product_storehouses')->where('product_storehouse_has_products', $product->id)->where('product_storehouse_has_storehouses', $storehouse->id)->orderBy('id')->limit(1)->delete();
 
         $productCount = Db::table('product_storehouses')->where('product_storehouse_has_storehouses', $storehouse->id)->where('product_storehouse_has_products', $product->id)->count();
 
