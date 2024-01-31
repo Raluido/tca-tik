@@ -6,8 +6,6 @@
 
     <h4>Gestión de almacenes</h4>
 
-    <input type="text" id="inputSearch" placeholder="Búsqueda por producto">
-
     <div class="filters">
         <h5 class="">Filtros</h5>
         <select name="" id="filterByStorehouse" class="">

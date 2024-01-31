@@ -7,6 +7,7 @@
     <h4>Gestión de almacenes</h4>
 
     <input type="text" id="inputSearch" placeholder="Búsqueda por producto">
+    <div class="d-none" id="searchDropdown"></div>
 
     <div class="filters">
         <h5 class="">Filtros</h5>
@@ -37,9 +38,9 @@
             </thead>
             <tbody class="">
                 <tr class="">
-                    <td class=""><select name="" class="productsCounter" data="{{ $storehouse->id }}" class="">
+                    <td class=""><select name="" id="productsCounter" class="">
                             @foreach($products as $product)
-                            <option value="{{ $product->id }}" class="">{{ $product->name }}</option>
+                            <option value="{{ $product->id }}" {{ ($product->id == $productSelectedId) ? 'selected' : '' }}>{{ $product->name }}</option>
                             @endforeach
                         </select></td>
                     <td class=""><button id="addProduct" class="greenButton text-white">Añadir</button></td>
@@ -70,8 +71,6 @@
                 <th class="">Precio</th>
                 <th class="">Identificador del producto</th>
                 <th class="">Categoría del producto</th>
-                <th class="">Editar</th>
-                <th class="">Eliminar</th>
             </tr>
         </thead>
         <tbody class="">
@@ -84,11 +83,6 @@
                 <td class="">{{$index->pprice}}</td>
                 <td class="">{{$index->pprefix}}</td>
                 <td class="">{{$index->pcategory}}</td>
-                <td class=""><button class="blueButton"><a href="{{ route('products.editForm', [$index->pid]) }}" class="text-white">Editar</a></button></td>
-                <td class="">{{ html()->form('DELETE', '/products/' . $index->pid . '/delete')->open() }}
-                    {{ html()->submit('Quitar')->class(['redButton', 'text-white']) }}
-                    {{ html()->form()->close() }}
-                </td>
             </tr>
             @endforeach
         </tbody>

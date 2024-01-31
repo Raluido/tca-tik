@@ -33,7 +33,7 @@ class StorehousesManagementController extends Controller
         return $filter;
     }
 
-    public function showBy($storehouseSelectedId, $categorySelectedId)
+    public function showBy($storehouseSelectedId, $categorySelectedId, $productSelectedId = 0, $searchProductId = '')
     {
         $storehouses = Storehouse::all();
 
@@ -41,68 +41,61 @@ class StorehousesManagementController extends Controller
 
         $categories = Category::all();
 
-        if ($storehouseSelectedId == 0 && $categorySelectedId != 0) {
-            $filtered = Db::table('storehouses')
-                ->select('products.product_has_category as id', 'storehouses.name as name', 'storehouses.prefix as prefix', 'storehouses.description as description', 'products.id as pid', 'products.name as pname',  'products.price as pprice', 'products.prefix as pprefix', 'categories.name as pcategory')
-                ->join('product_storehouses', 'storehouses.id', '=', 'product_storehouses.product_storehouse_has_storehouses')
-                ->join('products', 'products.id', '=', 'product_storehouses.product_storehouse_has_products')
-                ->join('categories', 'categories.id', '=', 'products.product_has_category')
-                ->where('categories.id', '=', $categorySelectedId)
-                ->orderBy('products.id')
-                ->get();
-        } elseif ($categorySelectedId == 0 && $storehouseSelectedId != 0) {
-            $filtered = Db::table('storehouses')
-                ->select('products.product_has_category as id', 'storehouses.name as name', 'storehouses.prefix as prefix', 'storehouses.description as description', 'products.id as pid', 'products.name as pname',  'products.price as pprice', 'products.prefix as pprefix', 'categories.name as pcategory')
-                ->join('product_storehouses', 'storehouses.id', '=', 'product_storehouses.product_storehouse_has_storehouses')
-                ->join('products', 'products.id', '=', 'product_storehouses.product_storehouse_has_products')
-                ->join('categories', 'categories.id', '=', 'products.product_has_category')
-                ->where('storehouses.id', '=', $storehouseSelectedId)
-                ->orderBy('products.id')
-                ->get();
-        } else {
-            $filtered = Db::table('storehouses')
-                ->select('products.product_has_category as id', 'storehouses.name as name', 'storehouses.prefix as prefix', 'storehouses.description as description', 'products.id as pid', 'products.name as pname',  'products.price as pprice', 'products.prefix as pprefix', 'categories.name as pcategory')
-                ->join('product_storehouses', 'storehouses.id', '=', 'product_storehouses.product_storehouse_has_storehouses')
-                ->join('products', 'products.id', '=', 'product_storehouses.product_storehouse_has_products')
-                ->join('categories', 'categories.id', '=', 'products.product_has_category')
-                ->where('storehouses.id', '=', $storehouseSelectedId)
-                ->where('categories.id', '=', $categorySelectedId)
-                ->orderBy('products.id')
-                ->get();
+        $fillWheres = '';
+
+        $catWhere = "WHERE categories.id = " .  $categorySelectedId;
+        $storeWhere = "WHERE storehouses.id = " . $storehouseSelectedId;
+        $andWhere = "AND categories.id = " . $categorySelectedId;
+        $andSearchWhere = "AND products.id = " . $searchProductId;
+
+        if ($storehouseSelectedId == 0 && $categorySelectedId != 0 && $searchProductId == '') {
+            $fillWheres = $catWhere;
+        } elseif ($storehouseSelectedId != 0 && $categorySelectedId == 0 && $searchProductId == '') {
+            $fillWheres = $storeWhere;
+        } elseif ($categorySelectedId != 0 && $storehouseSelectedId != 0 && $searchProductId == '') {
+            $fillWheres = $storeWhere . ' ' . $andWhere;
+        } elseif ($storehouseSelectedId == 0 && $categorySelectedId != 0 && $searchProductId != '') {
+            $fillWheres = $catWhere  . ' ' .  $andSearchWhere;
+        } elseif ($storehouseSelectedId != 0 && $categorySelectedId == 0 && $searchProductId != '') {
+            $fillWheres = $storeWhere  . ' ' .  $andSearchWhere;
+        } elseif ($categorySelectedId != 0 && $storehouseSelectedId != 0 && $searchProductId != '') {
+            $fillWheres = $storeWhere  . ' ' .  $andWhere . ' ' . $andSearchWhere;
         }
 
-        return view('management.showByFiltered', ['filtered' => $filtered, 'storehouses' => $storehouses, 'categories' => $categories, 'products' => $products, 'storehouseSelectedId' => $storehouseSelectedId, 'categorySelectedId' => $categorySelectedId]);
+        $filtered = Db::select("SELECT products.product_has_category AS id, storehouses.name AS name, storehouses.prefix AS prefix, storehouses.description AS description, products.id AS pid, products.name AS pname, products.price AS pprice, products.prefix AS pprefix, categories.name AS pcategory FROM storehouses
+        INNER JOIN product_storehouses ON product_storehouses.product_storehouse_has_storehouses = storehouses.id
+        INNER JOIN products ON products.id = product_storehouses.product_storehouse_has_products
+        INNER JOIN categories ON categories.id = products.product_has_category
+        $fillWheres");
+
+        return view('management.showByFiltered', ['filtered' => $filtered, 'storehouses' => $storehouses, 'categories' => $categories, 'products' => $products, 'storehouseSelectedId' => $storehouseSelectedId, 'categorySelectedId' => $categorySelectedId, 'productSelectedId' => $productSelectedId]);
     }
 
-    public function searchByProduct($storehouseSelectedId, $categorySelectedId, $inputSearch)
+    public function searchByProduct($inputSearch)
     {
-        $product = Db::table('storehouses')
-            ->select('products.product_has_category as id', 'storehouses.name as name', 'storehouses.prefix as prefix', 'storehouses.description as description', 'products.id as pid', 'products.name as pname',  'products.price as pprice', 'products.prefix as pprefix', 'categories.name as pcategory')
-            ->join('product_storehouses', 'storehouses.id', '=', 'product_storehouses.product_storehouse_has_storehouses')
-            ->join('products', 'products.id', '=', 'product_storehouses.product_storehouse_has_products')
-            ->join('categories', 'categories.id', '=', 'products.product_has_category')
-            ->where('storehouses.id', '=', $storehouseSelectedId)
-            ->where('categories.id', '=', $categorySelectedId)
+        $productFiltered = Db::table('products')
+            ->select('products.id', 'products.name')
             ->where('products.name', 'LIKE', '%' . $inputSearch . '%')
-            ->orderBy('categories.id')
             ->get();
+
+        return $productFiltered;
     }
 
     public function addToStorehouse($storehouse, $product)
     {
         Product_storehouse::create(['product_storehouse_has_products' => $product, 'product_storehouse_has_storehouses' => $storehouse]);
 
-        $products = Db::table('product_storehouses')->where('product_storehouse_has_storehouses', $storehouse)->where('product_storehouse_has_products', $product)->count();
+        $productCount = Db::table('product_storehouses')->where('product_storehouse_has_storehouses', $storehouse)->where('product_storehouse_has_products', $product)->count();
 
-        return $products;
+        return [$productCount, $product];
     }
 
     public function removeFromStorehouse(Storehouse $storehouse, Product $product)
     {
         $delete = Db::table('product_storehouses')->where('product_storehouse_has_products', $product->id)->where('product_storehouse_has_storehouses', $storehouse->id)->orderBy('id')->limit(1)->delete();
 
-        $products = Db::table('product_storehouses')->where('product_storehouse_has_storehouses', $storehouse->id)->where('product_storehouse_has_products', $product->id)->count();
+        $productCount = Db::table('product_storehouses')->where('product_storehouse_has_storehouses', $storehouse->id)->where('product_storehouse_has_products', $product->id)->count();
 
-        return $products;
+        return [$productCount, $product->id];
     }
 }

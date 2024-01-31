@@ -1,25 +1,29 @@
 $(window).on('load', function () {
+    let url = document.getElementById('url').value;
     $('#addProduct').on('click', function () {
-        let data = $(this).parent().prev().children();
+        let categorySelected = $('#filterByCategory').val();
+        let storehouseSelected = $('#filterByStorehouse').val();
+        let productSelected = $('#productsCounter').val();
         $.ajax({
             type: 'get',
-            url: '/storehousesManagement/addToStorehouse/' + data.attr('data') + '/' + data.val(),
+            url: '/storehousesManagement/addToStorehouse/' + $('#filterByStorehouse').val() + '/' + $('#productsCounter').val(),
             data: {},
             success: function (data) {
-                $('#counter').html(data);
+                window.location.href = url + '/storehousesManagement/showBy/' + storehouseSelected + '/' + categorySelected + '/' + productSelected;
             }
         })
     })
 
     $('#removeProduct').on('click', function () {
-        let data = $(this).parent().prev().prev().children();
-        console.log(data);
+        let categorySelected = $('#filterByCategory').val();
+        let storehouseSelected = $('#filterByStorehouse').val();
+        let productSelected = $('#productsCounter').val();
         $.ajax({
             type: 'get',
-            url: '/storehousesManagement/' + data.attr('data') + '/' + data.val() + '/delete',
+            url: '/storehousesManagement/' + $('#filterByStorehouse').val() + '/' + $('#productsCounter').val() + '/delete',
             data: {},
             success: function (data) {
-                $('#counter').html(data);
+                window.location.href = url + '/storehousesManagement/showBy/' + storehouseSelected + '/' + categorySelected + '/' + productSelected;
             }
         })
     })

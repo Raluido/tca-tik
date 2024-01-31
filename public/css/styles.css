@@ -200,6 +200,12 @@ td {
     padding: 2em;
 }
 
+#searchDropdown {
+    background-color: lightgray;
+    width: fit-content;
+    padding: 1em;
+}
+
 footer {
     height: 35vh;
     bottom: 0;
