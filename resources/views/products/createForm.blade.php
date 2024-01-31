@@ -10,7 +10,7 @@
         @include('layouts.partials.messages')
     </div>
 
-    <form action="{{ route('products.create') }}" method="post" class="">
+    <form action="{{ route('products.create') }}" method="post" id="sendForm">
         @csrf
         <div class="inputForm">
             <input type="text" name="name" id="nameValidator" placeholder="Nombre">
@@ -40,7 +40,7 @@
             <h5 id="observationsError"></h5>
         </div>
         <div class="submitForm">
-            <input type="submit" value="Crear" id="submitForm" class="greenButton text-white">
+            <button class="greenButton text-white" id="submitBtn">Crear</button>
             <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Menú principal</a></button>
         </div>
     </form>
@@ -50,6 +50,5 @@
 @endsection
 
 @section('js')
-<script class="" type="module" src="{{ asset('js/addStorehouses.js') }}" defer></script>
 <script class="" type="module" src="{{ asset('js/validator.js') }}" defer></script>
 @endsection

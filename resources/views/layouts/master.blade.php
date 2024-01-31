@@ -12,15 +12,21 @@
 
 <body>
 
-    <header class="">
-        @include('layouts.partials.header')
-    </header>
-    <main class="">
-        @yield('content')
-    </main>
-    <footer class="">
-        @include('layouts.partials.footer')
-    </footer>
+    <div id="pageContainer">
+
+        <header class="">
+            @include('layouts.partials.header')
+        </header>
+
+        <main class="">
+            @yield('content')
+        </main>
+        
+        <footer class="">
+            @include('layouts.partials.footer')
+        </footer>
+
+    </div>
 
 </body>
 

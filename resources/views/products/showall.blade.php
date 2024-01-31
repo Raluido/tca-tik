@@ -36,9 +36,7 @@
                     <td class="">{{$product->observations}}</td>
                     <td class=""><button class="greenButton"><a href="{{ route('products.showone', [$product->id]) }}" class="text-white">Mostrar</a></button></td>
                     <td class=""><button class="blueButton"><a href="{{ route('products.editForm', [$product->id]) }}" class="text-white">Editar</a></button>
-                        {{ html()->form('DELETE', '/products/' . $product->id . '/delete')->open() }}
-                        {{ html()->submit('Borrar')->class(['redButton', 'text-white']) }}
-                        {{ html()->form()->close() }}
+                        <button class="redButton text-white" value="{{ $product->id }}" id="deleteProduct">Eliminar</button>
                     </td>
                 </tr>
                 @endforeach
@@ -52,4 +50,10 @@
     </div>
 </div>
 
+<input type="hidden" value="{{ env('APP_URL') }}" id="url">
+
+@endsection
+
+@section('js')
+<script class="" src="{{ asset('js/deleteConfirm.js') }}" defer></script>
 @endsection

@@ -90,14 +90,15 @@ $(window).on('load', function () {
         }
     }
 
-    $('#submitForm').on('click', function () {
+    $('#submitBtn').on('click', function () {
         nameValidator();
         priceValidator();
         prefixValidator();
         observationsValidator();
         descriptionValidator();
         if (nameError == false && prefixError == false && priceError == false && descriptionError == false && observationsError == false) {
-            return true;
+            $('#sendForm').on('submit', function () {
+            })
         } else {
             return false;
         }

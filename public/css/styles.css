@@ -5,7 +5,8 @@
 }
 
 main {
-    min-height: 60vh;
+    min-height: 50vh;
+    padding-bottom: 15em; 
 }
 
 a {
@@ -21,9 +22,13 @@ ul li {
     display: none;
 }
 
-
 .d-block {
     display: block;
+}
+
+#pageContainer {
+    position: relative;
+    min-height: 100vh;
 }
 
 .blueButton {
@@ -247,10 +252,11 @@ td {
 }
 
 footer {
-    min-height: 35vh;
+    position: absolute;
     bottom: 0;
     padding: 1em;
     width: 100%;
+    margin-top: 2em;
     text-align: center;
     background-color: lightgrey;
 }
