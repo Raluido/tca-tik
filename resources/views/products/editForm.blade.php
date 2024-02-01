@@ -10,7 +10,7 @@
         @include('layouts.partials.messages')
     </div>
 
-    <form action="{{ route('products.edit', [$product->id]) }}" method="post" class="">
+    <form action="{{ route('products.edit', [$product->id]) }}" method="post" id="sendForm">
         @csrf
         @method('PUT')
         <div class="inputForm">
@@ -33,11 +33,11 @@
             <h5 id="prefixError"></h5>
         </div>
         <div class="inputForm">
-            <textarea name="description" id="" cols="30" rows="10" id="descriptionValidator" placeholder="Descriptión del producto">{{ $product->description }}</textarea>
+            <textarea name="description" cols="30" rows="10" id="descriptionValidator" placeholder="Descriptión del producto">{{ $product->description }}</textarea>
             <h5 id="descriptionError"></h5>
         </div>
         <div class="inputForm">
-            <textarea name="" id="" cols="30" rows="10" id="observationsValidator" placeholder="Observaciones">{{ $product->observations }}</textarea>
+            <textarea name="" cols="30" rows="10" id="observationsValidator" placeholder="Observaciones">{{ $product->observations }}</textarea>
             <h5 id="observationsError"></h5>
         </div>
         <div class="submitForm">

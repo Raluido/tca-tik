@@ -10,7 +10,7 @@
         @include('layouts.partials.messages')
     </div>
 
-    <form action="{{ route('categories.edit', [$category->id]) }}" method="post" class="">
+    <form action="{{ route('categories.edit', [$category->id]) }}" method="post" id="sendForm">
         @csrf
         @method('PUT')
         <div class="inputForm">
@@ -26,7 +26,7 @@
             <h5 id="prefixError"></h5>
         </div>
         <div class="submitForm">
-            <button class="greenButton text-white" type="button" id="submitBtn">Editar</button>
+            <button class="greenButton text-white" id="submitBtn">Editar</button>
             <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Menú principal</a></button>
 
         </div>

@@ -99,6 +99,7 @@ $(window).on('load', function () {
         descriptionValidator();
         if (nameErr == false && prefixErr == false && priceErr == false && descriptionErr == false && observationsErr == false) {
             $('#sendForm').on('submit', function () {
+                console.log("enviado");
             })
         } else {
             return false;
