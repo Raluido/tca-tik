@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Storehouse;
 use App\Http\Requests\CreateStorehouseRequest;
+use Illuminate\Support\Facades\Log;
 
 class StorehouseController extends Controller
 {

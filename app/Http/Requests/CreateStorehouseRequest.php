@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
 
 class CreateStorehouseRequest extends FormRequest
 {
@@ -24,7 +25,7 @@ class CreateStorehouseRequest extends FormRequest
         $id = $this->id;
 
         return [
-            'name' => 'required|between:3-25|unique:storehouses,name,' . $id,
+            'name' => 'required|between:3,25|unique:storehouses,name,' . $id,
             'description' => 'required|between:5,100',
             'address' => 'required|between:5,100',
             'prefix' => 'required|between:2,4'

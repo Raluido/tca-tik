@@ -10,7 +10,7 @@
         @include('layouts.partials.messages')
     </div>
 
-    <form action="{{ route('categories.create') }}" method="post" class="">
+    <form action="{{ route('categories.create') }}" method="post" id="sendForm">
         @csrf
         <div class="inputForm">
             <input type="text" name="name" class="" id="nameValidator" placeholder="Nombre">

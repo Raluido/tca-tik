@@ -74,11 +74,10 @@ $(window).on('load', function () {
 
     $('#submitBtn').on('click', function () {
         nameValidator();
-        priceValidator();
         prefixValidator();
-        observationsValidator();
+        addressValidator();
         descriptionValidator();
-        if (nameErr == false && prefixErr == false && priceErr == false && descriptionErr == false && observationsErr == false) {
+        if (nameErr == false && prefixErr == false && descriptionErr == false && addressErr == false) {
             $('#sendForm').on('submit', function () {
             })
         } else {

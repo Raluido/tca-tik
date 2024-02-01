@@ -63,9 +63,4 @@
 @endsection
 
 @section('js')
-<script type="module" defer>
-    $(document).ready(function() {
-        console.log("ready!");
-    });
-</script>
 @endsection
