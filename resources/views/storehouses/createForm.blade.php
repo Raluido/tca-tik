@@ -13,19 +13,23 @@
     <form action="{{ route('storehouses.create') }}" method="post" class="">
         @csrf
         <div class="inputForm">
-            <input type="text" name="name" class="" placeholder="Nombre">
+            <input type="text" name="name" id="nameValidator" class="" placeholder="Nombre">
+            <h5 id="nameError"></h5>
         </div>
         <div class="inputForm">
-            <textarea name="description" id="" cols="30" rows="10" class="" placeholder="Descriptión del almacén"></textarea>
+            <textarea name="description" id="descriptionValidator" cols="30" rows="10" class="" placeholder="Descriptión del almacén"></textarea>
+            <h5 id="descriptionError"></h5>
         </div>
         <div class="inputForm">
-            <input type="text" name="address" class="" placeholder="Dirección">
+            <input type="text" name="address" id="addressValidator" class="" placeholder="Dirección">
+            <h5 id="addressError"></h5>
         </div>
         <div class="inputForm">
-            <input type="text" name="prefix" class="" placeholder="identificador del almacén">
+            <input type="text" name="prefix" class="" id="prefixValidator" placeholder="identificador del almacén">
+            <h5 id="prefixError"></h5>
         </div>
         <div class="submitForm">
-            <input type="submit" value="Crear" class="greenButton text-white">
+            <button class="greenButton text-white" type="button" id="submitBtn">Crear</button>
             <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Menú principal</a></button>
         </div>
     </form>
@@ -34,5 +38,5 @@
 @endsection
 
 @section('js')
-
+<script class="" type="module" src="{{ asset('js/validatorStr.js') }}" defer></script>
 @endsection

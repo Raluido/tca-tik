@@ -40,7 +40,7 @@
             <h5 id="observationsError"></h5>
         </div>
         <div class="submitForm">
-            <button class="greenButton text-white" id="submitBtn">Crear</button>
+            <button class="greenButton text-white" type="button" id="submitBtn">Crear</button>
             <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Menú principal</a></button>
         </div>
     </form>

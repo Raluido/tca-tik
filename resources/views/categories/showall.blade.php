@@ -30,9 +30,7 @@
                     <td class="">{{$category->description}}</td>
                     <td class="">{{$category->prefix}}</td>
                     <td class=""><button class="blueButton"><a href="{{ route('categories.editForm', [$category->id]) }}" class="text-white">Editar</a></button>
-                        {{ html()->form('DELETE', '/categories/' . $category->id . '/delete')->open() }}
-                        {{ html()->submit('Borrar')->class(['redButton', 'text-white']) }}
-                        {{ html()->form()->close() }}
+                        <button class="redButton text-white deleteCategory" value="{{ $category->id }}">Eliminar</button>
                     </td>
                 </tr>
                 @endforeach
@@ -46,4 +44,8 @@
     </div>
 </div>
 
+@endsection
+
+@section('js')
+<script class="" src="{{ asset('js/deleteConfirm.js') }}" defer></script>
 @endsection

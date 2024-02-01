@@ -24,7 +24,7 @@ class CreateStorehouseRequest extends FormRequest
         $id = $this->id;
 
         return [
-            'name' => 'required|max:25|unique:storehouses,name,' . $id,
+            'name' => 'required|between:3-25|unique:storehouses,name,' . $id,
             'description' => 'required|between:5,100',
             'address' => 'required|between:5,100',
             'prefix' => 'required|between:2,4'
@@ -36,7 +36,7 @@ class CreateStorehouseRequest extends FormRequest
         return [
             'name.required' => 'Has de añadir un nombre para el almacén.',
             'name.unique' => 'El nombre seleccionado ya lo tiene otro almacén.',
-            'name.max' => 'El nombre del almacén no debe exceder los 25 caracteres.',
+            'name.between' => 'El nombre del almacén debe de estar entre los 3 y los 25 caracteres.',
             'description.required' => 'Has de añadir una descriptión del almacén.',
             'description.between' => 'La descripción del almacén debe de estar entre los 5 y los 100 caracteres.',
             'address.required' => 'Has de añadir una dirección del almacén.',

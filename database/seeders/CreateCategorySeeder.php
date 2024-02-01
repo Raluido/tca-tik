@@ -15,15 +15,5 @@ class CreateCategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Category::factory()
-            ->count(5)
-            ->has(
-                Product::factory()
-                    ->count(10)
-                    ->hasAttached(
-                        Storehouse::factory()->count(5),
-                    )
-            )
-            ->create();
     }
 }

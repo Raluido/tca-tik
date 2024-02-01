@@ -1,9 +1,8 @@
 $(window).on('load', function () {
     let nameErr = true;
-    let priceErr = true;
-    let prefixErr = true;
-    let observationsErr = true;
     let descriptionErr = true;
+    let addressErr = true;
+    let prefixErr = true;
 
     $('#nameValidator').on('keyup', function () {
         nameValidator();
@@ -22,55 +21,37 @@ $(window).on('load', function () {
         }
     }
 
-    $('#priceValidator').on('keyup', function () {
-        priceValidator();
-    })
-
-    function priceValidator() {
-        let priceVal = $('#priceValidator');
-        let regex = /([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9])+\.[0-9]{2}/;
-        if (regex.test(priceVal.val())) {
-            priceVal.css('border', '1px solid green');
-            $('#priceError').text('');
-            priceErr = false;
-            return priceErr;
-        } else {
-            priceVal.css('border', '1px solid red');
-            $('#priceError').text("El rango del precio debe de estar entre los 0 y 9999,99 incluyendo dos decimales siempre.");
-        }
-    }
-
     $('#prefixValidator').on('keyup', function () {
         prefixValidator();
     })
 
     function prefixValidator() {
         let prefixVal = $('#prefixValidator');
-        if (0 < prefixVal.val().length && prefixVal.val().length < 4) {
+        if (1 < prefixVal.val().length && prefixVal.val().length < 5) {
             prefixVal.css('border', '1px solid green');
             $('#prefixError').text('');
             prefixErr = false;
             return prefixErr;
         } else {
             prefixVal.css('border', '1px solid red');
-            $('#prefixError').text("El rango del prefijo debe de estar entre los 1 y 3.");
+            $('#prefixError').text("El rango del prefijo debe de estar entre los 2 y 4.");
         }
     }
 
-    $('#observationsValidator').on('keyup', function () {
-        observationsValidator();
+    $('#addressValidator').on('keyup', function () {
+        addressValidator();
     })
 
-    function observationsValidator() {
-        let observationsVal = $('#observationsValidator');
-        if (observationsVal.val().length < 101) {
-            observationsVal.css('border', '1px solid green');
-            $('#observationsError').text('');
-            observationsErr = false;
-            return observationsErr;
+    function addressValidator() {
+        let addressVal = $('#addressValidator');
+        if (4 < addressVal.val().length && addressVal.val().length < 101) {
+            addressVal.css('border', '1px solid green');
+            $('#addressError').text('');
+            addressErr = false;
+            return addressErr;
         } else {
-            observationsVal.css('border', '1px solid red');
-            $('#observationsError').text("El número maximo de caracteres es de 100.");
+            addressVal.css('border', '1px solid red');
+            $('#addressError').text("El rango de la dirección debe de estar entre los 5 y 100 caracteres.");
         }
     }
 
@@ -87,7 +68,7 @@ $(window).on('load', function () {
             return descriptionErr;
         } else {
             descriptionVal.css('border', '1px solid red');
-            $('#descriptionError').text("El número maximo de caracteres es de 500.");
+            $('#descriptionError').text("El rango de la dirección debe de estar entre los 5 y 100 caracteres.");
         }
     }
 

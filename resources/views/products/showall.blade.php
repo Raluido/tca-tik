@@ -22,7 +22,6 @@
                     <th class="">Descripción</th>
                     <th class="">Precio</th>
                     <th class="">Observaciones</th>
-                    <th class="">Mostrar</th>
                     <th class=""></th>
                 </tr>
             </thead>
@@ -30,12 +29,12 @@
                 @foreach ($products as $product)
                 <tr class="">
                     <td class="">{{$product->name}}</td>
-                    <td class="">{{$product->categoryProduct->name}}</td>
+                    <td class="">{{$product->category->name}}</td>
                     <td class="">{{$product->description}}</td>
                     <td class="">{{$product->price}}</td>
                     <td class="">{{$product->observations}}</td>
-                    <td class=""><button class="greenButton"><a href="{{ route('products.showone', [$product->id]) }}" class="text-white">Mostrar</a></button></td>
-                    <td class=""><button class="blueButton"><a href="{{ route('products.editForm', [$product->id]) }}" class="text-white">Editar</a></button>
+                    <td class=""><button class="greenButton"><a href="{{ route('products.showone', [$product->id]) }}" class="text-white">Mostrar</a></button>
+                        <button class="blueButton"><a href="{{ route('products.editForm', [$product->id]) }}" class="text-white">Editar</a></button>
                         <button class="redButton text-white deleteProduct" value="{{ $product->id }}">Eliminar</button>
                     </td>
                 </tr>

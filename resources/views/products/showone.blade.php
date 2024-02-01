@@ -19,21 +19,18 @@
                     <th class="">Descripción</th>
                     <th class="">Precio</th>
                     <th class="">Observaciones</th>
-                    <th class="">Editar</th>
-                    <th class="">Eliminar</th>
+                    <th class="">Acciones</th>
                 </tr>
             </thead>
             <tbody class="">
                 <tr class="">
                     <td class="">{{$product->name}}</td>
-                    <td class="">{{$product->categoryProduct->name}}</td>
+                    <td class="">{{$product->category->name}}</td>
                     <td class="">{{$product->description}}</td>
                     <td class="">{{$product->price}}</td>
                     <td class="">{{$product->observations}}</td>
-                    <td class=""><button class="blueButton"><a href="{{ route('products.editForm', [$product->id]) }}" class="text-white">Editar</a></button></td>
-                    <td class="">{{ html()->form('DELETE', '/products/' . $product->id . '/delete')->open() }}
-                        {{ html()->submit('Borrar')->class(['grayButton', 'text-white']) }}
-                        {{ html()->form()->close() }}
+                    <td class=""><button class="blueButton"><a href="{{ route('products.editForm', [$product->id]) }}" class="text-white">Editar</a></button>
+                        <button class="redButton text-white deleteProduct" value="{{ $product->id }}">Eliminar</button>
                     </td>
                 </tr>
             </tbody>
@@ -45,4 +42,10 @@
     </div>
 </div>
 
+<input type="hidden" value="{{ env('APP_URL') }}" id="url">
+
+@endsection
+
+@section('js')
+<script class="" src="{{ asset('js/deleteConfirm.js') }}" defer></script>
 @endsection

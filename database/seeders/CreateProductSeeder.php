@@ -14,10 +14,5 @@ class CreateProductSeeder extends Seeder
      */
     public function run(): void
     {
-        $product = Product::factory()
-            ->hasAttached(
-                Storehouse::factory()->count(5),
-            )
-            ->create();
     }
 }

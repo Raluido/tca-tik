@@ -13,16 +13,19 @@
     <form action="{{ route('categories.create') }}" method="post" class="">
         @csrf
         <div class="inputForm">
-            <input type="text" name="name" class="" placeholder="Nombre">
+            <input type="text" name="name" class="" id="nameValidator" placeholder="Nombre">
+            <h5 id="nameError"></h5>
         </div>
         <div class="inputForm">
-            <textarea name="description" id="" cols="30" rows="10" class="" placeholder="Descriptión la categoría"></textarea>
+            <textarea name="description" cols="30" rows="10" class="" id="descriptionValidator" placeholder="Descriptión la categoría"></textarea>
+            <h5 id="descriptionError"></h5>
         </div>
         <div class="inputForm">
-            <input type="text" name="prefix" placeholder="identificador de categoría">
+            <input type="text" name="prefix" id="prefixValidator" placeholder="identificador de categoría">
+            <h5 id="prefixError"></h5>
         </div>
         <div class="submitForm">
-            <input type="submit" value="Crear" class="greenButton text-white">
+            <button class="greenButton text-white" type="button" id="submitBtn">Crear</button>
             <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Menú principal</a></button>
         </div>
     </form>
@@ -31,5 +34,5 @@
 @endsection
 
 @section('js')
-
+<script class="" type="module" src="{{ asset('js/validatorCat.js') }}" defer></script>
 @endsection

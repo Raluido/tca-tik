@@ -42,7 +42,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::post('create', 'CategoryController@create')->name('categories.create');
             Route::get('{category}/editForm', 'CategoryController@editForm')->name('categories.editForm');
             Route::put('{category}/edit', 'CategoryController@edit')->name('categories.edit');
-            Route::delete('{category}/delete', 'CategoryController@delete')->name('categories.delete');
+            Route::get('{category}/delete', 'CategoryController@delete')->name('categories.delete');
         });
 
         Route::group(['prefix' => 'storehouses'], function () {

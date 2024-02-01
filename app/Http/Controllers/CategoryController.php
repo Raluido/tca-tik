@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Http\Requests\CreateCategoryRequest;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -44,6 +45,16 @@ class CategoryController extends Controller
 
     public function delete(Category $category)
     {
+        Db::table('product_storehouses')
+            ->join('storehouses', 'storehouses.id', 'product_storehouses.product_storehouse_has_storehouses')
+            ->join('products', 'products.id', 'product_storehouses.product_storehouse_has_products')
+            ->where('product_has_category', $category->id)
+            ->delete();
+
+        Db::table('products')
+            ->where('product_has_category', $category->id)
+            ->delete();
+
         $delete = Category::find($category->id);
 
         $delete->delete();
