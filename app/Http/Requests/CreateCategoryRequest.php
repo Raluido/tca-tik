@@ -24,9 +24,9 @@ class CreateCategoryRequest extends FormRequest
         $id = $this->id;
 
         return [
-            'name' => 'required|between:3,25|unique:categories,name,' . $id,
-            'description' => 'required|between:5,100',
-            'prefix' => 'required|between:2,3'
+            'name' => 'required|max:50|unique:categories,name,' . $id,
+            'description' => 'required|max:500',
+            'prefix' => 'required|between:1,3'
         ];
     }
 
@@ -34,12 +34,12 @@ class CreateCategoryRequest extends FormRequest
     {
         return [
             'name.required' => 'Has de añadir un nombre para el artículo.',
-            'name.between' => 'El nombre de la categoría debe de estar entre los 3 y los 25 caracteres.',
+            'name.max' => 'El nombre de la categoría no debe contener más de 50 caracteres.',
             'name.unique' => 'Ya existe una categoría con ese nombre.',
             'description.required' => 'Has de añadir una descripción de la categoría.',
-            'description.between' => 'La descripción del artículo debe de estar entre los 5 y los 100 caracteres.',
+            'description.max' => 'La descripción del artículo no debe contener más de 500 caracteres.',
             'prefix.required' => 'Has de añadir un prefijo para la categoría.',
-            'prefix.between' => 'El prefijo de contener entre 2 y 3 caracteres.',
+            'prefix.between' => 'El prefijo de contener entre 1 y 3 caracteres.',
 
         ];
     }

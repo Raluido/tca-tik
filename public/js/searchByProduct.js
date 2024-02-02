@@ -10,19 +10,24 @@ $(window).on('load', function () {
             type: 'get',
             data: {},
             success: function (data) {
-                if (data[0] === undefined) {
-                    $('#searchDropdown').html("<p style='display:block;'>No results</p>");
-                    $('#searchDropdown').removeClass('d-none');
-                    $('#searchDropdown').addClass('d-block');
-                } else if (data[0] !== undefined) {
-                    $('#searchDropdown').empty();
-                    data.forEach(element => {
-                        $('#searchDropdown').append("<a href='" + url + "/storehousesManagement/showBy/" + storehouseSelected + "/" + categorySelected + "/" + productSelected + "/" + element.id + " ' style='display:block; margin-bottom:.5em;'>" + element.name + "</a>");
-                    })
-                    $('#searchDropdown').removeClass('d-none');
-                    $('#searchDropdown').addClass('d-block');
+                if (typeof data === 'string') {
+                    $('#searchDropdown').removeClass('d-block');
+                    $('#searchDropdown').addClass('d-none');
+                } else {
+                    if (data[0] === undefined) {
+                        $('#searchDropdown').html("<p style='display:block;'>No results</p>");
+                        $('#searchDropdown').removeClass('d-none');
+                        $('#searchDropdown').addClass('d-block');
+                    } else if (data[0] !== undefined) {
+                        $('#searchDropdown').empty();
+                        data.forEach(element => {
+                            $('#searchDropdown').append("<a href='" + url + "/storehousesManagement/showBy/" + storehouseSelected + "/" + categorySelected + "/" + productSelected + "/" + element.id + " ' style='display:block; margin-bottom:.5em;'>" + element.name + "</a>");
+                        })
+                        $('#searchDropdown').removeClass('d-none');
+                        $('#searchDropdown').addClass('d-block');
+                    }
                 }
             }
-        })
-    });
+        });
+    })
 })

@@ -10,14 +10,14 @@ $(window).on('load', function () {
 
     function nameValidator() {
         let nameVal = $('#nameValidator');
-        if (2 < nameVal.val().length && nameVal.val().length < 26) {
+        if (nameVal.val().length < 51) {
             nameVal.css('border', '1px solid green');
             $('#nameError').text('');
             nameErr = false;
             return nameErr;
         } else {
             nameVal.css('border', '1px solid red');
-            $('#nameError').text("El nombre del artículo debe de estar entre los 3 y los 25 caracteres");
+            $('#nameError').text("El nombre del almacén no debe contener más de 50 caracteres.");
         }
     }
 
@@ -27,14 +27,14 @@ $(window).on('load', function () {
 
     function prefixValidator() {
         let prefixVal = $('#prefixValidator');
-        if (1 < prefixVal.val().length && prefixVal.val().length < 5) {
+        if (0 < prefixVal.val().length && prefixVal.val().length < 5) {
             prefixVal.css('border', '1px solid green');
             $('#prefixError').text('');
             prefixErr = false;
             return prefixErr;
         } else {
             prefixVal.css('border', '1px solid red');
-            $('#prefixError').text("El rango del prefijo debe de estar entre los 2 y 4.");
+            $('#prefixError').text("El rango del prefijo debe de estar entre los 1 y 4.");
         }
     }
 
@@ -44,14 +44,14 @@ $(window).on('load', function () {
 
     function addressValidator() {
         let addressVal = $('#addressValidator');
-        if (4 < addressVal.val().length && addressVal.val().length < 101) {
+        if (addressVal.val().length < 501) {
             addressVal.css('border', '1px solid green');
             $('#addressError').text('');
             addressErr = false;
             return addressErr;
         } else {
             addressVal.css('border', '1px solid red');
-            $('#addressError').text("El rango de la dirección debe de estar entre los 5 y 100 caracteres.");
+            $('#addressError').text("La dirección del almacén no debe contener más de 500 caracteres.");
         }
     }
 
@@ -68,7 +68,7 @@ $(window).on('load', function () {
             return descriptionErr;
         } else {
             descriptionVal.css('border', '1px solid red');
-            $('#descriptionError').text("El rango de la dirección debe de estar entre los 5 y 100 caracteres.");
+            $('#descriptionError').text("La descripción del almacén no debe contener más de 500 caracteres.");
         }
     }
 

@@ -31,9 +31,8 @@
                     <td class="">{{$storehouse->description}}</td>
                     <td class="">{{$storehouse->address}}</td>
                     <td class=""><button class="blueButton"><a href="{{ route('storehouses.editForm', [$storehouse->id]) }}" class="text-white">Editar</a></button></td>
-                    <td class="">{{ html()->form('DELETE', '/storehouses/' . $storehouse->id . '/delete')->open() }}
-                        {{ html()->submit('Borrar')->class(['redButton', 'text-white']) }}
-                        {{ html()->form()->close() }}
+                    <td class="">
+                        <button class="redButton text-white deleteStorehouse" value="{{ $storehouse->id }}">Eliminar</button>
                     </td>
                 </tr>
                 @endforeach
@@ -43,8 +42,12 @@
     @endif
     <div class="submitForm">
         <button class="greenButton"><a href="{{ route('storehouses.createForm') }}" class="text-white">Crear</a></button>
-        <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Menú principal</a></button>
+        <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Volver</a></button>
     </div>
 </div>
 
+@endsection
+
+@section('js')
+<script class="" src="{{ asset('js/deleteConfirm.js') }}" defer></script>
 @endsection

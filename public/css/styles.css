@@ -88,7 +88,20 @@ header>div {
     margin-top: .5em;
 }
 
+#dropDown li div,
 #dropDown li a {
+    color: white;
+}
+
+#dropDownPrd,
+#dropDownStr,
+#dropDownCat,
+#dropDownMng {
+    position: absolute;
+    padding: 1em;
+    left: 9em;
+    top: 0;
+    background-color: black;
     color: white;
 }
 

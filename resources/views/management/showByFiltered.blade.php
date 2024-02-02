@@ -33,6 +33,7 @@
         </div>
     </div>
 
+    @if(count($products) != 0 || !is_null($products))
     <div id="addProductTable">
         <h3 class="">Añadir nuevo</h3>
         <table class="">
@@ -60,13 +61,14 @@
             </tbody>
         </table>
     </div>
+    @endif
 
     <div id="messages">
         @include('layouts.partials.messages')
     </div>
 
-    @if(!isset($storehouses) || is_null($storehouses))
-    <p class="">Aún no has creado ningún almacén.</p>
+    @if(count($filtered)== 0 || is_null($filtered))
+    <p class="" style="margin-top:4em;">No hay productos almacenados.</p>
     @else
     <div id="stockProducts">
         <h3 class="">Productos en stock</h3>
@@ -101,7 +103,7 @@
         @endif
     </div>
     <div class="submitForm">
-        <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Menú principal</a></button>
+        <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Volver</a></button>
     </div>
 
 </div>

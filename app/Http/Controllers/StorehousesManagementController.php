@@ -14,7 +14,7 @@ class StorehousesManagementController extends Controller
 {
     public function showall()
     {
-        $storehouses = Db::select("SELECT products.product_has_category AS id, storehouses.name AS name, storehouses.prefix AS prefix, storehouses.description AS description, products.id AS pid, products.name AS pname, products.price AS pprice, products.prefix AS pprefix, categories.name AS pcategory, product_storehouses.product_storehouse_has_products, product_storehouses.product_storehouse_has_storehouses, COUNT(*) as total FROM storehouses
+        $products = Db::select("SELECT products.product_has_category AS id, storehouses.name AS name, storehouses.prefix AS prefix, storehouses.description AS description, products.id AS pid, products.name AS pname, products.price AS pprice, products.prefix AS pprefix, categories.name AS pcategory, product_storehouses.product_storehouse_has_products, product_storehouses.product_storehouse_has_storehouses, COUNT(*) as total FROM storehouses
         INNER JOIN product_storehouses ON product_storehouses.product_storehouse_has_storehouses = storehouses.id
         INNER JOIN products ON products.id = product_storehouses.product_storehouse_has_products
         INNER JOIN categories ON categories.id = products.product_has_category
@@ -22,7 +22,9 @@ class StorehousesManagementController extends Controller
 
         $categories = Category::all();
 
-        return view('management.showall', ['storehouses' => $storehouses, 'categories' => $categories]);
+        $storehouses = Storehouse::all();
+
+        return view('management.showall', ['products' => $products, 'storehouses' => $storehouses, 'categories' => $categories]);
     }
 
     public function productsCounter(Request $request)
@@ -80,10 +82,12 @@ class StorehousesManagementController extends Controller
 
     public function searchByProduct($inputSearch = '')
     {
-        $productFiltered = Db::table('products')
-            ->select('products.id', 'products.name')
-            ->where('products.name', 'LIKE', '%' . $inputSearch . '%')
-            ->get();
+        if ($inputSearch != '') {
+            $productFiltered = Product::where('products.name', 'LIKE', '%' . $inputSearch . '%')
+                ->get();
+        } else {
+            $productFiltered = null;
+        }
 
         return $productFiltered;
     }

@@ -41,8 +41,8 @@
             <h5 id="observationsError"></h5>
         </div>
         <div class="submitForm">
-        <button class="greenButton text-white" id="submitBtn">Editar</button>
-            <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Menú principal</a></button>
+            <button class="greenButton text-white" id="submitBtn">Editar</button>
+            <button class="blueButton"><a href="{{ route('products.showall') }}" class="text-white">Volver</a></button>
         </div>
     </form>
 </div>

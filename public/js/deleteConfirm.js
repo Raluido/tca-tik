@@ -26,4 +26,18 @@ $(window).on('load', function () {
         }
 
     })
+
+    $('.deleteStorehouse').on('click', function () {
+        if (confirm("Estas seguro de eliminar el almacén? Si lo haces eliminarás las unidades de producto que contenga.")) {
+            $.ajax({
+                url: '/storehouses/' + $(this).val() + '/delete/',
+                type: 'get',
+                data: {},
+                success: function () {
+                    location.reload();
+                }
+            })
+        }
+
+    })
 })

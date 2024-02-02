@@ -40,7 +40,7 @@
     @endif
     <div class="submitForm">
         <button class="greenButton"><a href="{{ route('categories.createForm') }}" class="text-white">Crear</a></button>
-        <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Menú principal</a></button>
+        <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Volver</a></button>
     </div>
 </div>
 

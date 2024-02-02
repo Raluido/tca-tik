@@ -25,9 +25,10 @@
             <input type="text" name="prefix" value="{{ $category->prefix }}" id="prefixValidator" placeholder="identificador de categoría">
             <h5 id="prefixError"></h5>
         </div>
+
         <div class="submitForm">
             <button class="greenButton text-white" id="submitBtn">Editar</button>
-            <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Menú principal</a></button>
+            <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Volver</a></button>
 
         </div>
     </form>

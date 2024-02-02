@@ -11,14 +11,14 @@ $(window).on('load', function () {
 
     function nameValidator() {
         let nameVal = $('#nameValidator');
-        if (2 < nameVal.val().length && nameVal.val().length < 26) {
+        if (nameVal.val().length < 51) {
             nameVal.css('border', '1px solid green');
             $('#nameError').text('');
             nameErr = false;
             return nameErr;
         } else {
             nameVal.css('border', '1px solid red');
-            $('#nameError').text("El nombre del artículo debe de estar entre los 3 y los 25 caracteres");
+            $('#nameError').text("El número de caracteres máximo es de 50.");
         }
     }
 
@@ -63,14 +63,14 @@ $(window).on('load', function () {
 
     function observationsValidator() {
         let observationsVal = $('#observationsValidator');
-        if (observationsVal.val().length < 101) {
+        if (observationsVal.val().length < 501) {
             observationsVal.css('border', '1px solid green');
             $('#observationsError').text('');
             observationsErr = false;
             return observationsErr;
         } else {
             observationsVal.css('border', '1px solid red');
-            $('#observationsError').text("El número maximo de caracteres es de 100.");
+            $('#observationsError').text("El número maximo de caracteres es de 500.");
         }
     }
 

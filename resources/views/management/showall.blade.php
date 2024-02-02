@@ -22,7 +22,7 @@
                 </select>
             </div>
             <div class="">
-                <label for="filterByCategory" class="">Categorias</label>
+                <label for="filterByCategory" class="">Categorías</label>
                 <select name="" id="filterByCategory" class="">
                     <option value="0" class="">Todas</option>
                     @foreach($categories as $category)
@@ -37,8 +37,8 @@
         @include('layouts.partials.messages')
     </div>
 
-    @if(is_null($storehouses) || count($storehouses) == 0)
-    <p id="noItems">Aún no has creado ningún almacén.</p>
+    @if(is_null($products) || count($products) == 0)
+    <p id="noItems">No hay productos en los almacenes, selecciona un almacén para añadir alguno.</p>
     @else
     <div class="tableContainer">
         <table class="">
@@ -55,7 +55,7 @@
                 </tr>
             </thead>
             <tbody class="">
-                @foreach($storehouses as $index)
+                @foreach($products as $index)
                 <tr class="">
                     <td class="">{{$index->name}}</td>
                     <td class="">{{$index->prefix}}</td>
@@ -72,7 +72,7 @@
     </div>
     @endif
     <div class="submitForm">
-        <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Menú principal</a></button>
+        <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Volver</a></button>
     </div>
 
 </div>

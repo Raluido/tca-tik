@@ -30,7 +30,7 @@
         </div>
         <div class="submitForm">
             <button class="greenButton text-white" id="submitBtn">Crear</button>
-            <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Menú principal</a></button>
+            <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Volver</a></button>
         </div>
     </form>
 </div>

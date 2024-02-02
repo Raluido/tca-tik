@@ -51,7 +51,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::post('create', 'StorehouseController@create')->name('storehouses.create');
             Route::get('{storehouse}/editForm', 'StorehouseController@editForm')->name('storehouses.editForm');
             Route::put('{storehouse}/edit', 'StorehouseController@edit')->name('storehouses.edit');
-            Route::delete('{storehouse}/delete', 'StorehouseController@delete')->name('storehouses.delete');
+            Route::get('{storehouse}/delete', 'StorehouseController@delete')->name('storehouses.delete');
         });
 
         Route::group(['prefix' => 'storehousesManagement'], function () {

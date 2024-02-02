@@ -51,9 +51,6 @@
             <a href="{{ route('storehousesManagement.showall') }}" class="">
                 <h4 class="">Gestionar almacenes</h4>
             </a>
-            <a href="{{ route('main') }}" class="">
-                <h4 class="">Otras gestiones</h4>
-            </a>
         </details>
     </div>
 </div>

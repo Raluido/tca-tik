@@ -15,13 +15,14 @@ class CreateStorehouseSeeder extends Seeder
      */
     public function run(): void
     {
-        $products = Product::factory()
-            ->count(25)
-            ->for(Category::factory()->create())
+        $categories = Category::factory()
+            ->count(5)
+            ->has(Product::factory()->count(25))
             ->create();
 
-        Storehouse::factory(5)
-            ->hasAttached($products)
+        Storehouse::factory()
+            ->count(5)
+            ->hasAttached(Product::factory()->count(25))
             ->create();
     }
 }

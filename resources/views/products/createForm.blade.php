@@ -41,7 +41,7 @@
         </div>
         <div class="submitForm">
             <input type="submit" class="greenButton text-white" id="submitBtn" value="Crear">
-            <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Menú principal</a></button>
+            <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Volver</a></button>
         </div>
     </form>
 

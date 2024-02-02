@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Storehouse;
 use App\Http\Requests\CreateStorehouseRequest;
+use App\Models\Product_storehouse;
 use Illuminate\Support\Facades\Log;
 
 class StorehouseController extends Controller
@@ -44,9 +45,9 @@ class StorehouseController extends Controller
 
     public function delete(Storehouse $storehouse)
     {
-        $delete = Storehouse::find($storehouse->id);
+        Product_storehouse::where('product_storehouse_has_storehouses', $storehouse->id)->delete();
 
-        $delete->delete();
+        Storehouse::find($storehouse->id)->delete();
 
         return redirect()->back()->withSuccess('El almacén se ha eliminado correctamente');
     }
