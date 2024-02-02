@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}" class="">
     <title>tca-tik</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/scss/app.scss', 'resources/js/app.js'])
 </head>
 
 <body>
@@ -21,7 +21,7 @@
         <main class="">
             @yield('content')
         </main>
-        
+
         <footer class="">
             @include('layouts.partials.footer')
         </footer>
