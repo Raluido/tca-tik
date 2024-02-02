@@ -39,7 +39,7 @@ class StorehousesManagementController extends Controller
         return $filter;
     }
 
-    public function showBy($storehouseSelectedId, $categorySelectedId, $productSelectedId = 0, $searchProductId = '')
+    public function showBy($storehouseSelectedId, $categorySelectedId, ?int $productSelectedId = 0, ?string $searchProductId = '')
     {
         $storehouses = Storehouse::all();
 
