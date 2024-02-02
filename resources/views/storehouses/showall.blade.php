@@ -46,6 +46,8 @@
     </div>
 </div>
 
+{{ $storehouses->links() }}
+
 @endsection
 
 @section('js')

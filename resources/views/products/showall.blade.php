@@ -49,6 +49,8 @@
     </div>
 </div>
 
+{{ $products->links() }}
+
 <input type="hidden" value="{{ env('APP_URL') }}" id="url">
 
 @endsection

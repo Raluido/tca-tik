@@ -14,7 +14,7 @@ class ProductController extends Controller
 {
     public function showall()
     {
-        $products = Product::all();
+        $products = Product::paginate(10);
 
         return view('products.showall', ['products' => $products]);
     }

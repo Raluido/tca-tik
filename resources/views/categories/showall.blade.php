@@ -44,6 +44,8 @@
     </div>
 </div>
 
+{{ $categories->links() }}
+
 @endsection
 
 @section('js')

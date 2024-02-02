@@ -12,7 +12,7 @@ class CategoryController extends Controller
 {
     public function showall()
     {
-        $categories = Category::all();
+        $categories = Category::paginate(10);
 
         return view('categories.showall', ['categories' => $categories]);
     }

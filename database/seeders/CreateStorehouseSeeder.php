@@ -7,6 +7,8 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Storehouse;
 use App\Models\Category;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 
 class CreateStorehouseSeeder extends Seeder
 {
@@ -15,14 +17,25 @@ class CreateStorehouseSeeder extends Seeder
      */
     public function run(): void
     {
-        $categories = Category::factory()
-            ->count(5)
-            ->has(Product::factory()->count(25))
+        Category::factory()
+            ->count(6)
+            ->create();
+
+        $products = Product::factory()
+            ->count(50)
+            ->state(new Sequence(
+                ['product_has_category' => 1],
+                ['product_has_category' => 2],
+                ['product_has_category' => 3],
+                ['product_has_category' => 4],
+                ['product_has_category' => 5],
+                ['product_has_category' => 6],
+            ))
             ->create();
 
         Storehouse::factory()
             ->count(5)
-            ->hasAttached(Product::factory()->count(25))
+            ->hasAttached($products)
             ->create();
     }
 }

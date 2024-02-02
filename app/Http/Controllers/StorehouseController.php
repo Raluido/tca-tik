@@ -12,7 +12,7 @@ class StorehouseController extends Controller
 {
     public function showall()
     {
-        $storehouses = Storehouse::all();
+        $storehouses = Storehouse::paginate(10);
 
         return view('storehouses.showall', ['storehouses' => $storehouses]);
     }
