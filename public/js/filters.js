@@ -4,7 +4,7 @@ $(window).on('load', function () {
         let storehouseSelected = $('#filterByStorehouse').val();
         let categorySelected = $('#filterByCategory').val();
         if (storehouseSelected == 0 && categorySelected == 0) {
-            window.location.href = url + '/storehousesManagement/showall';
+            window.location.assign(url + '/storehousesManagement/showall');
             return;
         }
         $.ajax({
@@ -12,7 +12,8 @@ $(window).on('load', function () {
             url: '/storehousesManagement/' + storehouseSelected + '/' + categorySelected + '/filterBy',
             data: {},
             success: function () {
-                window.location.href = url + '/storehousesManagement/showBy/' + storehouseSelected + '/' + categorySelected;
+                window.location.assign(url + '/storehousesManagement/showBy/' + storehouseSelected + '/' + categorySelected);
+                return;
             }
         })
     })
@@ -21,7 +22,7 @@ $(window).on('load', function () {
         let categorySelected = $('#filterByCategory').val();
         let storehouseSelected = $('#filterByStorehouse').val();
         if (storehouseSelected == 0 && categorySelected == 0) {
-            window.location.href = url + '/storehousesManagement/showall';
+            window.location.assign(url + '/storehousesManagement/showall');
             return;
         }
         $.ajax({
@@ -29,7 +30,8 @@ $(window).on('load', function () {
             url: '/storehousesManagement/' + storehouseSelected + '/' + categorySelected + '/filterBy',
             data: {},
             success: function () {
-                window.location.href = url + '/storehousesManagement/showBy/' + storehouseSelected + '/' + categorySelected;
+                window.location.assign(url + '/storehousesManagement/showBy/' + storehouseSelected + '/' + categorySelected);
+                return;
             }
         })
     })
