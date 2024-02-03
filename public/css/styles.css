@@ -30,6 +30,14 @@ ul li {
     display: inline-block;
 }
 
+.pagination {
+    margin-top: 2em;
+}
+
+.pagination>ul>li {
+    display: inline-block;
+}
+
 #pageContainer {
     position: relative;
     min-height: 100vh;
@@ -65,10 +73,6 @@ ul li {
 
 .text-white {
     color: white;
-}
-
-header {
-    height: 5vh;
 }
 
 header>div {
@@ -328,6 +332,7 @@ footer div:nth-child(-n+4) {
     main {
         display: flex;
         justify-content: center;
+        margin-top: 2em;
     }
 
     .controlPanel {
@@ -352,7 +357,12 @@ footer div:nth-child(-n+4) {
     main {
         display: flex;
         justify-content: center;
-        margin-top: 4em;
+    }
+
+    main .top {
+        display: flex;
+        justify-content: space-evenly;
+        width: 100%;
     }
 
     .controlPanel {
@@ -382,23 +392,34 @@ footer div:nth-child(-n+4) {
         display: inline-block;
         width: 100%;
         text-align: center;
+        margin-top: 2em;
+        color: gray;
     }
 
-    #desktopMenu ul {
-        margin-top: .8em;
+    #subDeskMenuPrd,
+    #subDeskMenuStr,
+    #subDeskMenuCat,
+    #subDeskMenuMng {
+        position: relative;
+        cursor: pointer;
     }
 
-    #desktopMenu ul li {
+    #dropDownDeskPrd,
+    #dropDownDeskStr,
+    #dropDownDeskCat,
+    #dropDownDeskMng {
+        position: absolute;
+        padding-top: 1em;
+        background-color: white;
+    }
+
+    #desktopMenu>ul>li {
         display: inline-block;
-        font-size: .8em;
+        font-size: 1.5vw;
     }
 
-    #desktopMenu ul li:nth-child(-n+5) {
+    #desktopMenu ul li:nth-child(-n+6) {
         margin-right: 1em;
-    }
-
-    #showall {
-        margin-top: 3em;
     }
 }
 

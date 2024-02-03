@@ -31,6 +31,7 @@
 </body>
 
 <script type="module" src="{{ asset('js/showMobileMenu.js') }}" defer></script>
+<script type="module" src="{{ asset('js/dropDownDeskMenu.js') }}" defer></script>
 
 @yield('js')
 

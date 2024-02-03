@@ -12,19 +12,41 @@ use Illuminate\Support\Facades\Log;
 
 class StorehousesManagementController extends Controller
 {
-    public function showall()
+    public function showall(?int $offset = 0)
     {
-        $products = Db::select("SELECT products.product_has_category AS id, storehouses.name AS name, storehouses.prefix AS prefix, storehouses.description AS description, products.id AS pid, products.name AS pname, products.price AS pprice, products.prefix AS pprefix, categories.name AS pcategory, product_storehouses.product_storehouse_has_products, product_storehouses.product_storehouse_has_storehouses, COUNT(*) as total FROM storehouses
-        INNER JOIN product_storehouses ON product_storehouses.product_storehouse_has_storehouses = storehouses.id
+        $totalPrd = Db::table('products')->count();
+
+        $offsetGroups = $totalPrd / 10;
+
+        if ($this->is_decimal($offsetGroups)) $offsetGroups = round($offsetGroups) + 1;
+        else $offsetGroups = round($offsetGroups);
+
+        $pagination = array();
+
+        for ($i = 0; $i < $offsetGroups; $i++) {
+            $pagination[] = (object)[
+                'page' => $i,
+                'offset' => $i * 10
+            ];
+        }
+
+        $offset = 'OFFSET ' . $offset;
+
+        $productsStr = Db::select("SELECT products.product_has_category AS id, products.id AS pid, products.name AS pname, products.price AS pprice, products.prefix AS pprefix, categories.name AS pcategory, product_storehouses.product_storehouse_has_products, COUNT(*) as total FROM product_storehouses
         INNER JOIN products ON products.id = product_storehouses.product_storehouse_has_products
         INNER JOIN categories ON categories.id = products.product_has_category
-        GROUP BY product_storehouses.product_storehouse_has_products, product_storehouses.product_storehouse_has_storehouses, products.product_has_category, storehouses.name, storehouses.prefix, storehouses.description, products.id, products.name, products.price, products.prefix, categories.name");
+        GROUP BY product_storehouses.product_storehouse_has_products, products.product_has_category, products.id, products.name, products.price, products.prefix, categories.name ORDER BY products.id LIMIT 10 $offset");
 
         $categories = Category::all();
 
         $storehouses = Storehouse::all();
 
-        return view('management.showall', ['products' => $products, 'storehouses' => $storehouses, 'categories' => $categories]);
+        return view('management.showall', ['productsStr' => $productsStr, 'storehouses' => $storehouses, 'categories' => $categories, 'pagination' => $pagination]);
+    }
+
+    function is_decimal($val)
+    {
+        return is_numeric($val) && floor($val) != $val;
     }
 
     public function productsCounter(Request $request)
@@ -39,12 +61,10 @@ class StorehousesManagementController extends Controller
         return $filter;
     }
 
-    public function showBy($storehouseSelectedId, $categorySelectedId, ?int $productSelectedId = 0, ?string $searchProductId = '')
+    public function showBy($storehouseSelectedId, $categorySelectedId, ?int $productSelectedId = 0, ?int $searchProductId = 0, ?int $offset = 0)
     {
         $storehouses = Storehouse::all();
-
         $products = Product::all();
-
         $categories = Category::all();
 
         $fillWheres = '';
@@ -57,15 +77,15 @@ class StorehousesManagementController extends Controller
 
         if ($storehouseSelectedId == 0 && $categorySelectedId != 0 && $searchProductId == '') {
             $fillWheres = $catWhere;
-        } elseif ($storehouseSelectedId != 0 && $categorySelectedId == 0 && $searchProductId == '') {
+        } elseif ($storehouseSelectedId != 0 && $categorySelectedId == 0 && $searchProductId == 0) {
             $fillWheres = $storeWhere;
-        } elseif ($categorySelectedId != 0 && $storehouseSelectedId != 0 && $searchProductId == '') {
+        } elseif ($categorySelectedId != 0 && $storehouseSelectedId != 0 && $searchProductId == 0) {
             $fillWheres = $storeWhere . ' ' . $andWhere;
-        } elseif ($storehouseSelectedId == 0 && $categorySelectedId != 0 && $searchProductId != '') {
+        } elseif ($storehouseSelectedId == 0 && $categorySelectedId != 0 && $searchProductId != 0) {
             $fillWheres = $catWhere  . ' ' .  $andSearchWhere;
-        } elseif ($storehouseSelectedId != 0 && $categorySelectedId == 0 && $searchProductId != '') {
+        } elseif ($storehouseSelectedId != 0 && $categorySelectedId == 0 && $searchProductId != 0) {
             $fillWheres = $storeWhere  . ' ' .  $andSearchWhere;
-        } elseif ($categorySelectedId != 0 && $storehouseSelectedId != 0 && $searchProductId != '') {
+        } elseif ($categorySelectedId != 0 && $storehouseSelectedId != 0 && $searchProductId != 0) {
             $fillWheres = $storeWhere  . ' ' .  $andWhere . ' ' . $andSearchWhere;
         } else {
             $fillWheres = $searchWhere;
@@ -77,7 +97,30 @@ class StorehousesManagementController extends Controller
         INNER JOIN categories ON categories.id = products.product_has_category
         $fillWheres GROUP BY product_storehouses.product_storehouse_has_products, product_storehouses.product_storehouse_has_storehouses, products.product_has_category, storehouses.name, storehouses.prefix, storehouses.description, products.id, products.name, products.price, products.prefix, categories.name");
 
-        return view('management.showByFiltered', ['filtered' => $filtered, 'storehouses' => $storehouses, 'categories' => $categories, 'products' => $products, 'storehouseSelectedId' => $storehouseSelectedId, 'categorySelectedId' => $categorySelectedId, 'productSelectedId' => $productSelectedId]);
+        $totalPrd = count($filtered);
+        $offsetGroups = $totalPrd / 10;
+
+        if ($this->is_decimal($offsetGroups)) $offsetGroups = round($offsetGroups) + 1;
+        else $offsetGroups = round($offsetGroups);
+
+        $pagination = array();
+
+        for ($i = 0; $i < $offsetGroups; $i++) {
+            $pagination[] = (object)[
+                'page' => $i,
+                'offset' => $i * 10
+            ];
+        }
+
+        $offset = 'OFFSET ' . $offset;
+
+        $filtered = Db::select("SELECT products.product_has_category AS id, storehouses.name AS name, storehouses.prefix AS prefix, storehouses.description AS description, products.id AS pid, products.name AS pname, products.price AS pprice, products.prefix AS pprefix, categories.name AS pcategory, product_storehouses.product_storehouse_has_products, product_storehouses.product_storehouse_has_storehouses, COUNT(*) as total FROM storehouses
+        INNER JOIN product_storehouses ON product_storehouses.product_storehouse_has_storehouses = storehouses.id
+        INNER JOIN products ON products.id = product_storehouses.product_storehouse_has_products
+        INNER JOIN categories ON categories.id = products.product_has_category
+        $fillWheres GROUP BY product_storehouses.product_storehouse_has_products, product_storehouses.product_storehouse_has_storehouses, products.product_has_category, storehouses.name, storehouses.prefix, storehouses.description, products.id, products.name, products.price, products.prefix, categories.name ORDER BY products.id LIMIT 10 $offset");
+
+        return view('management.showByFiltered', ['filtered' => $filtered, 'storehouses' => $storehouses, 'categories' => $categories, 'products' => $products, 'storehouseSelectedId' => $storehouseSelectedId, 'categorySelectedId' => $categorySelectedId, 'productSelectedId' => $productSelectedId, 'pagination' => $pagination]);
     }
 
     public function searchByProduct($inputSearch = '')

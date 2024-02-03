@@ -63,6 +63,7 @@
     </div>
     @endif
 
+
     <div id="messages">
         @include('layouts.partials.messages')
     </div>
@@ -101,6 +102,13 @@
             </tbody>
         </table>
         @endif
+    </div>
+    <div class="pagination">
+        <ul class="">
+            @foreach($pagination as $index)
+            <li class=""><a href="{{ route('storehousesManagement.showBy', [$storehouseSelectedId, $categorySelectedId, $productSelectedId, $search, $index->offset]) }}" class="">{{ $index->page }}</a></li>
+            @endforeach
+        </ul>
     </div>
     <div class="submitForm">
         <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Volver</a></button>

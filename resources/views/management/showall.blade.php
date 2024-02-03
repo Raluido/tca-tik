@@ -37,16 +37,13 @@
         @include('layouts.partials.messages')
     </div>
 
-    @if(is_null($products) || count($products) == 0)
+    @if(is_null($productsStr) || count($productsStr) == 0)
     <p id="noItems">No hay productos en los almacenes, selecciona un almacén para añadir alguno.</p>
     @else
     <div class="tableContainer">
         <table class="">
             <thead class="">
                 <tr class="">
-                    <th class="">Nombre</th>
-                    <th class="">Prefijo</th>
-                    <th class="">Descripción</th>
                     <th class="">Productos</th>
                     <th class="">Precio</th>
                     <th class="">Identificador del producto</th>
@@ -55,11 +52,8 @@
                 </tr>
             </thead>
             <tbody class="">
-                @foreach($products as $index)
+                @foreach($productsStr as $index)
                 <tr class="">
-                    <td class="">{{$index->name}}</td>
-                    <td class="">{{$index->prefix}}</td>
-                    <td class="">{{$index->description}}</td>
                     <td class="">{{$index->pname}}</td>
                     <td class="">{{$index->pprice}}</td>
                     <td class="">{{$index->pprefix}}</td>
@@ -71,9 +65,17 @@
         </table>
     </div>
     @endif
+    <div class="pagination">
+        <ul class="">
+            @foreach($pagination as $index)
+            <li class=""><a href="{{ route('storehousesManagement.showall', [$index->offset]) }}" class="">{{ $index->page }}</a></li>
+            @endforeach
+        </ul>
+    </div>
     <div class="submitForm">
         <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Volver</a></button>
     </div>
+
 
 </div>
 

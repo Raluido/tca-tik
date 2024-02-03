@@ -55,11 +55,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         });
 
         Route::group(['prefix' => 'storehousesManagement'], function () {
-            Route::get('showall', 'StorehousesManagementController@showall')->name('storehousesManagement.showall');
+            Route::get('showall/{offset?}', 'StorehousesManagementController@showall')->name('storehousesManagement.showall');
             Route::post('productsCounter', 'StorehousesManagementController@productsCounter')->name('storehousesManagement.productsCounter');
             Route::get('{storehouseSelected}/{categorySelected}/filterBy', 'StorehousesManagementController@filterBy')->name('storehousesManagement.filterBy');
             Route::get('searchBy/{search?}', 'StorehousesManagementController@searchByProduct')->name('storehousesManagement.searchBy');
-            Route::get('showBy/{storehouseSelected}/{categorySelected}/{productSelected?}/{search?}', 'StorehousesManagementController@showBy')->name('storehousesManagement.showBy');
+            Route::get('showBy/{storehouseSelected}/{categorySelected}/{productSelected?}/{search?}/{offset?}', 'StorehousesManagementController@showBy')->name('storehousesManagement.showBy');
             Route::get('addToStorehouse/{storehouse}/{product}', 'StorehousesManagementController@addToStorehouse')->name('storehousesManagement.addToStorehouse');
             Route::get('{storehouse}/{product}/delete', 'StorehousesManagementController@removeFromStorehouse')->name('storehousesManagement.removeFromStorehouse');
         });
