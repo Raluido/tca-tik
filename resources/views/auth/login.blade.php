@@ -4,7 +4,7 @@
 
 <div id="crudForm">
 
-    <h4 class="">Logueate</h4>
+    <h4 class="loginTitle">Logueate</h4>
 
     <div id="messages">
         @include('layouts.partials.messages')

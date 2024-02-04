@@ -13,8 +13,8 @@
     @if(is_null($storehouses) || count($storehouses) == 0)
     <p id="noItems">Aún no has creado ningún almacén.</p>
     @else
-    <div class="tableContainer">
-        <table class="">
+    <div class="">
+        <table class="table">
             <thead class="">
                 <tr class="">
                     <th class="">Nombre</th>

@@ -4,43 +4,17 @@
     box-sizing: border-box;
 }
 
-main {
-    min-height: 50vh;
-    padding-bottom: 15em;
+a {
+    text-decoration: none !important;
+    color: gray !important;
 }
 
-a {
-    text-decoration: none;
-    color: gray;
+ul {
+    padding-left: 0 !important;
 }
 
 ul li {
     list-style: none;
-}
-
-.d-none {
-    display: none;
-}
-
-.d-block {
-    display: block;
-}
-
-.page-item {
-    display: inline-block;
-}
-
-.pagination {
-    margin-top: 2em;
-}
-
-.pagination>ul>li {
-    display: inline-block;
-}
-
-#pageContainer {
-    position: relative;
-    min-height: 100vh;
 }
 
 .blueButton {
@@ -73,6 +47,15 @@ ul li {
 
 .text-white {
     color: white;
+}
+
+#pageContainer {
+    position: relative;
+    min-height: 100vh;
+}
+
+main {
+    padding-bottom: 42vh;
 }
 
 header>div {
@@ -140,30 +123,9 @@ header>div {
 }
 
 #mainWelcome {
-    padding: 2em;
+    margin: 4em;
     font-weight: 300;
     line-height: 1.5;
-}
-
-#login {
-    display: flex;
-    align-items: center;
-    justify-content: end;
-    margin-right: 1em;
-}
-
-#loginForm {
-    width: 50%;
-    margin: 0 auto;
-}
-
-#loginForm .loginInputs {
-    margin-top: 1em;
-}
-
-#loginForm .loginSubmit {
-    margin-top: 1.5em;
-    text-align: center;
 }
 
 .controlPanel {
@@ -234,11 +196,8 @@ td {
 }
 
 #showall {
-    padding: 2em;
+    margin: 2em auto;
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 #filters {
@@ -356,6 +315,7 @@ footer div:nth-child(-n+4) {
 
     main {
         display: flex;
+        flex-direction: column;
         justify-content: center;
     }
 

@@ -13,8 +13,8 @@
     @if(is_null($products) || count($products) == 0)
     <p id="noItems">Aún no has creado ningún producto.</p>
     @else
-    <div class="tableContainer">
-        <table class="">
+    <div class="">
+        <table class="table">
             <thead class="">
                 <tr class="">
                     <th class="">Nombre</th>
@@ -43,13 +43,14 @@
         </table>
     </div>
     @endif
+
+    {{ $products->links() }}
+
     <div class="submitForm">
         <button class="greenButton"><a href="{{ route('products.createForm') }}" class="text-white">Crear</a></button>
         <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Volver</a></button>
     </div>
 </div>
-
-{{ $products->links() }}
 
 <input type="hidden" value="{{ env('APP_URL') }}" id="url">
 

@@ -13,8 +13,8 @@
     @if(is_null($categories) || count($categories) == 0)
     <p id="noItems">Aún no has creado ninguna categoría.</p>
     @else
-    <div class="tableContainer">
-        <table class="">
+    <div class="">
+        <table class="table">
             <thead class="">
                 <tr class="">
                     <th class="">Nombre</th>

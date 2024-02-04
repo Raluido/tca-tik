@@ -10,8 +10,8 @@
         @include('layouts.partials.messages')
     </div>
 
-    <div class="tableContainer">
-        <table class="">
+    <div class="">
+        <table class="table">
             <thead class="">
                 <tr class="">
                     <th class="">Nombre</th>

@@ -28,40 +28,40 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         Route::group(['prefix' => 'products'], function () {
             Route::get('showall', 'ProductController@showall')->name('products.showall');
-            Route::get('{product}/showone', 'ProductController@showone')->name('products.showone');
+            Route::get('showone/{product}', 'ProductController@showone')->name('products.showone');
             Route::get('createForm', 'ProductController@createForm')->name('products.createForm');
             Route::post('create', 'ProductController@create')->name('products.create');
-            Route::get('{product}/editForm', 'ProductController@editForm')->name('products.editForm');
-            Route::put('{product}/edit', 'ProductController@edit')->name('products.edit');
-            Route::get('{product}/delete', 'ProductController@delete')->name('products.delete');
+            Route::get('editForm/{product}', 'ProductController@editForm')->name('products.editForm');
+            Route::put('edit/{product}', 'ProductController@edit')->name('products.edit');
+            Route::get('delete/{product}', 'ProductController@delete')->name('products.delete');
         });
 
         Route::group(['prefix' => 'categories'], function () {
             Route::get('showall', 'CategoryController@showall')->name('categories.showall');
             Route::get('createForm', 'CategoryController@createForm')->name('categories.createForm');
             Route::post('create', 'CategoryController@create')->name('categories.create');
-            Route::get('{category}/editForm', 'CategoryController@editForm')->name('categories.editForm');
-            Route::put('{category}/edit', 'CategoryController@edit')->name('categories.edit');
-            Route::get('{category}/delete', 'CategoryController@delete')->name('categories.delete');
+            Route::get('editForm/{category}', 'CategoryController@editForm')->name('categories.editForm');
+            Route::put('edit/{category}', 'CategoryController@edit')->name('categories.edit');
+            Route::get('delete/{category}', 'CategoryController@delete')->name('categories.delete');
         });
 
         Route::group(['prefix' => 'storehouses'], function () {
             Route::get('showall', 'StorehouseController@showall')->name('storehouses.showall');
             Route::get('createForm', 'StorehouseController@createForm')->name('storehouses.createForm');
             Route::post('create', 'StorehouseController@create')->name('storehouses.create');
-            Route::get('{storehouse}/editForm', 'StorehouseController@editForm')->name('storehouses.editForm');
-            Route::put('{storehouse}/edit', 'StorehouseController@edit')->name('storehouses.edit');
-            Route::get('{storehouse}/delete', 'StorehouseController@delete')->name('storehouses.delete');
+            Route::get('editForm/{storehouse}', 'StorehouseController@editForm')->name('storehouses.editForm');
+            Route::put('edit/{storehouse}', 'StorehouseController@edit')->name('storehouses.edit');
+            Route::get('delete/{storehouse}', 'StorehouseController@delete')->name('storehouses.delete');
         });
 
         Route::group(['prefix' => 'storehousesManagement'], function () {
             Route::get('showall/{offset?}', 'StorehousesManagementController@showall')->name('storehousesManagement.showall');
             Route::post('productsCounter', 'StorehousesManagementController@productsCounter')->name('storehousesManagement.productsCounter');
-            Route::get('{storehouseSelected}/{categorySelected}/filterBy', 'StorehousesManagementController@filterBy')->name('storehousesManagement.filterBy');
+            Route::get('filterBy/{storehouseSelected}/{categorySelected}', 'StorehousesManagementController@filterBy')->name('storehousesManagement.filterBy');
             Route::get('searchBy/{search?}', 'StorehousesManagementController@searchByProduct')->name('storehousesManagement.searchBy');
             Route::get('showBy/{storehouseSelected}/{categorySelected}/{productSelected?}/{search?}/{offset?}', 'StorehousesManagementController@showBy')->name('storehousesManagement.showBy');
             Route::get('addToStorehouse/{storehouse}/{product}', 'StorehousesManagementController@addToStorehouse')->name('storehousesManagement.addToStorehouse');
-            Route::get('{storehouse}/{product}/delete', 'StorehousesManagementController@removeFromStorehouse')->name('storehousesManagement.removeFromStorehouse');
+            Route::get('delete/{storehouse}/{product}', 'StorehousesManagementController@removeFromStorehouse')->name('storehousesManagement.removeFromStorehouse');
         });
     });
 });

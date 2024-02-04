@@ -9,7 +9,7 @@ $(window).on('load', function () {
         }
         $.ajax({
             type: 'GET',
-            url: '/storehousesManagement/' + storehouseSelected + '/' + categorySelected + '/filterBy',
+            url: '/storehousesManagement/filterBy/' + storehouseSelected + '/' + categorySelected,
             data: {},
             success: function () {
                 window.location.assign(url + '/storehousesManagement/showBy/' + storehouseSelected + '/' + categorySelected);
@@ -27,7 +27,7 @@ $(window).on('load', function () {
         }
         $.ajax({
             type: 'GET',
-            url: '/storehousesManagement/' + storehouseSelected + '/' + categorySelected + '/filterBy',
+            url: '/storehousesManagement/filterBy/' + storehouseSelected + '/' + categorySelected,
             data: {},
             success: function () {
                 window.location.assign(url + '/storehousesManagement/showBy/' + storehouseSelected + '/' + categorySelected);

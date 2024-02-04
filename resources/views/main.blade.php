@@ -4,7 +4,7 @@
 
 @guest
 
-<h4 id="mainWelcome">Bienvenido! <br><br> Logueese para acceder al panel de administrador.</h4>
+<h6 id="mainWelcome">Bienvenido! <br><br> Logueese para acceder al panel de administrador.</h6>
 
 @endguest
 
@@ -12,7 +12,7 @@
 
 <div class="controlPanel">
 
-    <h4>Bienvenido al panel de administrador</h4>
+    <h6>Bienvenido al panel de administrador</h6>
 
     <div id="messages">
         @include('layouts.partials.messages')
@@ -22,34 +22,34 @@
         <details class="">
             <summary class="">Productos</summary>
             <a href="{{ route('products.createForm') }}" class="">
-                <h4 class="">Crear nuevo</h4>
+                <h6 class="">Crear nuevo</h6>
             </a>
             <a href="{{ route('products.showall') }}" class="">
-                <h4 class="">Mostrar todos</h4>
+                <h6 class="">Mostrar todos</h6>
             </a>
         </details>
         <details class="">
             <summary class="">Categorias</summary>
             <a href="{{ route('categories.createForm') }}" class="">
-                <h4 class="">Crear nueva</h4>
+                <h6 class="">Crear nueva</h6>
             </a>
             <a href="{{ route('categories.showall') }}" class="">
-                <h4 class="">Mostrar todas</h4>
+                <h6 class="">Mostrar todas</h6>
             </a>
         </details>
         <details class="">
             <summary class="">Almacenes</summary>
             <a href="{{ route('storehouses.createForm') }}" class="">
-                <h4 class="">Crear nuevo</h4>
+                <h6 class="">Crear nuevo</h6>
             </a>
             <a href="{{ route('storehouses.showall') }}" class="">
-                <h4 class="">Mostrar todos</h4>
+                <h6 class="">Mostrar todos</h6>
             </a>
         </details>
         <details class="">
             <summary class="">Gestionar almacenes</summary>
             <a href="{{ route('storehousesManagement.showall') }}" class="">
-                <h4 class="">Gestionar almacenes</h4>
+                <h6 class="">Gestionar almacenes</h6>
             </a>
         </details>
     </div>

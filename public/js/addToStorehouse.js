@@ -20,7 +20,7 @@ $(window).on('load', function () {
         let productSelected = $('#productsCounter').val();
         $.ajax({
             type: 'get',
-            url: '/storehousesManagement/' + $('#filterByStorehouse').val() + '/' + $('#productsCounter').val() + '/delete',
+            url: '/storehousesManagement/delete/' + $('#filterByStorehouse').val() + '/' + $('#productsCounter').val(),
             data: {},
             success: function (data) {
                 window.location.href = url + '/storehousesManagement/showBy/' + storehouseSelected + '/' + categorySelected + '/' + productSelected;

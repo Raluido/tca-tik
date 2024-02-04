@@ -40,8 +40,8 @@
     @if(is_null($productsStr) || count($productsStr) == 0)
     <p id="noItems">No hay productos en los almacenes, selecciona un almacén para añadir alguno.</p>
     @else
-    <div class="tableContainer">
-        <table class="">
+    <div class="">
+        <table class="table">
             <thead class="">
                 <tr class="">
                     <th class="">Productos</th>
