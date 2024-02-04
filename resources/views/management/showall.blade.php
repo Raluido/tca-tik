@@ -2,33 +2,34 @@
 
 @section('content')
 
-<div id="showall">
+<div class="mt-5 d-flex flex-column align-items-center">
 
-    <h3>Gestión de almacenes</h3>
+    <h4 class="text-center mb-5">Gestión de almacenes</h4>
 
-    <input type="text" id="inputSearch" placeholder="Búsqueda por producto">
-    <div class="d-none" id="searchDropdown"></div>
-
-    <div id="filters">
-        <h4 class="">Filtros</h4>
-        <div class="innerFilters">
-            <div class="">
+    <div class="w-75 mb-5 shadow-lg p-5">
+        <h5 class="mb-5 text-center">Filtros</h5>
+        <div class="">
+            <div class="d-flex justify-content-evenly mb-4">
                 <label for="filterByStorehouse" class="">Almacenes</label>
-                <select name="" id="filterByStorehouse" class="">
+                <select name="" id="filterByStorehouse" class="w-50">
                     <option value="0" class="">Todos</option>
                     @foreach($storehouses as $storehouse)
                     <option value="{{ $storehouse->id }}">{{ $storehouse->name }}</option>
                     @endforeach
                 </select>
             </div>
-            <div class="">
+            <div class="d-flex justify-content-evenly">
                 <label for="filterByCategory" class="">Categorías</label>
-                <select name="" id="filterByCategory" class="">
+                <select name="" id="filterByCategory" class="w-50">
                     <option value="0" class="">Todas</option>
                     @foreach($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
                 </select>
+            </div>
+            <div class="d-flex flex-column align-items-center">
+                <input type="text" id="inputSearch" class="mt-5 text-center w-75" placeholder="Búsqueda por producto">
+                <div class="d-none" id="searchDropdown"></div>
             </div>
         </div>
     </div>
@@ -65,10 +66,10 @@
         </table>
     </div>
     @endif
-    <div class="pagination">
+    <div class="">
         <ul class="">
             @foreach($pagination as $index)
-            <li class=""><a href="{{ route('storehousesManagement.showall', [$index->offset]) }}" class="">{{ $index->page }}</a></li>
+            <li class="d-inline-block mt-3"><a href="{{ route('storehousesManagement.showall', [$index->offset]) }}" class="">{{ $index->page }}</a></li>
             @endforeach
         </ul>
     </div>

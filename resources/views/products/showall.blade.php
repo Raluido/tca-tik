@@ -2,9 +2,9 @@
 
 @section('content')
 
-<div id="showall">
+<div class="mt-5 d-flex flex-column align-items-center">
 
-    <h3 class="">Tabla de productos</h3>
+    <h4 class="text-center mb-5">Tabla de productos</h4>
 
     <div id="messages">
         @include('layouts.partials.messages')
@@ -13,7 +13,7 @@
     @if(is_null($products) || count($products) == 0)
     <p id="noItems">Aún no has creado ningún producto.</p>
     @else
-    <div class="">
+    <div class="w-75">
         <table class="table">
             <thead class="">
                 <tr class="">
@@ -46,7 +46,7 @@
 
     {{ $products->links() }}
 
-    <div class="submitForm">
+    <div class="w-50 d-flex justify-content-evenly mt-5">
         <button class="greenButton"><a href="{{ route('products.createForm') }}" class="text-white">Crear</a></button>
         <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Volver</a></button>
     </div>

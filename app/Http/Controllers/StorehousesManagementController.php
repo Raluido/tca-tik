@@ -18,8 +18,8 @@ class StorehousesManagementController extends Controller
 
         $offsetGroups = $totalPrd / 10;
 
-        if ($this->is_decimal($offsetGroups)) $offsetGroups = round($offsetGroups) + 1;
-        else $offsetGroups = round($offsetGroups);
+        if ($this->is_decimal($offsetGroups)) $offsetGroups = round($offsetGroups);
+        else $offsetGroups = round($offsetGroups) - 1;
 
         $pagination = array();
 
@@ -100,8 +100,8 @@ class StorehousesManagementController extends Controller
         $totalPrd = count($filtered);
         $offsetGroups = $totalPrd / 10;
 
-        if ($this->is_decimal($offsetGroups)) $offsetGroups = round($offsetGroups) + 1;
-        else $offsetGroups = round($offsetGroups);
+        if ($this->is_decimal($offsetGroups)) $offsetGroups = round($offsetGroups);
+        else $offsetGroups = round($offsetGroups) - 1;
 
         $pagination = array();
 
@@ -120,7 +120,7 @@ class StorehousesManagementController extends Controller
         INNER JOIN categories ON categories.id = products.product_has_category
         $fillWheres GROUP BY product_storehouses.product_storehouse_has_products, product_storehouses.product_storehouse_has_storehouses, products.product_has_category, storehouses.name, storehouses.prefix, storehouses.description, products.id, products.name, products.price, products.prefix, categories.name ORDER BY products.id LIMIT 10 $offset");
 
-        return view('management.showByFiltered', ['filtered' => $filtered, 'storehouses' => $storehouses, 'categories' => $categories, 'products' => $products, 'storehouseSelectedId' => $storehouseSelectedId, 'categorySelectedId' => $categorySelectedId, 'productSelectedId' => $productSelectedId, 'pagination' => $pagination]);
+        return view('management.showByFiltered', ['filtered' => $filtered, 'storehouses' => $storehouses, 'categories' => $categories, 'products' => $products, 'storehouseSelectedId' => $storehouseSelectedId, 'categorySelectedId' => $categorySelectedId, 'productSelectedId' => $productSelectedId, 'pagination' => $pagination, 'searchProductId' => $searchProductId]);
     }
 
     public function searchByProduct($inputSearch = '')

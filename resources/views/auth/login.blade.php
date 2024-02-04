@@ -2,26 +2,26 @@
 
 @section('content')
 
-<div id="crudForm">
+<div class="d-flex align-items-center flex-column mt-5">
 
-    <h4 class="loginTitle">Logueate</h4>
+    <h5 class="loginTitle">Logueate</h5>
 
     <div id="messages">
         @include('layouts.partials.messages')
     </div>
 
-    <form method="post" action="{{ route('login.perform') }}">
+    <form method="post" action="{{ route('login.perform') }}" class="w-25 mt-2 shadow-lg p-4">
         @csrf
 
-        <div class="inputForm">
+        <div class="mb-4">
             <input type="text" name="name" placeholder="Usuario" require="required">
         </div>
-        <div class="inputForm">
+        <div class="">
             <input type="text" name="password" placeholder="Contraseña" require="required">
         </div>
-        <div class="submitForm">
-            <input type="submit" value="Acceder" class="greenButton text-white">
-            <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Menú principal</a></button>
+        <div class="mt-5 d-flex justify-content-around btn-sm">
+            <input type="submit" value="Acceder" class="btn btn-success">
+            <button class="btn btn-primary btn-sm"><a href="{{ route('main') }}" class="text-white">Menú principal</a></button>
         </div>
 
     </form>

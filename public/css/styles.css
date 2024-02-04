@@ -109,7 +109,7 @@ header>div {
 }
 
 #logo img {
-    width: 10em;
+    width: 15em;
     height: auto;
 }
 
@@ -375,7 +375,7 @@ footer div:nth-child(-n+4) {
 
     #desktopMenu>ul>li {
         display: inline-block;
-        font-size: 1.5vw;
+        font-size: 1.3vw;
     }
 
     #desktopMenu ul li:nth-child(-n+6) {

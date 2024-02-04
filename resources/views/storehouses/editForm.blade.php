@@ -2,34 +2,34 @@
 
 @section('content')
 
-<div id="crudForm">
+<div class="d-flex flex-column align-items-center">
 
-    <h4 class="">Editar almacén.</h4>
+    <h4 class="mt-5">Editar almacén</h4>
 
     <div id="messages">
         @include('layouts.partials.messages')
     </div>
 
-    <form action="{{ route('storehouses.edit', [$storehouse]) }}" method="post" id="sendForm">
+    <form action="{{ route('storehouses.edit', [$storehouse]) }}" method="post" id="sendForm" class="w-75 mt-5 shadow-lg text-center py-5">
         @csrf
         @method('PUT')
-        <div class="inputForm">
-            <input type="text" name="name" value="{{ $storehouse->name }}" id="nameValidator" placeholder="Nombre">
+        <div class="mb-4">
+            <input type="text" name="name" value="{{ $storehouse->name }}" class="w-75" id="nameValidator" placeholder="Nombre">
             <h5 id="nameError"></h5>
         </div>
-        <div class="inputForm">
-            <textarea name="description" id="descriptionValidator" cols="30" rows="10" class="" placeholder="Descriptión del almacén">{{ $storehouse->description }}</textarea>
+        <div class="mb-4">
+            <textarea name="description" id="descriptionValidator" rows="10" class="w-75" placeholder="Descriptión del almacén">{{ $storehouse->description }}</textarea>
             <h5 id="descriptionError"></h5>
         </div>
-        <div class="inputForm">
-            <input name="prefix" class="" type="text" value="{{ $storehouse->prefix }}" id="prefixValidator" placeholder="identificador del almacén">
+        <div class="mb-4">
+            <input name="prefix" class="w-75" type="text" value="{{ $storehouse->prefix }}" id="prefixValidator" placeholder="identificador del almacén">
             <h5 id="prefixError"></h5>
         </div>
-        <div class="inputForm">
-            <input type="text" name="address" value="{{ $storehouse->address }}" id="addressValidator" placeholder="Dirección">
+        <div class="mb-5">
+            <input type="text" name="address" class="w-75" value="{{ $storehouse->address }}" id="addressValidator" placeholder="Dirección">
             <h5 id="addressError"></h5>
         </div>
-        <div class="submitForm">
+        <div class="d-flex justify-content-evenly">
             <button class="greenButton text-white" id="submitBtn">Editar</button>
             <button class="blueButton"><a href="{{ route('storehouses.showall') }}" class="text-white">Volver</a></button>
         </div>

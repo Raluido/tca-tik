@@ -2,33 +2,33 @@
 
 @section('content')
 
-<div id="crudForm">
+<div class="d-flex flex-column align-items-center">
 
-    <h4 class="">Crear nuevo almacén</h4>
+    <h5 class="mt-5">Crear nuevo almacén</h5>
 
     <div id="messages">
         @include('layouts.partials.messages')
     </div>
 
-    <form action="{{ route('storehouses.create') }}" method="post" id="sendForm">
+    <form action="{{ route('storehouses.create') }}" method="post" id="sendForm" class="w-75 mt-5 shadow-lg text-center py-5">
         @csrf
-        <div class="inputForm">
-            <input type="text" name="name" id="nameValidator" class="" placeholder="Nombre">
+        <div class="mb-4">
+            <input type="text" name="name" id="nameValidator" class="w-75" placeholder="Nombre">
             <h5 id="nameError"></h5>
         </div>
-        <div class="inputForm">
-            <textarea name="description" id="descriptionValidator" cols="30" rows="10" class="" placeholder="Descriptión del almacén"></textarea>
+        <div class="mb-4">
+            <textarea name="description" id="descriptionValidator" rows="10" class="w-75" placeholder="Descriptión del almacén"></textarea>
             <h5 id="descriptionError"></h5>
         </div>
-        <div class="inputForm">
-            <input type="text" name="address" id="addressValidator" class="" placeholder="Dirección">
+        <div class="mb-4">
+            <input type="text" name="address" id="addressValidator" class="w-75" placeholder="Dirección">
             <h5 id="addressError"></h5>
         </div>
-        <div class="inputForm">
-            <input type="text" name="prefix" class="" id="prefixValidator" placeholder="identificador del almacén">
+        <div class="mb-5">
+            <input type="text" name="prefix" class="w-75" id="prefixValidator" placeholder="identificador del almacén">
             <h5 id="prefixError"></h5>
         </div>
-        <div class="submitForm">
+        <div class="d-flex justify-content-evenly">
             <button class="greenButton text-white" id="submitBtn">Crear</button>
             <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Volver</a></button>
         </div>

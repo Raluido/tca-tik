@@ -46,7 +46,7 @@
     <div id="logo">
         <img src="{{ Storage::url('logo.jpeg') }}" alt="" class="">
     </div>
-    <div id="login">
+    <div id="login" class="d-flex justify-content-center align-items-center">
         @if(auth()->id())
         <a href="{{ route('login.logout') }}" class="">Logout</a>
         @else

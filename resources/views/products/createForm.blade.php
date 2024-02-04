@@ -2,44 +2,44 @@
 
 @section('content')
 
-<div id="crudForm">
+<div class="d-flex flex-column align-items-center">
 
-    <h4 class="">Crear nuevo producto</h4>
+    <h5 class="mt-5">Crear nuevo producto</h5>
 
     <div id="messages">
         @include('layouts.partials.messages')
     </div>
 
-    <form action="{{ route('products.create') }}" method="post" id="sendForm">
+    <form action="{{ route('products.create') }}" method="post" id="sendForm" class="w-75 mt-5 shadow-lg text-center py-5">
         @csrf
-        <div class="inputForm">
-            <input type="text" name="name" id="nameValidator" placeholder="Nombre">
+        <div class="mb-4">
+            <input type="text" name="name" class="w-75" id="nameValidator" placeholder="Nombre">
             <h5 id="nameError"></h5>
         </div>
-        <div class="inputForm">
-            <select name="product_has_category" id="" class="">
+        <div class="mb-4">
+            <select name="product_has_category" id="" class="w-75">
                 @foreach($categories as $category)
                 <option value="{{ $category->id }}" class="">{{ $category->name }}</option>
                 @endforeach
             </select>
         </div>
-        <div class="inputForm">
-            <input name="price" class="" type="number" step="0.01" id="priceValidator" placeholder="Precio">
+        <div class="mb-4">
+            <input name="price" class="w-75" type="number" step="0.01" id="priceValidator" placeholder="Precio">
             <h5 id="priceError"></h5>
         </div>
-        <div class="inputForm">
-            <input name="prefix" class="" type="text" id="prefixValidator" placeholder="identificador del producto">
+        <div class="mb-4">
+            <input name="prefix" class="w-75" type="text" id="prefixValidator" placeholder="identificador del producto">
             <h5 id="prefixError"></h5>
         </div>
-        <div class="inputForm">
-            <textarea name="description" cols="30" rows="10" class="" id="descriptionValidator" placeholder="Descriptión del producto"></textarea>
+        <div class="mb-4">
+            <textarea name="description" rows="10" class="w-75" id="descriptionValidator" placeholder="Descriptión del producto"></textarea>
             <h5 id="descriptionError"></h5>
         </div>
-        <div class="inputForm">
-            <textarea name="observations" cols="30" rows="10" class="" id="observationsValidator" placeholder="Observaciones"></textarea>
+        <div class="mb-5">
+            <textarea name="observations" rows="10" class="w-75" id="observationsValidator" placeholder="Observaciones"></textarea>
             <h5 id="observationsError"></h5>
         </div>
-        <div class="submitForm">
+        <div class="d-flex justify-content-evenly">
             <input type="submit" class="greenButton text-white" id="submitBtn" value="Crear">
             <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Volver</a></button>
         </div>

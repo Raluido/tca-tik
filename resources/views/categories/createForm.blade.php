@@ -2,29 +2,29 @@
 
 @section('content')
 
-<div id="crudForm">
+<div class="d-flex flex-column align-items-center">
 
-    <h4 class="">Crear nueva categoría</h4>
+<h5 class="mt-5">Crear nueva categoría</h5>
 
     <div id="messages">
         @include('layouts.partials.messages')
     </div>
 
-    <form action="{{ route('categories.create') }}" method="post" id="sendForm">
+    <form action="{{ route('categories.create') }}" method="post" id="sendForm" class="w-75 mt-5 shadow-lg text-center py-5">
         @csrf
-        <div class="inputForm">
-            <input type="text" name="name" class="" id="nameValidator" placeholder="Nombre">
+        <div class="mb-4">
+            <input type="text" name="name" class="w-75" id="nameValidator" placeholder="Nombre">
             <h5 id="nameError"></h5>
         </div>
-        <div class="inputForm">
-            <textarea name="description" cols="30" rows="10" class="" id="descriptionValidator" placeholder="Descriptión la categoría"></textarea>
+        <div class="mb-4">
+            <textarea name="description" rows="10" class="w-75" id="descriptionValidator" placeholder="Descriptión la categoría"></textarea>
             <h5 id="descriptionError"></h5>
         </div>
-        <div class="inputForm">
-            <input type="text" name="prefix" id="prefixValidator" placeholder="identificador de categoría">
+        <div class="mb-5">
+            <input type="text" name="prefix" id="prefixValidator" class="w-75" placeholder="identificador de categoría">
             <h5 id="prefixError"></h5>
         </div>
-        <div class="submitForm">
+        <div class="d-flex justify-content-evenly">
             <button class="greenButton text-white" id="submitBtn">Crear</button>
             <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Volver</a></button>
         </div>

@@ -2,28 +2,25 @@
 
 @section('content')
 
-<div id="showall">
+<div class="mt-5 d-flex flex-column align-items-center">
 
-    <h3>Gestión de almacenes</h3>
+    <h4 class="text-center mb-5">Gestión de almacenes</h4>
 
-    <input type="text" id="inputSearch" placeholder="Búsqueda por producto">
-    <div class="d-none" id="searchDropdown"></div>
-
-    <div id="filters">
-        <h4 class="">Filtros</h4>
-        <div class="innerFilters">
-            <div class="">
+    <div class="w-75 mb-5 shadow-lg p-5">
+        <h5 class="mb-5 text-center">Filtros</h5>
+        <div class="">
+            <div class="d-flex justify-content-evenly mb-4">
                 <label for="filterByStorehouse" class="">Almacenes</label>
-                <select name="" id="filterByStorehouse" class="">
+                <select name="" id="filterByStorehouse" class="w-50">
                     <option value="0" class="">Todos</option>
                     @foreach($storehouses as $storehouse)
                     <option value="{{ $storehouse->id }}" {{ ($storehouse->id == $storehouseSelectedId) ? 'selected' : '' }}>{{ $storehouse->name }}</option>
                     @endforeach
                 </select>
             </div>
-            <div class="">
+            <div class="d-flex justify-content-evenly">
                 <label for="filterByCategory" class="">Categorias</label>
-                <select name="" id="filterByCategory" class="">
+                <select name="" id="filterByCategory" class="w-50">
                     <option value="0" class="">Todas</option>
                     @foreach($categories as $category)
                     <option value="{{ $category->id }}" {{ ($category->id == $categorySelectedId) ? 'selected' : '' }}>{{ $category->name }}</option>
@@ -31,18 +28,21 @@
                 </select>
             </div>
         </div>
+        <div class="d-flex flex-column align-items-center">
+            <input type="text" id="inputSearch" class="mt-5 text-center w-75" placeholder="Búsqueda por producto">
+            <div class="d-none" id="searchDropdown"></div>
+        </div>
     </div>
 
     @if(count($products) != 0 || !is_null($products))
-    <div id="addProductTable">
-        <h3 class="">Añadir nuevo</h3>
-        <table class="">
+    <div class="w-75 mb-5 shadow-lg p-5">
+        <h4 class="text-center mb-5">Añadir nuevo</h4>
+        <table class="table">
             <thead class="">
                 <tr class="">
                     <th class="">Productos</th>
                     <th class="">Añadir</th>
-                    <th class="">Quitar</th>
-                    <th class="">Stock</th>
+                    <th class="">Acción</th>
                 </tr>
             </thead>
             <tbody class="">
@@ -52,8 +52,10 @@
                             <option value="{{ $product->id }}" {{ ($product->id == $productSelectedId) ? 'selected' : '' }}>{{ $product->name }}</option>
                             @endforeach
                         </select></td>
-                    <td class=""><button id="addProduct" class="greenButton text-white">Añadir</button></td>
-                    <td class=""><button id="removeProduct" class="redButton text-white">Quitar</button></td>
+                    <td class="">
+                        <button id="addProduct" class="greenButton text-white">Añadir</button>
+                        <button id="removeProduct" class="redButton text-white">Quitar</button>
+                    </td>
                     <td class="">
                         <div id="counter"></div>
                     </td>
@@ -71,9 +73,9 @@
     @if(count($filtered)== 0 || is_null($filtered))
     <p class="" style="margin-top:4em;">No hay productos almacenados.</p>
     @else
-    <div id="stockProducts">
-        <h3 class="">Productos en stock</h3>
-        <table class="">
+    <div class="w-75 mb-5 shadow-lg p-5">
+        <h4 class="text-center mb-5">Productos en stock</h4>
+        <table class="table">
             <thead class="">
                 <tr class="">
                     <th class="">Nombre</th>
@@ -103,10 +105,10 @@
         </table>
         @endif
     </div>
-    <div class="pagination">
+    <div class="">
         <ul class="">
             @foreach($pagination as $index)
-            <li class=""><a href="{{ route('storehousesManagement.showBy', [$storehouseSelectedId, $categorySelectedId, $productSelectedId, $search, $index->offset]) }}" class="">{{ $index->page }}</a></li>
+            <li class="d-inline-block"><a href="{{ route('storehousesManagement.showBy', [$storehouseSelectedId, $categorySelectedId, $productSelectedId, $searchProductId, $index->offset]) }}" class="">{{ $index->page }}</a></li>
             @endforeach
         </ul>
     </div>
