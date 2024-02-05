@@ -41,8 +41,8 @@
             <thead class="">
                 <tr class="">
                     <th class="">Productos</th>
-                    <th class="">Añadir</th>
                     <th class="">Acción</th>
+                    <th class="">Stocks</th>
                 </tr>
             </thead>
             <tbody class="">
@@ -131,9 +131,9 @@
 <input type="hidden" value="{{ $offset }}" id="offset">
 
 @section('js')
-<script class="" type="module" src="{{ asset('js/pagination.js') }}" defer></script>
 <script class="" src="{{ asset('js/filters.js') }}" defer></script>
 <script class="" src="{{ asset('js/searchByProduct.js') }}" defer></script>
 <script class="" type="module" src="{{ asset('js/productsCounter.js') }}" defer></script>
 <script class="" type="module" src="{{ asset('js/addToStorehouse.js') }}" defer></script>
+<script class="" type="module" src="{{ asset('js/pagination.js') }}" defer></script>
 @endsection
