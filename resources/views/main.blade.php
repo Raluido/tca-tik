@@ -4,13 +4,17 @@
 
 @guest
 
-<h6 class="text-center mt-5">Bienvenido! <br><br> Logueese para acceder al panel de administrador.</h6>
+<div class="headerBottomWelcome">
+
+    <h6 class="text-center mt-5">Bienvenido! <br><br> Logueese para acceder al panel de administrador.</h6>
+
+</div>
 
 @endguest
 
 @auth
 
-<div class="d-flex align-items-center flex-column">
+<div class="d-flex align-items-center flex-column headerBottom">
 
     <h6 class="text-center mt-5">Bienvenido al panel de administrador</h6>
 
@@ -18,7 +22,7 @@
         @include('layouts.partials.messages')
     </div>
 
-    <div class="controlPanelElements w-50">
+    <div class="controlPanelElements">
         <details class="">
             <summary class="">Productos</summary>
             <a href="{{ route('products.createForm') }}" class="">
@@ -49,7 +53,7 @@
         <details class="">
             <summary class="">Gestionar almacenes</summary>
             <a href="{{ route('storehousesManagement.showall') }}" class="">
-                <p class="text-end me-5">Gestionar almacenes</p>
+                <p class="text-end me-5">Gestionar<br> almacenes</p>
             </a>
         </details>
     </div>

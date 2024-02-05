@@ -2,11 +2,11 @@
 
 @section('content')
 
-<div class="mt-5 d-flex flex-column align-items-center">
+<div class="mt-5 d-flex flex-column align-items-center flex-grow-1 headerBottom">
 
     <h4 class="text-center mb-5">Gestión de almacenes</h4>
 
-    <div class="w-75 mb-5 shadow-lg p-5">
+    <div class="filtersWidth mb-5 shadow-lg">
         <h5 class="mb-5 text-center">Filtros</h5>
         <div class="">
             <div class="d-flex justify-content-evenly mb-4">
@@ -35,7 +35,7 @@
     </div>
 
     @if(count($products) != 0 || !is_null($products))
-    <div class="w-75 mb-5 shadow-lg p-5">
+    <div class="filtersWidth mb-5 shadow-lg p-5">
         <h4 class="text-center mb-5">Añadir nuevo</h4>
         <table class="table">
             <thead class="">
@@ -53,8 +53,8 @@
                             @endforeach
                         </select></td>
                     <td class="">
-                        <button id="addProduct" class="greenButton text-white">Añadir</button>
-                        <button id="removeProduct" class="redButton text-white">Quitar</button>
+                        <button id="addProduct" class="btn btn-success btn-sm">Añadir</button>
+                        <button id="removeProduct" class="btn btn-danger btn-sm">Quitar</button>
                     </td>
                     <td class="">
                         <div id="counter"></div>
@@ -73,7 +73,7 @@
     @if(count($filtered)== 0 || is_null($filtered))
     <p class="" style="margin-top:4em;">No hay productos almacenados.</p>
     @else
-    <div class="w-75 mb-5 shadow-lg p-5">
+    <div class="mb-5 shadow-lg p-5">
         <h4 class="text-center mb-5">Productos en stock</h4>
         <table class="table">
             <thead class="">
@@ -113,7 +113,7 @@
         </ul>
     </div>
     <div class="submitForm">
-        <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Volver</a></button>
+        <button class="btn btn-primary btn-sm"><a href="{{ route('main') }}" class="text-white">Volver</a></button>
     </div>
 
 </div>

@@ -2,11 +2,11 @@
 
 @section('content')
 
-<div class="mt-5 d-flex flex-column align-items-center">
+<div class="mt-5 d-flex flex-column align-items-center flex-grow-1 headerBottom">
 
     <h4 class="text-center mb-5">Gestión de almacenes</h4>
 
-    <div class="w-75 mb-5 shadow-lg p-5">
+    <div class="filtersWidth mb-5 shadow-lg">
         <h5 class="mb-5 text-center">Filtros</h5>
         <div class="">
             <div class="d-flex justify-content-evenly mb-4">
@@ -41,7 +41,7 @@
     @if(is_null($productsStr) || count($productsStr) == 0)
     <p id="noItems">No hay productos en los almacenes, selecciona un almacén para añadir alguno.</p>
     @else
-    <div class="">
+    <div class="tableWidth">
         <table class="table">
             <thead class="">
                 <tr class="">
@@ -68,13 +68,16 @@
     @endif
     <div class="">
         <ul class="">
+            <li class=""><a href="{{ route('storehousesManagement.showall', []) }}" class=""></a></li>
             @foreach($pagination as $index)
             <li class="d-inline-block mt-3"><a href="{{ route('storehousesManagement.showall', [$index->offset]) }}" class="">{{ $index->page }}</a></li>
             @endforeach
+            <li class=""><a href="{{ route('storehousesManagement.showall', []) }}" class=""></a></li>
+
         </ul>
     </div>
     <div class="submitForm">
-        <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Volver</a></button>
+        <button class="btn btn-primary btn-sm"><a href="{{ route('main') }}" class="text-white">Volver</a></button>
     </div>
 
 

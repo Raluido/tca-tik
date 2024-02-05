@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="mt-5 d-flex flex-column align-items-center">
+<div class="mt-5 d-flex flex-column align-items-center flex-grow-1 headerBottom">
 
     <h4 class="text-center mb-5">Tabla de almacenes</h4>
 
@@ -13,7 +13,7 @@
     @if(is_null($storehouses) || count($storehouses) == 0)
     <p id="noItems">Aún no has creado ningún almacén.</p>
     @else
-    <div class="w-75">
+    <div class="tableWidth">
         <table class="table">
             <thead class="">
                 <tr class="">
@@ -29,22 +29,21 @@
                     <td class="">{{$storehouse->name}}</td>
                     <td class="">{{$storehouse->description}}</td>
                     <td class="">{{$storehouse->address}}</td>
-                    <td class=""><button class="blueButton"><a href="{{ route('storehouses.editForm', [$storehouse->id]) }}" class="text-white">Editar</a></button>
-                        <button class="redButton text-white deleteStorehouse" value="{{ $storehouse->id }}">Eliminar</button>
+                    <td class=""><button class="btn btn-success btn-sm"><a href="{{ route('storehouses.editForm', [$storehouse->id]) }}" class="text-white">Editar</a></button>
+                        <button class="btn btn-danger btn-sm deleteStorehouse" value="{{ $storehouse->id }}">Eliminar</button>
                     </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
+        {{ $storehouses->links() }}
     </div>
     @endif
     <div class="w-50 d-flex justify-content-evenly mt-5">
-        <button class="greenButton"><a href="{{ route('storehouses.createForm') }}" class="text-white">Crear</a></button>
-        <button class="blueButton"><a href="{{ route('main') }}" class="text-white">Volver</a></button>
+        <button class="btn btn-success btn-sm"><a href="{{ route('storehouses.createForm') }}" class="text-white">Crear</a></button>
+        <button class="btn btn-primary btn-sm"><a href="{{ route('main') }}" class="text-white">Volver</a></button>
     </div>
 </div>
-
-{{ $storehouses->links() }}
 
 @endsection
 

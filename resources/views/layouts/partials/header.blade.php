@@ -48,9 +48,9 @@
     </div>
     <div id="login" class="d-flex justify-content-center align-items-center">
         @if(auth()->id())
-        <a href="{{ route('login.logout') }}" class="">Logout</a>
+        <a href="{{ route('login.logout') }}" class="text-secondary">Logout</a>
         @else
-        <a href="{{ route('login.show') }}" class="">Login</a>
+        <a href="{{ route('login.show') }}" class="text-secondary">Login</a>
         @endif
     </div>
 </div>

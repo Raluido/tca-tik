@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="mt-5 d-flex flex-column align-items-center">
+<div class="mt-5 d-flex flex-column align-items-center headerBottom">
 
     <h4 class="text-center mb-5">Tabla de producto</h4>
 
@@ -10,7 +10,7 @@
         @include('layouts.partials.messages')
     </div>
 
-    <div class="w-75">
+    <div class="tableWidth">
         <table class="table">
             <thead class="">
                 <tr class="">
@@ -29,16 +29,16 @@
                     <td class="">{{$product->description}}</td>
                     <td class="">{{$product->price}}</td>
                     <td class="">{{$product->observations}}</td>
-                    <td class=""><button class="blueButton"><a href="{{ route('products.editForm', [$product->id]) }}" class="text-white">Editar</a></button>
-                        <button class="redButton text-white deleteProduct" value="{{ $product->id }}">Eliminar</button>
+                    <td class=""><button class="btn btn-primary btn-sm"><a href="{{ route('products.editForm', [$product->id]) }}" class="text-white">Editar</a></button>
+                        <button class="btn btn-danger btn-sm text-white deleteProduct" value="{{ $product->id }}">Eliminar</button>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
     <div class="w-50 d-flex justify-content-evenly mt-5">
-        <button class="greenButton"><a href="{{ route('products.createForm') }}" class="text-white">Crear</a></button>
-        <button class="blueButton"><a href="{{ route('products.showall') }}" class="text-white">Volver</a></button>
+        <button class="btn btn-success btn-sm"><a href="{{ route('products.createForm') }}" class="text-white">Crear</a></button>
+        <button class="btn btn-primary btn-sm"><a href="{{ route('products.showall') }}" class="text-white">Volver</a></button>
     </div>
 </div>
 
