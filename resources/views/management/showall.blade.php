@@ -66,14 +66,18 @@
         </table>
     </div>
     @endif
-    <div class="">
-        <ul class="">
-            <li class=""><a href="{{ route('storehousesManagement.showall', []) }}" class=""></a></li>
+    <div class="paginationMng">
+        <p class="">Showing <span class="">{{ $offset + 1 }}</span> of <span class="">{{ $totalPrd }}</span> results</p>
+        <ul class="text-center">
+            @if($offset > 0)
+            <li class="d-inline-block"><a href="{{ route('storehousesManagement.showall', [$offset - 10]) }}" class=""><</a></li>
+            @endif
             @foreach($pagination as $index)
-            <li class="d-inline-block mt-3"><a href="{{ route('storehousesManagement.showall', [$index->offset]) }}" class="">{{ $index->page }}</a></li>
+            <li class="d-inline-block" style="border-right:1px solid gray;"><a href="{{ route('storehousesManagement.showall', [$index->offset]) }}" class="">{{ $index->page }}</a></li>
             @endforeach
-            <li class=""><a href="{{ route('storehousesManagement.showall', []) }}" class=""></a></li>
-
+            @if($offset + 10 < $totalPrd)
+            <li class="d-inline-block"><a href="{{ route('storehousesManagement.showall', [$offset + 10]) }}" class="">></a></li>
+            @endif
         </ul>
     </div>
     <div class="submitForm">

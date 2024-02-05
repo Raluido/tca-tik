@@ -6,7 +6,6 @@
 
 a {
     text-decoration: none !important;
-    color: gray !important;
 }
 
 ul {
@@ -38,7 +37,7 @@ ul li {
 
 header>div {
     display: grid;
-    grid-template-columns: 15% 70% 15%;
+    grid-template-columns: 17% 66% 17%;
 }
 
 #desktopMenuDummie {
@@ -78,6 +77,10 @@ header>div {
     display: flex;
     align-items: center;
     margin-left: 1em;
+}
+
+#mobileMenu li a {
+    color: white !important;
 }
 
 #logo {
@@ -196,6 +199,27 @@ td {
     font-size: .7em;
 }
 
+.paginationMng {
+    font-size: .8em;
+}
+
+.paginationMng a {
+    color: gray;
+}
+
+.paginationMng p {
+    margin: 1em 0;
+}
+
+.paginationMng ul {
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.paginationMng li {
+    padding: 0 .5em;
+}
+
 footer {
     position: absolute;
     bottom: 0;
@@ -238,6 +262,10 @@ footer div:nth-child(-n+4) {
         width: 100%;
     }
 
+    .headerBottomWelcome {
+        padding-bottom: 130vh;
+    }
+
     .headerBottomLogin {
         padding-bottom: 75vh;
     }
@@ -247,7 +275,7 @@ footer div:nth-child(-n+4) {
     }
 
     .loginForm {
-        width: 100%;
+        width: 60%;
     }
 }
 
@@ -305,7 +333,7 @@ footer div:nth-child(-n+4) {
     }
 
     .headerBottom {
-        padding-bottom: 60vh;
+        padding-bottom: 70vh;
     }
 
     main {
@@ -383,7 +411,7 @@ footer div:nth-child(-n+4) {
     }
 
     .loginForm {
-        width: 40%;
+        width: 30vw;
     }
 
     .formWidth,
@@ -399,4 +427,12 @@ footer div:nth-child(-n+4) {
 
 @media (max-width: 950px) {}
 
-@media (min-width: 1920px) {}
+@media (min-width: 1920px) {
+    .loginForm {
+        width: 20vw;
+    }
+
+    .controlPanelElements {
+        width: 30%;
+    }
+}

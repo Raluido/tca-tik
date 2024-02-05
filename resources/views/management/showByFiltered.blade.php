@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="mt-5 d-flex flex-column align-items-center flex-grow-1 headerBottom">
+<div class="mt-5 d-flex flex-column align-items-center flex-grow-1 flex-wrap headerBottom">
 
     <h4 class="text-center mb-5">Gestión de almacenes</h4>
 
@@ -75,7 +75,7 @@
     @else
     <div class="mb-5 shadow-lg p-5">
         <h4 class="text-center mb-5">Productos en stock</h4>
-        <table class="table">
+        <table class="table overflow-scroll">
             <thead class="">
                 <tr class="">
                     <th class="">Nombre</th>
@@ -105,11 +105,18 @@
         </table>
         @endif
     </div>
-    <div class="">
-        <ul class="">
-            @foreach($pagination as $index)
-            <li class="d-inline-block"><a href="{{ route('storehousesManagement.showBy', [$storehouseSelectedId, $categorySelectedId, $productSelectedId, $searchProductId, $index->offset]) }}" class="">{{ $index->page }}</a></li>
+    <div class="paginationMng">
+        <p class="">Showing <span class="">{{ $offset + 1 }}</span> of <span class="">{{ $totalPrd }}</span> results</p>
+        <ul class="text-center">
+            @if($offset > 0)
+            <li class="d-inline-block"><a href="{{ route('storehousesManagement.showall', [$offset - 10]) }}" class="">
+                    << /li>
+                        @endif
+                        @foreach($pagination as $index)
+            <li class="d-inline-block" id="offset{{$index->offset}}" style="border-right:1px solid gray;"><a href="{{ route('storehousesManagement.showall', [$index->offset]) }}" class="">{{ $index->page }}</a></li>
             @endforeach
+            @if($offset + 10 < $totalPrd) <li class="d-inline-block"><a href="{{ route('storehousesManagement.showall', [$offset + 10]) }}" class="">></a></li>
+                @endif
         </ul>
     </div>
     <div class="submitForm">
@@ -121,8 +128,10 @@
 @endsection
 
 <input type="hidden" value="{{ env('APP_URL') }}" id="url">
+<input type="hidden" value="{{ $offset }}" id="offset">
 
 @section('js')
+<script class="" type="module" src="{{ asset('js/pagination.js') }}" defer></script>
 <script class="" src="{{ asset('js/filters.js') }}" defer></script>
 <script class="" src="{{ asset('js/searchByProduct.js') }}" defer></script>
 <script class="" type="module" src="{{ asset('js/productsCounter.js') }}" defer></script>
