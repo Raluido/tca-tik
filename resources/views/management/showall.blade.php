@@ -71,10 +71,9 @@
         <ul class="text-center">
             @if($offset > 0)
             <li class="d-inline-block"><a href="{{ route('storehousesManagement.showall', [$offset - 10]) }}" class="">
-                    <
-            </li>
-            @endif
-            @foreach($pagination as $index)
+                    < </li>
+                        @endif
+                        @foreach($pagination as $index)
             <li class="d-inline-block" style="border-right:1px solid gray;"><a href="{{ route('storehousesManagement.showall', [$index->offset]) }}" class="">{{ $index->page }}</a></li>
             @endforeach
             @if($offset + 10 < $totalPrd) <li class="d-inline-block"><a href="{{ route('storehousesManagement.showall', [$offset + 10]) }}" class="">></a></li>
@@ -92,6 +91,8 @@
 <input type="hidden" value="0" id="productsCounter">
 <input type="hidden" value="{{ $productSelectedId }}" id="productSelectedId">
 <input type="hidden" value="{{ $inputSearch }}" id="inputSearch">
+<input type="hidden" value="{{ $offset }}" id="offset">
+<input type="hidden" value="{{ $totalPrd }}" id="totalPrd">
 
 @endsection
 
@@ -99,4 +100,5 @@
 <script class="" src="{{ asset('js/filters.js') }}" defer></script>
 <script class="" src="{{ asset('js/addToStorehouse.js') }}" defer></script>
 <script class="" src="{{ asset('js/searchByProduct.js') }}" defer></script>
+<script class="" src="{{ asset('js/pagination.js') }}" defer></script>
 @endsection

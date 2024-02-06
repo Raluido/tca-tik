@@ -57,10 +57,6 @@ class StorehousesManagementController extends Controller
 
     public function showBy($storehouseSelectedId, $categorySelectedId, ?int $productSelectedId = 0, ?int $searchProductId = 0, ?int $offset = 0)
     {
-        $storehouses = Storehouse::all();
-        $products = Product::all();
-        $categories = Category::all();
-
         $fillWheres = '';
 
         $catWhere = "WHERE categories.id = " .  $categorySelectedId;
@@ -69,7 +65,7 @@ class StorehousesManagementController extends Controller
         $andSearchWhere = "AND products.id = " . $searchProductId;
         $searchWhere = "WHERE products.id = " . $searchProductId;
 
-        if ($storehouseSelectedId == 0 && $categorySelectedId != 0 && $searchProductId == '') {
+        if ($storehouseSelectedId == 0 && $categorySelectedId != 0 && $searchProductId == 0) {
             $fillWheres = $catWhere;
         } elseif ($storehouseSelectedId != 0 && $categorySelectedId == 0 && $searchProductId == 0) {
             $fillWheres = $storeWhere;
@@ -96,6 +92,8 @@ class StorehousesManagementController extends Controller
 
         if ($this->is_decimal($offsetGroups)) $offsetGroups = round($offsetGroups);
         else $offsetGroups = round($offsetGroups) - 1;
+
+        $pagination = array();
 
         for ($i = 0; $i < $offsetGroups; $i++) {
             $pagination[] = (object)[
