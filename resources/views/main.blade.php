@@ -52,7 +52,7 @@
         </details>
         <details class="">
             <summary class="">Gestionar almacenes</summary>
-            <a href="{{ route('storehousesManagement.showall', [0]) }}" class="text-secondary">
+            <a href="{{ route('storehousesManagement.showProducts', [0]) }}" class="text-secondary">
                 <p class="text-end me-5">Gestionar<br> almacenes</p>
             </a>
         </details>

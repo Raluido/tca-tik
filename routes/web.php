@@ -55,11 +55,14 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         });
 
         Route::group(['prefix' => 'storehousesManagement'], function () {
-            Route::get('showall/{offset?}/{inputSearch?}/{productSelectedId?}', 'StorehousesManagementController@showall')->name('storehousesManagement.showall');
+            Route::get('showProducts', 'StorehousesManagementController@showProducts')->name('storehousesManagement.showProducts');
+            Route::get('showAllAjax/{search?}/{offset?}', 'StorehousesManagementController@showAllAjax')->name('storehousesManagement.showAllAjax');
+            Route::get('showFilteredAjax/{storehouseSelected?}/{categorySelected?}/{productSelected?}/{search?}/{offset?}', 'StorehousesManagementController@showFilteredAjax')->name('storehousesManagement.showFilteredAjax');
+            Route::get('searchBy/{search?}', 'StorehousesManagementController@searchByProduct')->name('storehousesManagement.searchBy');
+
+
             Route::post('productsCounter', 'StorehousesManagementController@productsCounter')->name('storehousesManagement.productsCounter');
             Route::get('filterBy/{storehouseSelected}/{categorySelected}', 'StorehousesManagementController@filterBy')->name('storehousesManagement.filterBy');
-            Route::get('searchBy/{search?}', 'StorehousesManagementController@searchByProduct')->name('storehousesManagement.searchBy');
-            Route::get('showBy/{storehouseSelected?}/{categorySelected?}/{productSelected?}/{search?}/{offset?}', 'StorehousesManagementController@showBy')->name('storehousesManagement.showBy');
             Route::get('addToStorehouse/{storehouse}/{product}', 'StorehousesManagementController@addToStorehouse')->name('storehousesManagement.addToStorehouse');
             Route::get('delete/{storehouse}/{product}', 'StorehousesManagementController@removeFromStorehouse')->name('storehousesManagement.removeFromStorehouse');
         });

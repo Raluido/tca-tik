@@ -38,7 +38,7 @@
         </div>
         <div id="dropDownMng" class="d-none">
             <ul class="">
-                <li class=""><a href="{{ route('storehousesManagement.showall') }}" class="">Mostrar todo</a></li>
+                <li class=""><a href="{{ route('storehousesManagement.showProducts') }}" class="">Mostrar todo</a></li>
             </ul>
         </div>
     </div>
@@ -88,7 +88,7 @@
             <div id="subDeskMenuMng">Gestión</div>
             <div id="dropDownDeskMng" class="d-none">
                 <ul class="">
-                    <li class=""><a href="{{ route('storehousesManagement.showall') }}" class="">Mostrar todo</a></li>
+                    <li class=""><a href="{{ route('storehousesManagement.showProducts') }}" class="">Mostrar todo</a></li>
                 </ul>
             </div>
         </li>
