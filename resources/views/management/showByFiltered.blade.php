@@ -88,7 +88,7 @@
                     <th class="">Total</th>
                 </tr>
             </thead>
-            <tbody class="">
+            <tbody id="tableBody">
                 @foreach($filtered as $index)
                 <tr class="">
                     <td class="">{{$index->name}}</td>
@@ -129,6 +129,7 @@
 
 <input type="hidden" value="{{ env('APP_URL') }}" id="url">
 <input type="hidden" value="{{ $offset }}" id="offset">
+<input type="hidden" value="{{ $productSelectedId }}" id="productSelectedId">
 
 @section('js')
 <script class="" src="{{ asset('js/filters.js') }}" defer></script>

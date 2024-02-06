@@ -12,16 +12,16 @@ use Illuminate\Support\Facades\Log;
 
 class StorehousesManagementController extends Controller
 {
-    public function showall(?int $offset = 0)
+    public function showall($offset = 0, $inputSearch = 0, $productSelectedId = 0)
     {
-        $totalPrd = Db::table('products')->count();
+        $categories = Category::all();
+        $storehouses = Storehouse::all();
 
+        $totalPrd = Db::table('products')->count();
         $offsetGroups = $totalPrd / 10;
 
         if ($this->is_decimal($offsetGroups)) $offsetGroups = round($offsetGroups);
         else $offsetGroups = round($offsetGroups) - 1;
-
-        $pagination = array();
 
         for ($i = 0; $i < $offsetGroups; $i++) {
             $pagination[] = (object)[
@@ -30,16 +30,12 @@ class StorehousesManagementController extends Controller
             ];
         }
 
-        $productsStr = Db::select("SELECT products.product_has_category AS id, products.id AS pid, products.name AS pname, products.price AS pprice, products.prefix AS pprefix, categories.name AS pcategory, product_storehouses.product_storehouse_has_products, COUNT(*) as total FROM product_storehouses
+        $allProductsInStr = Db::select("SELECT products.product_has_category AS id, products.id AS pid, products.name AS pname, products.price AS pprice, products.prefix AS pprefix, categories.name AS pcategory, product_storehouses.product_storehouse_has_products, COUNT(*) as total FROM product_storehouses
         INNER JOIN products ON products.id = product_storehouses.product_storehouse_has_products
         INNER JOIN categories ON categories.id = products.product_has_category
         GROUP BY product_storehouses.product_storehouse_has_products, products.product_has_category, products.id, products.name, products.price, products.prefix, categories.name ORDER BY products.id LIMIT 10 OFFSET $offset");
 
-        $categories = Category::all();
-
-        $storehouses = Storehouse::all();
-
-        return view('management.showall', ['productsStr' => $productsStr, 'storehouses' => $storehouses, 'categories' => $categories, 'pagination' => $pagination, 'offset' => $offset, 'totalPrd' => $totalPrd]);
+        return view('management.showall', ['allProductsInStr' => $allProductsInStr, 'storehouses' => $storehouses, 'categories' => $categories, 'pagination' => $pagination, 'offset' => $offset, 'totalPrd' => $totalPrd, 'inputSearch' => $inputSearch, 'productSelectedId' => $productSelectedId]);
     }
 
     function is_decimal($val)
@@ -101,8 +97,6 @@ class StorehousesManagementController extends Controller
         if ($this->is_decimal($offsetGroups)) $offsetGroups = round($offsetGroups);
         else $offsetGroups = round($offsetGroups) - 1;
 
-        $pagination = array();
-
         for ($i = 0; $i < $offsetGroups; $i++) {
             $pagination[] = (object)[
                 'page' => $i,
@@ -116,7 +110,7 @@ class StorehousesManagementController extends Controller
         INNER JOIN categories ON categories.id = products.product_has_category
         $fillWheres GROUP BY product_storehouses.product_storehouse_has_products, product_storehouses.product_storehouse_has_storehouses, products.product_has_category, storehouses.name, storehouses.prefix, storehouses.description, products.id, products.name, products.price, products.prefix, categories.name ORDER BY products.id LIMIT 10 OFFSET $offset");
 
-        return view('management.showByFiltered', ['filtered' => $filtered, 'storehouses' => $storehouses, 'categories' => $categories, 'products' => $products, 'storehouseSelectedId' => $storehouseSelectedId, 'categorySelectedId' => $categorySelectedId, 'productSelectedId' => $productSelectedId, 'pagination' => $pagination, 'searchProductId' => $searchProductId, 'offset' => $offset, 'totalPrd' => $totalPrd]);
+        return ['filtered' => $filtered, 'pagination' => $pagination, 'searchProductId' => $searchProductId, 'offset' => $offset, 'totalPrd' => $totalPrd];
     }
 
     public function searchByProduct($inputSearch = '')

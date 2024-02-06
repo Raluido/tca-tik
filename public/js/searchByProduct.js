@@ -6,7 +6,7 @@ $(window).on('load', function () {
         let productSelected = $('#productsCounter').val();
         let inputSearch = $(this).val();
         $.ajax({
-            url: url + '/storehousesManagement/searchBy/' + inputSearch,
+            url: url + '/storehousesManagement/showBy/' + storehouseSelected + '/' + categorySelected + '/' + productSelected + '/' + inputSearch,
             type: 'get',
             data: {},
             success: function (data) {

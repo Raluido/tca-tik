@@ -38,7 +38,7 @@
         @include('layouts.partials.messages')
     </div>
 
-    @if(is_null($productsStr) || count($productsStr) == 0)
+    @if(is_null($allProductsInStr) || count($allProductsInStr) == 0)
     <p id="noItems">No hay productos en los almacenes, selecciona un almacén para añadir alguno.</p>
     @else
     <div class="tableWidth">
@@ -53,7 +53,7 @@
                 </tr>
             </thead>
             <tbody class="">
-                @foreach($productsStr as $index)
+                @foreach($allProductsInStr as $index)
                 <tr class="">
                     <td class="">{{$index->pname}}</td>
                     <td class="">{{$index->pprice}}</td>
@@ -70,14 +70,15 @@
         <p class="">Showing <span class="">{{ $offset + 1 }}</span> of <span class="">{{ $totalPrd }}</span> results</p>
         <ul class="text-center">
             @if($offset > 0)
-            <li class="d-inline-block"><a href="{{ route('storehousesManagement.showall', [$offset - 10]) }}" class=""><</a></li>
+            <li class="d-inline-block"><a href="{{ route('storehousesManagement.showall', [$offset - 10]) }}" class="">
+                    <
+            </li>
             @endif
             @foreach($pagination as $index)
             <li class="d-inline-block" style="border-right:1px solid gray;"><a href="{{ route('storehousesManagement.showall', [$index->offset]) }}" class="">{{ $index->page }}</a></li>
             @endforeach
-            @if($offset + 10 < $totalPrd)
-            <li class="d-inline-block"><a href="{{ route('storehousesManagement.showall', [$offset + 10]) }}" class="">></a></li>
-            @endif
+            @if($offset + 10 < $totalPrd) <li class="d-inline-block"><a href="{{ route('storehousesManagement.showall', [$offset + 10]) }}" class="">></a></li>
+                @endif
         </ul>
     </div>
     <div class="submitForm">
@@ -89,6 +90,8 @@
 
 <input type="hidden" value="{{ env('APP_URL') }}" id="url">
 <input type="hidden" value="0" id="productsCounter">
+<input type="hidden" value="{{ $productSelectedId }}" id="productSelectedId">
+<input type="hidden" value="{{ $inputSearch }}" id="inputSearch">
 
 @endsection
 
