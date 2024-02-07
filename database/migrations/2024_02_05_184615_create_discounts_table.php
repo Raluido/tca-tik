@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('discount_has_product')->constrained(table: 'products', column: 'id');
+            $table->foreignId('discount_has_products')->constrained(table: 'products', column: 'id');
             $table->string('campaign');
             $table->float('discount');
             $table->timestamps();

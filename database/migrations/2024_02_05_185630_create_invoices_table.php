@@ -13,11 +13,10 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('invoice_has_order')->constrained(table: 'orders', column: 'id');
+            $table->foreignId('invoice_has_cart')->constrained(table: 'carts', column: 'id');
             $table->string('number');
-            $table->float('tax');
-            $table->float('total');
-            $table->char('payed');
+            $table->char('isPaid')->default(0);
+            $table->date('paymentDate')->nullable();
             $table->timestamps();
         });
     }

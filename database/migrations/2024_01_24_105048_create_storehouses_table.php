@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('storehouses', function (Blueprint $table) {
             $table->id();
+            $table->string('prefix');
             $table->string('name');
             $table->text('description');
             $table->string('address');
-            $table->string('prefix');
             $table->timestamps();
         });
     }

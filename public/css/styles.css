@@ -216,8 +216,13 @@ td {
     border-radius: 5px;
 }
 
-.paginationMng li {
+.paginationMng li div {
     padding: 0 .5em;
+    border-radius: 5px;
+}
+
+.paginationMng li>div:hover {
+    background-color: whitesmoke;
 }
 
 footer {

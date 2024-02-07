@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('tickets_replies', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('ticket_reply_has_ticket')->constrained(table: 'tickets', column: 'id');
+            $table->foreignId('ticket_has_user')->constrained(table: 'users', column: 'id');
+            $table->longtext("description");
             $table->timestamps();
         });
     }

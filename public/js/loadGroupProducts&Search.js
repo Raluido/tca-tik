@@ -18,11 +18,15 @@ $(window).on('load', function () {
             url: '/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch,
             data: {},
             success: function (data) {
+                $('#offset').val(0);
                 fullFilledTable(data);
                 $('#storehouseSelected').val(storehouseSelected);
-                if ($('#addNewPrd').hasClass('d-none')) {
+                if (storehouseSelected != 0 && $('#addNewPrd').hasClass('d-none')) {
                     $('#addNewPrd').removeClass('d-none');
                     $('#addNewPrd').addClass('d-block');
+                } else {
+                    $('#addNewPrd').removeClass('d-block');
+                    $('#addNewPrd').addClass('d-none');
                 }
                 if ($('#inputSearch').hasClass('d-block') && $('#inputSearch1').hasClass('d-none')) {
                     $('#inputSearch').removeClass('d-block');
@@ -30,6 +34,7 @@ $(window).on('load', function () {
                     $('#inputSearch1').removeClass('d-none');
                     $('#inputSearch1').addClass('d-block');
                 }
+                $('#offset').val(0);
             }
         })
     })
@@ -47,12 +52,9 @@ $(window).on('load', function () {
             url: '/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch,
             data: {},
             success: function (data) {
+                $('#offset').val(0);
                 fullFilledTable(data);
                 $('#categorySelected').val(categorySelected);
-                if ($('#addNewPrd').hasClass('d-none')) {
-                    $('#addNewPrd').removeClass('d-none');
-                    $('#addNewPrd').addClass('d-block');
-                }
                 if ($('#inputSearch').hasClass('d-block') && $('#inputSearch1').hasClass('d-none')) {
                     $('#inputSearch').removeClass('d-block');
                     $('#inputSearch').addClass('d-none');
@@ -97,8 +99,6 @@ $(window).on('load', function () {
         let inputSearch = $(this).attr('data-id');
         let categorySelected = $('#categorySelected').val();
         let storehouseSelected = $('#storehouseSelected').val();
-        console.log(categorySelected);
-        console.log(productSelected);
         $.ajax({
             type: 'GET',
             url: '/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch,
@@ -111,17 +111,18 @@ $(window).on('load', function () {
 
     })
 
-    $('.pages1').on('click', function () {
+    $('div').on('click', 'div#pages1', function () {
         let inputSearch = $('#searchProductId').val();
         let storehouseSelected = $('#storehouseSelected').val();
         let categorySelected = $('#categorySelected').val();
-        let offset = $(this).attr('offset');
+        let offset = $(this)[0].getAttribute('data-offset');
         $.ajax({
             type: 'GET',
             url: '/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + offset,
             data: {},
             success: function (data) {
                 fullFilledTable(data);
+                $('#offset').val(offset);
             }
         })
 
@@ -189,22 +190,23 @@ $(window).on('load', function () {
         })
         $('.paginationMng').empty();
         let showLefts = document.createElement('p');
-        showLefts.innerHTML = "Showing <span class=''>" + (data.offset + 1) + "</span> of <span class=''>" + data.totalPrd + "</span> results";
+        showLefts.innerHTML = "Showing <span class=''>" + (data.offset) + "</span> of <span class=''>" + data.totalPrd + "</span> results";
         $('.paginationMng').append(showLefts);
         let paginates = document.createElement('ul');
         paginates.setAttribute('class', 'text-center');
         if (inputSearch == '') {
             inputSearch = 0;
         }
-        if (data.offset > 0) {
-            paginates.innerHTML += "<li class='d-inline-block pe-auto pages1'><div data-offset=" + (data.offset + 10) + "><</div></li>";
+        if (parseInt(data.offset) > 0) {
+            paginates.innerHTML += "<li class='d-inline-block pe-auto' style='border-right:1px solid gray; cursor:pointer'><div id='pages1' data-offset=" + (parseInt(data.offset) - 10) + "><</div></li>";
         }
         data.pagination.forEach(function (element) {
-            paginates.innerHTML += "<li class='d-inline-block pe-auto pages1' style='border-right:1px solid gray;'><div data-offset=" + data.offset + ">" + element.page + "</div></li>";
+            paginates.innerHTML += "<li class='d-inline-block pe-auto' style='border-right:1px solid gray; cursor:pointer'><div id='pages1' data-offset=" + element.offset + ">" + element.page + "</div></li>";
         })
-        if ((data.offset + 10) < data.totalPrd) {
-            paginates.innerHTML += "<li class='d-inline-block pe-auto pages1'><div data-offset=" + (data.offset - 10) + ">></div></li>";
+        if ((parseInt(data.offset) + 10) < data.totalPrd) {
+            paginates.innerHTML += "<li class='d-inline-block pe-auto' style='cursor:pointer;'><div id='pages1' data-offset=" + (parseInt(data.offset) + 10) + ">></div></li>";
         }
+        for (let item of paginates.children) if (item.children[0].getAttribute('data-offset') == offset.value) item.children[0].classList.add('bg-primary');
         $('.paginationMng').append(paginates);
     }
 })

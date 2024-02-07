@@ -57,7 +57,7 @@ $(window).on('load', function () {
 
     $('div').on('click', 'div#pages', function () {
         let inputSearch = $('#searchProductId').val();
-        let offset = $(this).attr('data-offset');
+        let offset = $(this)[0].getAttribute('data-offset');
         $.ajax({
             type: 'GET',
             url: '/storehousesManagement/showAllAjax/' + inputSearch + '/' + offset,
@@ -128,22 +128,23 @@ $(window).on('load', function () {
         })
         $('.paginationMng').empty();
         let showLefts = document.createElement('p');
-        showLefts.innerHTML = "Showing <span class=''>" + (data.offset + 1) + "</span> of <span class=''>" + data.totalPrd + "</span> results";
+        showLefts.innerHTML = "Showing <span class=''>" + (data.offset) + "</span> of <span class=''>" + data.totalPrd + "</span> results";
         $('.paginationMng').append(showLefts);
         let paginates = document.createElement('ul');
         paginates.setAttribute('class', 'text-center');
         if (inputSearch == '') {
             inputSearch = 0;
         }
-        if (data.offset > 0) {
-            paginates.innerHTML += "<li class='d-inline-block pe-auto'><div id='pages' data-offset=" + (data.offset + 10) + "><</div></li>";
+        if (parseInt(data.offset) > 0) {
+            paginates.innerHTML += "<li class='d-inline-block pe-auto' style='border-right:1px solid gray; cursor:pointer'><div id='pages' data-offset=" + (parseInt(data.offset) - 10) + "><</div></li>";
         }
         data.pagination.forEach(function (element) {
-            paginates.innerHTML += "<li class='d-inline-block pe-auto' style='border-right:1px solid gray;'><div id='pages' data-offset=" + data.offset + ">" + element.page + "</div></li>";
+            paginates.innerHTML += "<li class='d-inline-block pe-auto' style='border-right:1px solid gray; cursor:pointer'><div id='pages' data-offset=" + element.offset + ">" + element.page + "</div></li>";
         })
-        if ((data.offset + 10) < data.totalPrd) {
-            paginates.innerHTML += "<li class='d-inline-block pe-auto'><div id='pages' data-offset=" + (data.offset - 10) + ">></div></li>";
+        if ((parseInt(data.offset) + 10) < data.totalPrd) {
+            paginates.innerHTML += "<li class='d-inline-block pe-auto' style='cursor:pointer;'><div id='pages' data-offset=" + (parseInt(data.offset) + 10) + ">></div></li>";
         }
+        for (let item of paginates.children) if (item.children[0].getAttribute('data-offset') == offset.value) item.children[0].classList.add('bg-primary');
         $('.paginationMng').append(paginates);
     }
 })

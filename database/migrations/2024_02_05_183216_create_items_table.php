@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('items_has_product_storehouses')->constrained(table: 'product_storehouses', column: 'id');
+            $table->foreignId('item_has_product_storehouses')->constrained(table: 'product_storehouses', column: 'id');
             $table->string('action');
-            $table->float('price', 0, 2);
-            $table->integet('item_quantity');
+            $table->float('pricepu', 0, 2);
+            $table->integer('quantity');
+            $table->integer('stock');
             $table->timestamps();
         });
     }

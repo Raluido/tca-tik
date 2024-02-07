@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('order_has_user')->constrained(table: 'users', column: 'id');
+            $table->foreignId('order_has_payment')->constrained(table: 'payments', column: 'id');
             $table->string("code");
             $table->float("total", 0, 2);
             $table->timestamps();

@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('ticket_has_user')->constrained(table: 'users', column: 'id');
+            $table->string('section');
+            $table->string("title");
+            $table->string("email");
+            $table->longtext("description");
+            $table->char("solved")->default(0);
             $table->timestamps();
         });
     }
