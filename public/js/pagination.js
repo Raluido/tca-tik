@@ -1,9 +1,6 @@
 $(window).on('load', function () {
     $('.pages').on('click', function () {
-        let storehouseSelected = $('#filterByStorehouse').val();
-        let categorySelected = $('#filterByCategory').val();
-        let productSelected = $('#selectProduct').val();
-        let inputSearch = $('#inputSearch').val();
+        let inputSearch = $('#searchProductId').val();
         let offset = $(this).attr('offset');
         $.ajax({
             type: 'GET',

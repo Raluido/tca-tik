@@ -29,13 +29,13 @@
             </div>
         </div>
         <div class="d-flex flex-column align-items-center">
-            <input type="text" id="inputSearch" class="mt-5 text-center w-75" placeholder="Búsqueda por producto">
+            <input type="text" id="inputSearch" class="d-block mt-5 text-center w-75" placeholder="Búsqueda por producto">
+            <input type="text" id="inputSearch1" class="d-none mt-5 text-center w-75" placeholder="Búsqueda por producto">
             <div class="d-none" id="searchDropdown"></div>
         </div>
     </div>
 
-    @if(count($products) != 0 || !is_null($products))
-    <div class="filtersWidth mb-5 shadow-lg p-5">
+    <div class="d-none filtersWidth mb-5 shadow-lg p-5" id="addNewPrd">
         <h4 class="text-center mb-5">Añadir nuevo</h4>
         <table class="table">
             <thead class="">
@@ -66,7 +66,6 @@
             </tbody>
         </table>
     </div>
-    @endif
 
     <div class="mb-5 shadow-lg p-5">
         <h4 class="text-center mb-5">Productos en stock</h4>
@@ -85,12 +84,11 @@
 
 <input type="hidden" value="{{ env('APP_URL') }}" id="url">
 <input type="hidden" value="0" id="searchProductId">
-<input type="hidden" value="0" id="productSelected">
 <input type="hidden" value="0" id="storehouseSelected">
 <input type="hidden" value="0" id="categorySelected">
 <input type="hidden" value="0" id="offset">
 
 @section('js')
-<script class="" src="{{ asset('js/loadPrdFromStorehouse.js') }}" defer></script>
-<script class="" src="{{ asset('js/searchByProduct.js') }}" defer></script>
+<script class="" src="{{ asset('js/loadProducts&Search.js') }}" defer></script>
+<script class="" src="{{ asset('js/loadGroupProducts&Search.js') }}" defer></script>
 @endsection

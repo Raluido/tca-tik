@@ -57,7 +57,7 @@ class StorehousesManagementController extends Controller
         return ['productsAll' => $productsAll, 'search' => $searchProductId, 'pagination' => $pagination, 'offset' => $offset, 'totalPrd' => $totalPrd];
     }
 
-    public function showFilteredAjax($storehouseSelectedId = 0, $categorySelectedId = 0, $productSelectedId = 0, $searchProductId = 0, $offset = 0)
+    public function showFilteredAjax($storehouseSelectedId = 0, $categorySelectedId = 0, $searchProductId = 0, $offset = 0)
     {
         $fillWheres = '';
 

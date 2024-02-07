@@ -18,10 +18,12 @@ $(window).on('load', function () {
         }
     });
     $('#subDeskMenuPrd').on('mouseout', function () {
-        if ($('#dropDownDeskPrd').hasClass('d-block')) {
-            $('#dropDownDeskPrd').removeClass('d-block');
-            $('#dropDownDeskPrd').addClass('d-none');
-        }
+        setTimeout(function () {
+            if ($('#dropDownDeskPrd').hasClass('d-block')) {
+                $('#dropDownDeskPrd').removeClass('d-block');
+                $('#dropDownDeskPrd').addClass('d-none');
+            }
+        }, 2000);
     })
     $('#subDeskMenuStr').on('mouseover', function () {
         if ($('#dropDownDeskPrd').hasClass('d-block')) {
@@ -42,10 +44,12 @@ $(window).on('load', function () {
         }
     });
     $('#subDeskMenuStr').on('mouseout', function () {
-        if ($('#dropDownDeskStr').hasClass('d-block')) {
-            $('#dropDownDeskStr').removeClass('d-block');
-            $('#dropDownDeskStr').addClass('d-none');
-        }
+        setTimeout(function () {
+            if ($('#dropDownDeskStr').hasClass('d-block')) {
+                $('#dropDownDeskStr').removeClass('d-block');
+                $('#dropDownDeskStr').addClass('d-none');
+            }
+        }, 2000);
     })
     $('#subDeskMenuCat').on('mouseover', function () {
         if ($('#dropDownDeskStr').hasClass('d-block')) {
@@ -66,10 +70,12 @@ $(window).on('load', function () {
         }
     });
     $('#subDeskMenuCat').on('mouseout', function () {
-        if ($('#dropDownDeskCat').hasClass('d-block')) {
-            $('#dropDownDeskCat').removeClass('d-block');
-            $('#dropDownDeskCat').addClass('d-none');
-        }
+        setTimeout(function () {
+            if ($('#dropDownDeskCat').hasClass('d-block')) {
+                $('#dropDownDeskCat').removeClass('d-block');
+                $('#dropDownDeskCat').addClass('d-none');
+            }
+        }, 2000);
     })
     $('#subDeskMenuMng').on('mouseover', function () {
         if ($('#dropDownDeskStr').hasClass('d-block')) {
@@ -90,9 +96,11 @@ $(window).on('load', function () {
         }
     });
     $('#subDeskMenuMng').on('mouseout', function () {
-        if ($('#dropDownDeskMng').hasClass('d-block')) {
-            $('#dropDownDeskMng').removeClass('d-block');
-            $('#dropDownDeskMng').addClass('d-none');
-        }
+        setTimeout(function () {
+            if ($('#dropDownDeskMng').hasClass('d-block')) {
+                $('#dropDownDeskMng').removeClass('d-block');
+                $('#dropDownDeskMng').addClass('d-none');
+            }
+        }, 2000);
     })
 })
