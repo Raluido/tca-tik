@@ -28,6 +28,7 @@ class CreateProductRequest extends FormRequest
             'name' => 'required|max:50|unique:products,name,' . $id,
             'product_has_category' => 'required',
             'price' => 'required|numeric|between:0,9999.99',
+            'tax' => 'required|numeric|between:0,99.99',
             'prefix' => 'required|between:1,3',
             'observations' => 'max:500',
             'description' => 'max:500'
@@ -43,6 +44,9 @@ class CreateProductRequest extends FormRequest
             'price.required' => 'Tienes que indicar un precio para el artículo.',
             'price.numeric' => 'Tienes que indicar un valor numerico.',
             'price.between' => 'La cuantía del precio no puede superar las 4 cifras.',
+            'tax.required' => 'Tienes que indicar un inpuesto para el artículo.',
+            'tax.numeric' => 'Tienes que indicar un valor numerico.',
+            'tax.between' => 'La cuantía del inpuesto no puede superar las 2 cifras.',
             'prefix.required' => 'Tienes que indicar una referencia para el artículo.',
             'observations.max' => 'El número de caracteres máximo es de 500.',
             'description.max' => 'El número de caracteres máximo es de 500.',

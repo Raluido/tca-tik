@@ -29,6 +29,10 @@
                 <h5 id="priceError"></h5>
             </div>
             <div class="mb-4">
+                <input name="tax" class="w-75" type="number" step="0.01" id="priceValidator" placeholder="Impuesto">
+                <h5 id="taxError"></h5>
+            </div>
+            <div class="mb-4">
                 <input name="prefix" class="w-75" type="text" id="prefixValidator" placeholder="identificador del producto">
                 <h5 id="prefixError"></h5>
             </div>
@@ -39,6 +43,10 @@
             <div class="mb-5">
                 <textarea name="observations" rows="10" class="w-75" id="observationsValidator" placeholder="Observaciones"></textarea>
                 <h5 id="observationsError"></h5>
+            </div>
+            <div class="mb-4">
+                <input name="images[]" class="w-75" type="file" id="" placeholder="Imágenes">
+                <h5 id=""></h5>
             </div>
             <div class="d-flex justify-content-evenly">
                 <input type="submit" class="btn btn-success btn-sm" id="submitBtn" value="Crear">

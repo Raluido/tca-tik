@@ -26,6 +26,20 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::group(['middleware' => 'auth'], function () {
         Route::get('logout', 'LoginController@logout')->name('login.logout');
 
+
+        // Back office
+
+        Route::group(['prefix' => 'users'], function () {
+            Route::get('/', 'UsersController@index')->name('users.index');
+            Route::get('/create', 'UsersController@create')->name('users.create');
+            Route::post('/create', 'UsersController@store')->name('users.store');
+            Route::get('/{user}/show', 'UsersController@show')->name('users.show');
+            Route::get('/{user}/edit', 'UsersController@edit')->name('users.edit');
+            Route::patch('/{user}/update', 'UsersController@update')->name('users.update');
+            Route::delete('/{user}/delete', 'UsersController@destroy')->name('users.destroy');
+            Route::get('/deleteAll', 'UsersController@deleteAll')->name('users.deleteAll');
+        });
+
         Route::group(['prefix' => 'products'], function () {
             Route::get('showall', 'ProductController@showall')->name('products.showall');
             Route::get('showone/{product}', 'ProductController@showone')->name('products.showone');
@@ -66,5 +80,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::get('addToStorehouse/{storehouse}/{product}', 'StorehousesManagementController@addToStorehouse')->name('storehousesManagement.addToStorehouse');
             Route::get('delete/{storehouse}/{product}', 'StorehousesManagementController@removeFromStorehouse')->name('storehousesManagement.removeFromStorehouse');
         });
+
+        Route::resource('roles', RolesController::class);
+        Route::resource('permissions', PermissionsController::class);
     });
+
+    // End Backoffice
 });

@@ -40,6 +40,19 @@ $(window).on('load', function () {
         }
     }
 
+    function taxValidator() {
+        let taxVal = $('#taxValidator');
+        if (taxVal.val().length < 501) {
+            taxVal.css('border', '1px solid green');
+            $('#taxErr').text('');
+            taxErr = false;
+            return taxErr;
+        } else {
+            taxVal.css('border', '1px solid red');
+            $('#taxValidator').text("El rango porcentual va de 0 a 100%.");
+        }
+    }
+
     $('#prefixValidator').on('keyup', function () {
         prefixValidator();
     })
@@ -94,6 +107,7 @@ $(window).on('load', function () {
     $('#submitBtn').on('click', function () {
         nameValidator();
         priceValidator();
+        taxValidator();
         prefixValidator();
         observationsValidator();
         descriptionValidator();

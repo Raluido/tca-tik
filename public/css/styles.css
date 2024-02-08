@@ -207,17 +207,13 @@ td {
     color: gray;
 }
 
-.paginationMng p {
-    margin: 1em 0;
-}
-
 .paginationMng ul {
     border: 1px solid gray;
     border-radius: 5px;
 }
 
 .paginationMng li div {
-    padding: 0 .5em;
+    padding: .6em;
     border-radius: 5px;
 }
 

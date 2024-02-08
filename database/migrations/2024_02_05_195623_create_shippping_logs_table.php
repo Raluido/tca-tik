@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('shippping_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('shipping_log_has_order')->constrained('table:orders', 'column: id');
+            $table->foreignId('shipping_log_has_order')->constrained(table: 'orders', column: 'id');
             $table->string('tracking_number');
             $table->date('departure');
             $table->date('estimated_arrived');

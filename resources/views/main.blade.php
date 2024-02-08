@@ -6,13 +6,13 @@
 
 <div class="headerBottomWelcome">
 
-    <h6 class="text-center mt-5">Bienvenido! <br><br> Logueese para acceder al panel de administrador.</h6>
+    <h6 class="text-center mt-5">Bienvenido!</h6>
 
 </div>
 
 @endguest
 
-@auth
+@role('admin')
 
 <div class="d-flex align-items-center flex-column headerBottom">
 
@@ -56,10 +56,31 @@
                 <p class="text-end me-5">Gestionar<br> almacenes</p>
             </a>
         </details>
+
+        <hr>
+
+        <details class="">
+            <summary class="">Roles</summary>
+            <a href="{{ route('roles.index') }}" class="text-secondary">
+                <p class="text-end me-5">Gestionar roles</p>
+            </a>
+        </details>
+        <details class="">
+            <summary class="">Permisos</summary>
+            <a href="{{ route('permissions.index') }}" class="text-secondary">
+                <p class="text-end me-5">Gestionar permisos</p>
+            </a>
+        </details>
+        <details class="">
+            <summary class="">Usuarios</summary>
+            <a href="{{ route('users.index') }}" class="text-secondary">
+                <p class="text-end me-5">Gestionar usuarios</p>
+            </a>
+        </details>
     </div>
 </div>
 
-@endauth
+@endrole
 
 @endsection
 

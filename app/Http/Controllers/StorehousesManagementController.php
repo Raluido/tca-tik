@@ -34,20 +34,7 @@ class StorehousesManagementController extends Controller
         INNER JOIN categories ON categories.id = products.product_has_category
         $searchWhere GROUP BY product_storehouses.product_storehouse_has_products, products.product_has_category, products.id, products.name, products.price, products.prefix, categories.name ORDER BY products.id");
 
-        $totalPrd = count($countAllProducts);
-        $offsetGroups = $totalPrd / 10;
-
-        if ($this->is_decimal($offsetGroups)) $offsetGroups = round($offsetGroups);
-        else $offsetGroups = round($offsetGroups) - 1;
-
-        $pagination = array();
-
-        for ($i = 0; $i < $offsetGroups; $i++) {
-            $pagination[] = (object)[
-                'page' => $i,
-                'offset' => $i * 10
-            ];
-        }
+        [$pagination, $totalPrd] = $this->paginator($countAllProducts);
 
         $productsAll = Db::select("SELECT products.product_has_category AS id, products.id AS pid, products.name AS pname, products.price AS pprice, products.prefix AS pprefix, categories.name AS pcategory, product_storehouses.product_storehouse_has_products, COUNT(*) as total FROM product_storehouses
         INNER JOIN products ON products.id = product_storehouses.product_storehouse_has_products
@@ -93,20 +80,7 @@ class StorehousesManagementController extends Controller
         } else {
         }
 
-        $totalPrd = count($filtered);
-        $offsetGroups = $totalPrd / 10;
-
-        if ($this->is_decimal($offsetGroups)) $offsetGroups = round($offsetGroups);
-        else $offsetGroups = round($offsetGroups) - 1;
-
-        $pagination = array();
-
-        for ($i = 0; $i < $offsetGroups; $i++) {
-            $pagination[] = (object)[
-                'page' => $i,
-                'offset' => $i * 10
-            ];
-        }
+        [$pagination, $totalPrd] = $this->paginator($filtered);
 
         $filtered = Db::select("SELECT products.product_has_category AS id, storehouses.name AS name, storehouses.prefix AS prefix, storehouses.description AS description, products.id AS pid, products.name AS pname, products.price AS pprice, products.prefix AS pprefix, categories.name AS pcategory, product_storehouses.product_storehouse_has_products, product_storehouses.product_storehouse_has_storehouses, COUNT(*) as total FROM storehouses
         INNER JOIN product_storehouses ON product_storehouses.product_storehouse_has_storehouses = storehouses.id
@@ -120,6 +94,26 @@ class StorehousesManagementController extends Controller
     function is_decimal($val)
     {
         return is_numeric($val) && floor($val) != $val;
+    }
+
+    function paginator($filtered)
+    {
+        $totalPrd = count($filtered);
+        $offsetGroups = $totalPrd / 10;
+
+        if ($this->is_decimal($offsetGroups)) $offsetGroups = round($offsetGroups);
+        else $offsetGroups = round($offsetGroups);
+
+        $pagination = array();
+
+        for ($i = 0; $i < $offsetGroups; $i++) {
+            $pagination[] = (object)[
+                'page' => $i,
+                'offset' => $i * 10
+            ];
+        }
+
+        return [$pagination, $totalPrd];
     }
 
     public function searchByProduct($inputSearch = '')

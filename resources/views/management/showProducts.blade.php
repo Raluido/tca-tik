@@ -73,7 +73,7 @@
 
         </table>
     </div>
-    <div class="paginationMng d-flex flex-column align-items-center">
+    <div class="paginationMng w-100 d-sm-flex flex-sm-column align-items-sm-center d-md-flex flex-md-row justify-content-md-around mb-5">
     </div>
     <div class="submitForm">
         <button class="btn btn-primary btn-sm"><a href="{{ route('main') }}" class="text-white">Volver</a></button>

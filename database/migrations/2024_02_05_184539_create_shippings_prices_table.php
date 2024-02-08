@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('shippings_prices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('shipping_price_has_products')->constrained('table: products', 'column:id');
+            $table->foreignId('shipping_price_has_products')->constrained(table: 'products', column: 'id');
             $table->string('company');
             $table->float('dimensions');
             $table->float('weight');
