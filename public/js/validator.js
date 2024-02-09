@@ -2,6 +2,7 @@ $(window).on('load', function () {
     let nameErr = true;
     let priceErr = true;
     let prefixErr = true;
+    let taxErr = true;
     let observationsErr = true;
     let descriptionErr = true;
 
@@ -40,16 +41,21 @@ $(window).on('load', function () {
         }
     }
 
+    $('#taxValidator').on('keyup', function () {
+        taxValidator();
+    })
+
     function taxValidator() {
         let taxVal = $('#taxValidator');
-        if (taxVal.val().length < 501) {
+        let regex = /([1-9]|[1-9][0-9])+\.[0-9]{2}/;
+        if (regex.test(taxVal.val())) {
             taxVal.css('border', '1px solid green');
             $('#taxErr').text('');
             taxErr = false;
             return taxErr;
         } else {
             taxVal.css('border', '1px solid red');
-            $('#taxValidator').text("El rango porcentual va de 0 a 100%.");
+            $('#taxError').text("El rango porcentual va de 0 a 100%.");
         }
     }
 
@@ -111,7 +117,7 @@ $(window).on('load', function () {
         prefixValidator();
         observationsValidator();
         descriptionValidator();
-        if (nameErr == false && prefixErr == false && priceErr == false && descriptionErr == false && observationsErr == false) {
+        if (nameErr == false && prefixErr == false && priceErr == false && taxErr == false && descriptionErr == false && observationsErr == false) {
             $('#sendForm').on('submit', function () {
                 console.log("enviado");
             })

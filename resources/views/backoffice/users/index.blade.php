@@ -5,8 +5,8 @@
 <div class="bg-light headerBottom rounded">
     <h1>Users</h1>
     <div class="lead">
-        Manage your users here.
-        <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm float-right">Add new user</a>
+        Gestión de usuarios
+        <a href="{{ route('users.showBackOfficeCreate') }}" class="btn btn-primary btn-sm float-right">Añadir nuevo usuario</a>
     </div>
 
     <div class="mt-2">
@@ -17,9 +17,9 @@
         <thead>
             <tr>
                 <th scope="col" width="1%">#</th>
-                <th scope="col" width="15%">Name</th>
+                <th scope="col" width="15%">Nombre</th>
                 <th scope="col">Email</th>
-                <th scope="col" width="10%">Username</th>
+                <th scope="col" width="10%">Usuario</th>
                 <th scope="col" width="10%">Roles</th>
                 <th scope="col" width="1%" colspan="3"></th>
             </tr>
@@ -36,10 +36,10 @@
                     <span class="badge bg-primary">{{ $role->name }}</span>
                     @endforeach
                 </td>
-                <td><a href="{{ route('users.show', $user->id) }}" class="btn btn-warning btn-sm">Show</a></td>
-                <td><a href="{{ route('users.edit', $user->id) }}" class="btn btn-info btn-sm">Edit</a></td>
+                <td><a href="{{ route('users.showBackOfficeOne', $user->id) }}" class="btn btn-warning btn-sm">Show</a></td>
+                <td><a href="{{ route('users.showBackOfficeEdit', $user->id) }}" class="btn btn-info btn-sm">Edit</a></td>
                 <td>
-                    {{ html()->form('DELETE',  route('users.destroy', [$role->id]), ('display:inline'))->open() }}
+                    {{ html()->form('DELETE',  route('users.backOfficeDestroy', [$role->id]), ('display:inline'))->open() }}
                     {{ html()->submit('Borrar'), ('btn btn-danger btn-sm') }}
                 </td>
             </tr>

@@ -20,25 +20,25 @@
         </ul>
         <div id="dropDownPrd" class="d-none">
             <ul class="">
-                <li class=""><a href="{{ route('products.createForm') }}" class="">Crear producto</a></li>
-                <li class=""><a href="{{ route('products.showall') }}" class="">Mostrar todos</a></li>
+                <li class=""><a href="{{ route('products.showBackOfficeCreate') }}" class="">Crear producto</a></li>
+                <li class=""><a href="{{ route('products.showBackOfficeAll') }}" class="">Mostrar todos</a></li>
             </ul>
         </div>
         <div id="dropDownCat" class="d-none">
             <ul class="">
-                <li class=""><a href="{{ route('categories.createForm') }}" class="">Crear categoría</a></li>
-                <li class=""><a href="{{ route('categories.showall') }}" class="">Mostrar todos</a></li>
+                <li class=""><a href="{{ route('categories.showBackOfficeCreate') }}" class="">Crear categoría</a></li>
+                <li class=""><a href="{{ route('categories.showBackOfficeAll') }}" class="">Mostrar todos</a></li>
             </ul>
         </div>
         <div id="dropDownStr" class="d-none">
             <ul class="">
-                <li class=""><a href="{{ route('storehouses.createForm') }}" class="">Crear almacén</a></li>
-                <li class=""><a href="{{ route('storehouses.showall') }}" class="">Mostrar todos</a></li>
+                <li class=""><a href="{{ route('storehouses.showBackOfficeCreate') }}" class="">Crear almacén</a></li>
+                <li class=""><a href="{{ route('storehouses.showBackOfficeAll') }}" class="">Mostrar todos</a></li>
             </ul>
         </div>
         <div id="dropDownMng" class="d-none">
             <ul class="">
-                <li class=""><a href="{{ route('storehousesManagement.showProducts') }}" class="">Mostrar todo</a></li>
+                <li class=""><a href="{{ route('storehousesManagement.showBackOfficeAll') }}" class="">Mostrar todo</a></li>
             </ul>
         </div>
     </div>
@@ -61,8 +61,8 @@
             <div id="subDeskMenuPrd">Productos</div>
             <div id="dropDownDeskPrd" class="d-none">
                 <ul class="">
-                    <li class=""><a href="{{ route('products.createForm') }}" class="">Crear producto</a></li>
-                    <li class=""><a href="{{ route('products.showall') }}" class="">Mostrar todos</a></li>
+                    <li class=""><a href="{{ route('products.showBackOfficeCreate') }}" class="">Crear producto</a></li>
+                    <li class=""><a href="{{ route('products.showBackOfficeAll') }}" class="">Mostrar todos</a></li>
                 </ul>
             </div>
         </li>
@@ -70,8 +70,8 @@
             <div id="subDeskMenuStr">Almacenes</div>
             <div id="dropDownDeskStr" class="d-none">
                 <ul class="">
-                    <li class=""><a href="{{ route('storehouses.createForm') }}" class="">Crear almacén</a></li>
-                    <li class=""><a href="{{ route('storehouses.showall') }}" class="">Mostrar todos</a></li>
+                    <li class=""><a href="{{ route('storehouses.showBackOfficeCreate') }}" class="">Crear almacén</a></li>
+                    <li class=""><a href="{{ route('storehouses.showBackOfficeAll') }}" class="">Mostrar todos</a></li>
                 </ul>
             </div>
         </li>
@@ -79,8 +79,8 @@
             <div id="subDeskMenuCat">Categorías</div>
             <div id="dropDownDeskCat" class="d-none">
                 <ul class="">
-                    <li class=""><a href="{{ route('categories.createForm') }}" class="">Crear categoría</a></li>
-                    <li class=""><a href="{{ route('categories.showall') }}" class="">Mostrar todos</a></li>
+                    <li class=""><a href="{{ route('categories.showBackOfficeCreate') }}" class="">Crear categoría</a></li>
+                    <li class=""><a href="{{ route('categories.showBackOfficeAll') }}" class="">Mostrar todos</a></li>
                 </ul>
             </div>
         </li>
@@ -88,7 +88,7 @@
             <div id="subDeskMenuMng">Gestión</div>
             <div id="dropDownDeskMng" class="d-none">
                 <ul class="">
-                    <li class=""><a href="{{ route('storehousesManagement.showProducts') }}" class="">Mostrar todo</a></li>
+                    <li class=""><a href="{{ route('storehousesManagement.showBackOfficeAll') }}" class="">Mostrar todo</a></li>
                 </ul>
             </div>
         </li>

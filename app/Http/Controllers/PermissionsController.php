@@ -17,7 +17,7 @@ class PermissionsController extends Controller
     {
         $permissions = Permission::all();
 
-        return view('permissions.index', [
+        return view('backoffice.permissions.index', [
             'permissions' => $permissions
         ]);
     }
@@ -29,7 +29,7 @@ class PermissionsController extends Controller
      */
     public function create()
     {
-        return view('permissions.create');
+        return view('backoffice.permissions.create');
     }
 
     /**
@@ -46,7 +46,7 @@ class PermissionsController extends Controller
 
         Permission::create($request->only('name'));
 
-        return redirect()->route('permissions.index')
+        return redirect()->route('backoffice.permissions.index')
             ->withSuccess(__('Permission created successfully.'));
     }
 
@@ -58,7 +58,7 @@ class PermissionsController extends Controller
      */
     public function edit(Permission $permission)
     {
-        return view('permissions.edit', [
+        return view('backoffice.permissions.edit', [
             'permission' => $permission
         ]);
     }
@@ -78,7 +78,7 @@ class PermissionsController extends Controller
 
         $permission->update($request->only('name'));
 
-        return redirect()->route('permissions.index')
+        return redirect()->route('backoffice.permissions.index')
             ->withSuccess(__('Permission updated successfully.'));
     }
 
@@ -92,7 +92,7 @@ class PermissionsController extends Controller
     {
         $permission->delete();
 
-        return redirect()->route('permissions.index')
+        return redirect()->route('backoffice.permissions.index')
             ->withSuccess(__('Permission deleted successfully.'));
     }
 }

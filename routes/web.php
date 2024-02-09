@@ -29,60 +29,59 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         // Back office
 
-        Route::group(['prefix' => 'users'], function () {
-            Route::get('/', 'UsersController@index')->name('users.index');
-            Route::get('/create', 'UsersController@create')->name('users.create');
-            Route::post('/create', 'UsersController@store')->name('users.store');
-            Route::get('/{user}/show', 'UsersController@show')->name('users.show');
-            Route::get('/{user}/edit', 'UsersController@edit')->name('users.edit');
-            Route::patch('/{user}/update', 'UsersController@update')->name('users.update');
-            Route::delete('/{user}/delete', 'UsersController@destroy')->name('users.destroy');
-            Route::get('/deleteAll', 'UsersController@deleteAll')->name('users.deleteAll');
+        Route::group(['prefix' => 'backoffice'], function () {
+            Route::group(['prefix' => 'users'], function () {
+                Route::get('/', 'UsersController@showBackOfficeIndex')->name('users.showBackOfficeIndex');
+                Route::get('/create', 'UsersController@showBackOfficeCreate')->name('users.showBackOfficeCreate');
+                Route::post('/store', 'UsersController@backOfficeStore')->name('users.backOfficeStore');
+                Route::get('/{user}/show', 'UsersController@showBackOfficeOne')->name('users.showBackOfficeOne');
+                Route::get('/{user}/edit', 'UsersController@showBackOfficeEdit')->name('users.showBackOfficeEdit');
+                Route::patch('/{user}/update', 'UsersController@backOfficeUpdate')->name('users.backOfficeupdate');
+                Route::delete('/{user}/delete', 'UsersController@backOfficeDestroy')->name('users.backOfficeDestroy');
+                Route::get('/deleteAll', 'UsersController@backOfficeDeleteAll')->name('users.backOfficeDeleteAll');
+            });
+
+            Route::group(['prefix' => 'products'], function () {
+                Route::get('/showall', 'ProductController@showBackOfficeAll')->name('products.showBackOfficeAll');
+                Route::get('/{product}/showOne/', 'ProductController@showBackOfficeOne')->name('products.showBackOfficeOne');
+                Route::get('/create', 'ProductController@showBackOfficeCreate')->name('products.showBackOfficeCreate');
+                Route::post('/store', 'ProductController@backOfficeStore')->name('products.backOfficeStore');
+                Route::get('/{product}/edit/', 'ProductController@showBackOfficeEdit')->name('products.showBackOfficeEdit');
+                Route::put('/{product}/update/', 'ProductController@backOfficeUpdate')->name('products.backOfficeupdate');
+                Route::get('/{product}/delete/', 'ProductController@backOfficeDestroy')->name('products.backOfficeDestroy');
+            });
+
+            Route::group(['prefix' => 'categories'], function () {
+                Route::get('/showall', 'CategoryController@showBackOfficeAll')->name('categories.showBackOfficeAll');
+                Route::get('/create', 'CategoryController@showBackOfficeCreate')->name('categories.showBackOfficeCreate');
+                Route::post('/store', 'CategoryController@backOfficeStore')->name('categories.backOfficeStore');
+                Route::get('/{category}/edit', 'CategoryController@showBackOfficeEdit')->name('categories.showBackOfficeEdit');
+                Route::put('/{category}/update', 'CategoryController@backOfficeUpdate')->name('categories.backOfficeupdate');
+                Route::get('/{category}/delete', 'CategoryController@backOfficeDestroy')->name('categories.backOfficeDestroy');
+            });
+
+            Route::group(['prefix' => 'storehouses'], function () {
+                Route::get('/showall', 'StorehouseController@showBackOfficeAll')->name('storehouses.showBackOfficeAll');
+                Route::get('/create', 'StorehouseController@showBackOfficeCreate')->name('storehouses.showBackOfficeCreate');
+                Route::post('/store', 'StorehouseController@backOfficeStore')->name('storehouses.backOfficeStore');
+                Route::get('{storehouse}/edit', 'StorehouseController@showBackOfficeEdit')->name('storehouses.showBackOfficeEdit');
+                Route::put('/{storehouse}/update', 'StorehouseController@backOfficeUpdate')->name('storehouses.backOfficeupdate');
+                Route::get('/{storehouse}/delete', 'StorehouseController@backOfficeDestroy')->name('storehouses.backOfficeDestroy');
+            });
+
+            Route::group(['prefix' => 'storehousesManagement'], function () {
+                Route::get('/showProducts', 'StorehousesManagementController@showBackOfficeAll')->name('storehousesManagement.showBackOfficeAll');
+                Route::get('/showAllAjax/{search?}/{offset?}', 'StorehousesManagementController@showAllAjax')->name('storehousesManagement.showAllAjax');
+                Route::get('/showFilteredAjax/{storehouseSelected?}/{categorySelected?}/{productSelected?}/{search?}/{offset?}', 'StorehousesManagementController@showFilteredAjax')->name('storehousesManagement.showFilteredAjax');
+                Route::get('/searchBy/{search?}', 'StorehousesManagementController@searchBackOfficeByProduct')->name('storehousesManagement.searchBackOfficeByProduct');
+                Route::post('/productsCounter', 'StorehousesManagementController@backOfficeProductsCounter')->name('storehousesManagement.backOfficeProductsCounter');
+                Route::get('/addToStorehouse/{storehouse}/{product}', 'StorehousesManagementController@backOfficeAddToStorehouse')->name('storehousesManagement.backOfficeAddToStorehouse');
+                Route::get('/delete/{storehouse}/{product}', 'StorehousesManagementController@backOfficeRemoveFromStorehouse')->name('storehousesManagement.backOfficeRemoveFromStorehouse');
+            });
+
+            Route::resource('roles', RolesController::class);
+            Route::resource('permissions', PermissionsController::class);
         });
-
-        Route::group(['prefix' => 'products'], function () {
-            Route::get('showall', 'ProductController@showall')->name('products.showall');
-            Route::get('showone/{product}', 'ProductController@showone')->name('products.showone');
-            Route::get('createForm', 'ProductController@createForm')->name('products.createForm');
-            Route::post('create', 'ProductController@create')->name('products.create');
-            Route::get('editForm/{product}', 'ProductController@editForm')->name('products.editForm');
-            Route::put('edit/{product}', 'ProductController@edit')->name('products.edit');
-            Route::get('delete/{product}', 'ProductController@delete')->name('products.delete');
-        });
-
-        Route::group(['prefix' => 'categories'], function () {
-            Route::get('showall', 'CategoryController@showall')->name('categories.showall');
-            Route::get('createForm', 'CategoryController@createForm')->name('categories.createForm');
-            Route::post('create', 'CategoryController@create')->name('categories.create');
-            Route::get('editForm/{category}', 'CategoryController@editForm')->name('categories.editForm');
-            Route::put('edit/{category}', 'CategoryController@edit')->name('categories.edit');
-            Route::get('delete/{category}', 'CategoryController@delete')->name('categories.delete');
-        });
-
-        Route::group(['prefix' => 'storehouses'], function () {
-            Route::get('showall', 'StorehouseController@showall')->name('storehouses.showall');
-            Route::get('createForm', 'StorehouseController@createForm')->name('storehouses.createForm');
-            Route::post('create', 'StorehouseController@create')->name('storehouses.create');
-            Route::get('editForm/{storehouse}', 'StorehouseController@editForm')->name('storehouses.editForm');
-            Route::put('edit/{storehouse}', 'StorehouseController@edit')->name('storehouses.edit');
-            Route::get('delete/{storehouse}', 'StorehouseController@delete')->name('storehouses.delete');
-        });
-
-        Route::group(['prefix' => 'storehousesManagement'], function () {
-            Route::get('showProducts', 'StorehousesManagementController@showProducts')->name('storehousesManagement.showProducts');
-            Route::get('showAllAjax/{search?}/{offset?}', 'StorehousesManagementController@showAllAjax')->name('storehousesManagement.showAllAjax');
-            Route::get('showFilteredAjax/{storehouseSelected?}/{categorySelected?}/{productSelected?}/{search?}/{offset?}', 'StorehousesManagementController@showFilteredAjax')->name('storehousesManagement.showFilteredAjax');
-            Route::get('searchBy/{search?}', 'StorehousesManagementController@searchByProduct')->name('storehousesManagement.searchBy');
-
-
-            Route::post('productsCounter', 'StorehousesManagementController@productsCounter')->name('storehousesManagement.productsCounter');
-            Route::get('filterBy/{storehouseSelected}/{categorySelected}', 'StorehousesManagementController@filterBy')->name('storehousesManagement.filterBy');
-            Route::get('addToStorehouse/{storehouse}/{product}', 'StorehousesManagementController@addToStorehouse')->name('storehousesManagement.addToStorehouse');
-            Route::get('delete/{storehouse}/{product}', 'StorehousesManagementController@removeFromStorehouse')->name('storehousesManagement.removeFromStorehouse');
-        });
-
-        Route::resource('roles', RolesController::class);
-        Route::resource('permissions', PermissionsController::class);
     });
 
     // End Backoffice

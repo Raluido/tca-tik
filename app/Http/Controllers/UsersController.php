@@ -15,11 +15,11 @@ class UsersController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function showBackOfficeIndex()
     {
         $users = User::latest()->paginate(10);
 
-        return view('users.index', compact('users'));
+        return view('backoffice.users.index', compact('users'));
     }
 
     /**
@@ -27,9 +27,9 @@ class UsersController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function showBackOfficeCreate()
     {
-        return view('users.create');
+        return view('backoffice.users.create');
     }
 
     /**
@@ -40,7 +40,7 @@ class UsersController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function store(User $user, StoreUserRequest $request)
+    public function backOfficeStore(User $user, StoreUserRequest $request)
     {
         //For demo purposes only. When creating user or inviting a user
         // you should create a generated random password and email it to the user
@@ -48,7 +48,7 @@ class UsersController extends Controller
             'password' => 'test'
         ]));
 
-        return redirect()->route('users.index')
+        return redirect()->route('backoffice.users.index')
             ->withSuccess(__('User created successfully.'));
     }
 
@@ -59,9 +59,9 @@ class UsersController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function showBackOfficeOne(User $user)
     {
-        return view('users.show', [
+        return view('backoffice.users.show', [
             'user' => $user
         ]);
     }
@@ -73,9 +73,9 @@ class UsersController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function showBackOfficeEdit(User $user)
     {
-        return view('users.edit', [
+        return view('backoffice.users.edit', [
             'user' => $user,
             'userRole' => $user->roles->pluck('name')->toArray(),
             'roles' => Role::latest()->get()
@@ -90,13 +90,13 @@ class UsersController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function update(User $user, UpdateUserRequest $request)
+    public function backOfficeUpdate(User $user, UpdateUserRequest $request)
     {
         $user->update($request->validated());
 
         $user->syncRoles($request->get('role'));
 
-        return redirect()->route('users.index')
+        return redirect()->route('backoffice.users.index')
             ->withSuccess(__('User updated successfully.'));
     }
 
@@ -107,11 +107,15 @@ class UsersController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function backOfficeDestroy(User $user)
     {
         $user->delete();
 
-        return redirect()->route('users.index')
+        return redirect()->route('.backoffice.users.index')
             ->withSuccess(__('User deleted successfully.'));
+    }
+
+    public function backOfficeDeleteAll()
+    {
     }
 }

@@ -12,13 +12,13 @@ use Illuminate\Support\Facades\Log;
 
 class StorehousesManagementController extends Controller
 {
-    public function showProducts()
+    public function showBackOfficeAll()
     {
         $categories = Category::all();
         $storehouses = Storehouse::all();
         $products = Product::all();
 
-        return view('management.showProducts', ['storehouses' => $storehouses, 'categories' => $categories, 'products' => $products]);
+        return view('backoffice.management.showProducts', ['storehouses' => $storehouses, 'categories' => $categories, 'products' => $products]);
     }
 
     public function showAllAjax($searchProductId = 0, $offset = 0)
@@ -116,7 +116,7 @@ class StorehousesManagementController extends Controller
         return [$pagination, $totalPrd];
     }
 
-    public function searchByProduct($inputSearch = '')
+    public function searchBackOfficeByProduct($inputSearch = '')
     {
         if ($inputSearch != '') {
             $productFiltered = Product::where('products.name', 'LIKE', '%' . $inputSearch . '%')
@@ -128,12 +128,7 @@ class StorehousesManagementController extends Controller
         return $productFiltered;
     }
 
-
-
-
-
-
-    public function productsCounter(Request $request)
+    public function backOfficeProductsCounter(Request $request)
     {
         $products = Db::table('product_storehouses')->where('product_storehouse_has_storehouses', $request->storehouseId)->where('product_storehouse_has_products', $request->productId)->count();
 
@@ -141,7 +136,7 @@ class StorehousesManagementController extends Controller
     }
 
 
-    public function addToStorehouse($storehouse, $product)
+    public function backOfficeAddToStorehouse($storehouse, $product)
     {
         Product_storehouse::create(['product_storehouse_has_products' => $product, 'product_storehouse_has_storehouses' => $storehouse]);
 
@@ -150,7 +145,7 @@ class StorehousesManagementController extends Controller
         return [$productCount, $product];
     }
 
-    public function removeFromStorehouse(Storehouse $storehouse, Product $product)
+    public function backOfficeRemoveFromStorehouse(Storehouse $storehouse, Product $product)
     {
         Db::table('product_storehouses')->where('product_storehouse_has_products', $product->id)->where('product_storehouse_has_storehouses', $storehouse->id)->orderBy('id')->limit(1)->delete();
 

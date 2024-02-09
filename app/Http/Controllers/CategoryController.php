@@ -10,31 +10,31 @@ use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
-    public function showall()
+    public function showBackOfficeAll()
     {
         $categories = Category::paginate(10);
 
-        return view('categories.showall', ['categories' => $categories]);
+        return view('backoffice.categories.showall', ['categories' => $categories]);
     }
 
-    public function createForm()
+    public function showBackOfficeCreate()
     {
-        return view('categories.createForm');
+        return view('backoffice.categories.createForm');
     }
 
-    public function create(CreateCategoryRequest $request)
+    public function backOfficeStore(CreateCategoryRequest $request)
     {
         Category::create($request->validated());
 
         return redirect()->back()->withSuccess('La categoría se ha creado correctamente!!');
     }
 
-    public function editForm(Category $category)
+    public function showBackOfficeEdit(Category $category)
     {
-        return view('categories.editForm', ['category' => $category]);
+        return view('backoffice.categories.editForm', ['category' => $category]);
     }
 
-    public function edit(CreateCategoryRequest $request, Category $category)
+    public function backOfficeUpdate(CreateCategoryRequest $request, Category $category)
     {
         $update = Category::find($category->id);
 
@@ -43,7 +43,7 @@ class CategoryController extends Controller
         return redirect()->back()->withSuccess('La categoría se ha actualizado correctamente.');
     }
 
-    public function delete(Category $category)
+    public function backOfficeDestroy(Category $category)
     {
         Db::table('product_storehouses')
             ->join('storehouses', 'storehouses.id', 'product_storehouses.product_storehouse_has_storehouses')

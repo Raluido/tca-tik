@@ -28,7 +28,7 @@ class RolesController extends Controller
     public function index(Request $request)
     {
         $roles = Role::orderBy('id', 'DESC')->paginate(5);
-        return view('roles.index', compact('roles'))
+        return view('backoffice.roles.index', compact('roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -40,7 +40,7 @@ class RolesController extends Controller
     public function create()
     {
         $permissions = Permission::get();
-        return view('roles.create', compact('permissions'));
+        return view('backoffice.roles.create', compact('permissions'));
     }
 
     /**
@@ -59,7 +59,7 @@ class RolesController extends Controller
         $role = Role::create(['name' => $request->get('name')]);
         $role->syncPermissions($request->get('permission'));
 
-        return redirect()->route('roles.index')
+        return redirect()->route('backoffice.roles.index')
             ->with('success', 'Role created successfully');
     }
 
@@ -74,7 +74,7 @@ class RolesController extends Controller
         $role = $role;
         $rolePermissions = $role->permissions;
 
-        return view('roles.show', compact('role', 'rolePermissions'));
+        return view('backoffice.roles.show', compact('role', 'rolePermissions'));
     }
 
     /**
@@ -89,7 +89,7 @@ class RolesController extends Controller
         $rolePermissions = $role->permissions->pluck('name')->toArray();
         $permissions = Permission::get();
 
-        return view('roles.edit', compact('role', 'rolePermissions', 'permissions'));
+        return view('backoffice.roles.edit', compact('role', 'rolePermissions', 'permissions'));
     }
 
     /**
@@ -110,7 +110,7 @@ class RolesController extends Controller
 
         $role->syncPermissions($request->get('permission'));
 
-        return redirect()->route('roles.index')
+        return redirect()->route('backoffice.roles.index')
             ->with('success', 'Role updated successfully');
     }
 
@@ -124,7 +124,7 @@ class RolesController extends Controller
     {
         $role->delete();
 
-        return redirect()->route('roles.index')
+        return redirect()->route('backoffice.roles.index')
             ->with('success', 'Role deleted successfully');
     }
 }

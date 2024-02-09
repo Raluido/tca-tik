@@ -10,31 +10,31 @@ use Illuminate\Support\Facades\Log;
 
 class StorehouseController extends Controller
 {
-    public function showall()
+    public function showBackOfficeAll()
     {
         $storehouses = Storehouse::paginate(10);
 
-        return view('storehouses.showall', ['storehouses' => $storehouses]);
+        return view('backoffice.storehouses.showall', ['storehouses' => $storehouses]);
     }
 
-    public function createForm()
+    public function showBackOfficeCreate()
     {
-        return view('storehouses.createForm');
+        return view('backoffice.storehouses.createForm');
     }
 
-    public function create(CreateStorehouseRequest $request)
+    public function backOfficeStore(CreateStorehouseRequest $request)
     {
         Storehouse::create($request->validated());
 
         return redirect()->back()->withSuccess('El almacén se ha creado correctamente.');
     }
 
-    public function editForm(Storehouse $storehouse)
+    public function showBackOfficeEdit(Storehouse $storehouse)
     {
-        return view('storehouses.editForm', ['storehouse' => $storehouse]);
+        return view('backoffice.storehouses.editForm', ['storehouse' => $storehouse]);
     }
 
-    public function edit(CreateStorehouseRequest $request, Storehouse $storehouse)
+    public function backOfficeUpdate(CreateStorehouseRequest $request, Storehouse $storehouse)
     {
         $update = Storehouse::find($storehouse->id);
 
@@ -43,7 +43,7 @@ class StorehouseController extends Controller
         return redirect()->back()->withSuccess('El almacén se ha actulizado correctamente.');
     }
 
-    public function delete(Storehouse $storehouse)
+    public function backOfficeDestroy(Storehouse $storehouse)
     {
         Product_storehouse::where('product_storehouse_has_storehouses', $storehouse->id)->delete();
 

@@ -4,25 +4,29 @@
 
 <div class="d-flex flex-column align-items-center flex-grow-1 headerBottom">
 
-    <h5 class="mt-5">Crear nueva categoría</h5>
+    <h5 class="mt-5">Crear nuevo almacén</h5>
 
     <div id="messages">
         @include('layouts.partials.messages')
     </div>
 
     <div class="formWidth">
-        <form action="{{ route('categories.create') }}" method="post" id="sendForm" class="mt-5 shadow-lg text-center py-5">
+        <form action="{{ route('storehouses.backOfficeStore') }}" method="post" id="sendForm" class="mt-5 shadow-lg text-center py-5">
             @csrf
             <div class="mb-4">
-                <input type="text" name="name" class="w-75" id="nameValidator" placeholder="Nombre">
+                <input type="text" name="name" id="nameValidator" class="w-75" placeholder="Nombre">
                 <h5 id="nameError"></h5>
             </div>
             <div class="mb-4">
-                <textarea name="description" rows="10" class="w-75" id="descriptionValidator" placeholder="Descriptión la categoría"></textarea>
+                <textarea name="description" id="descriptionValidator" rows="10" class="w-75" placeholder="Descriptión del almacén"></textarea>
                 <h5 id="descriptionError"></h5>
             </div>
+            <div class="mb-4">
+                <input type="text" name="address" id="addressValidator" class="w-75" placeholder="Dirección">
+                <h5 id="addressError"></h5>
+            </div>
             <div class="mb-5">
-                <input type="text" name="prefix" id="prefixValidator" class="w-75" placeholder="identificador de categoría">
+                <input type="text" name="prefix" class="w-75" id="prefixValidator" placeholder="identificador del almacén">
                 <h5 id="prefixError"></h5>
             </div>
             <div class="d-flex justify-content-evenly">
@@ -36,5 +40,5 @@
 @endsection
 
 @section('js')
-<script class="" type="module" src="{{ asset('js/validatorCat.js') }}" defer></script>
+<script class="" type="module" src="{{ asset('js/validatorStr.js') }}" defer></script>
 @endsection
