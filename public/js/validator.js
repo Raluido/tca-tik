@@ -29,7 +29,7 @@ $(window).on('load', function () {
 
     function priceValidator() {
         let priceVal = $('#priceValidator');
-        let regex = /([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9])+\.[0-9]{2}/;
+        let regex = /(^[1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9])+\.[0-9]{2}/;
         if (regex.test(priceVal.val())) {
             priceVal.css('border', '1px solid green');
             $('#priceError').text('');
@@ -47,10 +47,11 @@ $(window).on('load', function () {
 
     function taxValidator() {
         let taxVal = $('#taxValidator');
-        let regex = /([1-9]|[1-9][0-9])+\.[0-9]{2}/;
+        let regex = /(^[1-9]|[1-9][0-9])+\.[0-9]{2}/;
         if (regex.test(taxVal.val())) {
             taxVal.css('border', '1px solid green');
-            $('#taxErr').text('');
+            console.log("aqui");
+            $('#taxError').text('');
             taxErr = false;
             return taxErr;
         } else {
