@@ -11,7 +11,7 @@
     </div>
 
     <div class="formWidth">
-        <form action="{{ route('products.create') }}" method="post" id="sendForm" class="mt-3 shadow-lg text-center py-5">
+        <form action="{{ route('products.create') }}" method="post" id="sendForm" class="mt-3 shadow-lg text-center py-5" enctype="multipart/form-data">
             @csrf
             <div class="mb-4">
                 <input type="text" name="name" class="w-75" id="nameValidator" placeholder="Nombre">
@@ -29,7 +29,7 @@
                 <h5 id="priceError"></h5>
             </div>
             <div class="mb-4">
-                <input name="tax" class="w-75" type="number" step="0.01" id="priceValidator" placeholder="Impuesto">
+                <input name="tax" class="w-75" type="number" step="0.01" id="taxValidator" placeholder="Impuesto">
                 <h5 id="taxError"></h5>
             </div>
             <div class="mb-4">

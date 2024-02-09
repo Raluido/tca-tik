@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Product;
 
-class Product_storehouse extends Model
+class Discount extends Model
 {
     use HasFactory;
 
@@ -15,12 +16,12 @@ class Product_storehouse extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'product_storehouse_has_storehouse',
-        'product_storehouse_has_product'
+        'campaign',
+        'percentage'
     ];
 
-    public function items()
+    public function products()
     {
-        $this->hasMany(Item::class, 'item_has_product_storehouse');
+        return $this->hasMany(Product::class, 'product_has_discount');
     }
 }

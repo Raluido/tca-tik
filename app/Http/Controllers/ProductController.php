@@ -29,7 +29,6 @@ class ProductController extends Controller
     public function createForm()
     {
         $categories = Category::all();
-
         $storehouses = Storehouse::all();
 
         if (count($categories) == 0 || is_null($categories)) return redirect()->back()->withErrors('Para crear un artículo primero debe haber creado al menos una categoría.');

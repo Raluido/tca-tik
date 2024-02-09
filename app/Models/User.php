@@ -8,6 +8,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use App\Models\Address;
+use App\Models\Log;
+use App\Models\Review;
+use App\Models\Payment;
 
 class User extends Authenticatable
 {
@@ -20,8 +24,13 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
+        'surname',
+        'phone',
+        'birthdate',
         'password',
+        'email',
+        'avatar',
+        'email_verified_at'
     ];
 
     /**
@@ -43,4 +52,29 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function address()
+    {
+        return $this->hasOne(Address::class, 'address_has_user');
+    }
+
+    public function logs()
+    {
+        return $this->hasMany(Log::class, 'log_has_user');
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class, 'payment_has_user');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'review_has_user');
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany(Review::class, 'ticket_reply_has_ticket');
+    }
 }

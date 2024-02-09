@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Order;
 
-class Product_storehouse extends Model
+class Shipping_log extends Model
 {
     use HasFactory;
 
@@ -15,12 +16,14 @@ class Product_storehouse extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'product_storehouse_has_storehouse',
-        'product_storehouse_has_product'
+        'shipping_log_has_order',
+        'tracking_number',
+        'departure',
+        'estimated_arrived'
     ];
 
-    public function items()
+    public function order()
     {
-        $this->hasMany(Item::class, 'item_has_product_storehouse');
+        return $this->belongsTo(Order::class, 'shipping_log_has_order');
     }
 }

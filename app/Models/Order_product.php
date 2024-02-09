@@ -4,8 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Cart;
+use App\Models\Order;
+use App\Models\Product;
 
-class Product_storehouse extends Model
+class Order_product extends Model
 {
     use HasFactory;
 
@@ -15,12 +18,12 @@ class Product_storehouse extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'product_storehouse_has_storehouse',
-        'product_storehouse_has_product'
+        'order_product_has_order',
+        'order_product_has_product'
     ];
 
-    public function items()
+    public function cart()
     {
-        $this->hasMany(Item::class, 'item_has_product_storehouse');
+        return $this->hasOne(Cart::class, 'cart_has_order_product');
     }
 }

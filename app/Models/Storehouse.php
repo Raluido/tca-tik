@@ -24,6 +24,6 @@ class Storehouse extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'product_storehouses', 'product_storehouse_has_storehouses', 'product_storehouse_has_products');
+        return $this->belongsToMany(Product::class, 'product_storehouse', 'product_storehouse_has_storehouse', 'product_storehouse_has_product');
     }
 }

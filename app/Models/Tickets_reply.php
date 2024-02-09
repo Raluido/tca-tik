@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Ticket;
 
-class Product_storehouse extends Model
+class Tickets_reply extends Model
 {
     use HasFactory;
 
@@ -15,12 +16,13 @@ class Product_storehouse extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'product_storehouse_has_storehouse',
-        'product_storehouse_has_product'
+        'ticket_reply_has_ticket',
+        'ticket_has_user',
+        'description'
     ];
 
-    public function items()
+    public function ticket()
     {
-        $this->hasMany(Item::class, 'item_has_product_storehouse');
+        return $this->belongsTo(Ticket::class, 'ticket_reply_has_ticket');
     }
 }
