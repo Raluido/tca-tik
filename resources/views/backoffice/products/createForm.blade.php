@@ -11,7 +11,7 @@
     </div>
 
     <div class="formWidth">
-        <form action="{{ route('products.backOfficeStore') }}" method="post" id="sendForm" class="mt-3 shadow-lg text-center py-5" enctype="multipart/form-data">
+        <form action="{{ route('products.backOfficeStore') }}" method="POST" id="sendForm" class="mt-3 shadow-lg text-center py-5" enctype="multipart/form-data">
             @csrf
             <div class="mb-4">
                 <input name="prefix" class="w-75" type="text" id="prefixValidator" placeholder="identificador del producto">
@@ -58,8 +58,8 @@
                 <h5 id="observationsError"></h5>
             </div>
             <div class="mb-4">
-                <input name="images[]" class="w-75" type="file" id="" placeholder="Imágenes">
-                <h5 id=""></h5>
+                <input name="images[]" class="w-75" type="file" id="images" placeholder="Imágenes" multiple>
+                <h5 id="imagesError"></h5>
             </div>
             <div class="d-flex justify-content-evenly">
                 <input type="submit" class="btn btn-success btn-sm" id="submitBtn" value="Crear">

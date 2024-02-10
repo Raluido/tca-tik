@@ -33,8 +33,8 @@
                     <td class="">{{$product->description}}</td>
                     <td class="">{{$product->price}}</td>
                     <td class="">{{$product->observations}}</td>
-                    <td class=""><button class="btn btn-success btn-sm"><a href="{{ route('products.showone', [$product->id]) }}" class="text-white">Mostrar</a></button>
-                        <button class="btn btn-primary btn-sm"><a href="{{ route('products.editForm', [$product->id]) }}" class="text-white">Editar</a></button>
+                    <td class=""><button class="btn btn-success btn-sm"><a href="{{ route('products.showBackOfficeOne', [$product->id]) }}" class="text-white">Mostrar</a></button>
+                        <button class="btn btn-primary btn-sm"><a href="{{ route('products.showBackOfficeEdit', [$product->id]) }}" class="text-white">Editar</a></button>
                         <button class="btn btn-danger btn-sm text-white deleteProduct" value="{{ $product->id }}">Eliminar</button>
                     </td>
                 </tr>
@@ -47,7 +47,7 @@
 
 
     <div class="w-50 d-flex justify-content-evenly mt-5">
-        <button class="btn btn-success btn-sm"><a href="{{ route('products.createForm') }}" class="text-white">Crear</a></button>
+        <button class="btn btn-success btn-sm"><a href="{{ route('products.backOfficeStore') }}" class="text-white">Crear</a></button>
         <button class="btn btn-primary btn-sm"><a href="{{ route('main') }}" class="text-white">Volver</a></button>
     </div>
 </div>

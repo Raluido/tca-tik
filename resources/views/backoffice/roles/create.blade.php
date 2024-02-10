@@ -1,10 +1,10 @@
 @extends('layouts.master')
 
 @section('content')
-<div class="bg-light rounded headerBottom">
-    <h1>Add new role</h1>
+<div class="mt-5 d-flex flex-column align-items-center flex-grow-1 headerBottom">
+    <h1>Añadir nuevo rol</h1>
     <div class="lead">
-        Add new role and assign permissions.
+        Gestiona roles y permisos:
     </div>
 
     <div class="container mt-4">
@@ -20,35 +20,37 @@
         </div>
         @endif
 
-        <form method="POST" action="{{ route('roles.store') }}">
-            @csrf
-            <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input value="{{ old('name') }}" type="text" class="form-control" name="name" placeholder="Name" required>
-            </div>
+        <div class="formWidth">
+            <form method="POST" action="{{ route('roles.store') }}">
+                @csrf
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nombre</label>
+                    <input value="{{ old('name') }}" type="text" class="form-control" name="name" placeholder="Nombre" required>
+                </div>
 
-            <label for="permissions" class="form-label">Assign Permissions</label>
+                <label for="permissions" class="form-label">Asignar permisos</label>
 
-            <table class="table table-striped">
-                <thead>
-                    <th scope="col" width="1%"><input type="checkbox" name="all_permission"></th>
-                    <th scope="col" width="20%">Name</th>
-                    <th scope="col" width="1%">Guard</th>
-                </thead>
+                <table class="table table-striped">
+                    <thead>
+                        <th scope="col" width="1%"><input type="checkbox" name="all_permission"></th>
+                        <th scope="col" width="20%">Name</th>
+                        <th scope="col" width="1%">Guard</th>
+                    </thead>
 
-                @foreach($permissions as $permission)
-                <tr>
-                    <td>
-                        <input type="checkbox" name="permission[{{ $permission->name }}]" value="{{ $permission->name }}" class='permission'>
-                    </td>
-                    <td>{{ $permission->name }}</td>
-                    <td>{{ $permission->guard_name }}</td>
-                </tr>
-                @endforeach
-            </table>
+                    @foreach($permissions as $permission)
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="permission[{{ $permission->name }}]" value="{{ $permission->name }}" class='permission'>
+                        </td>
+                        <td>{{ $permission->name }}</td>
+                        <td>{{ $permission->guard_name }}</td>
+                    </tr>
+                    @endforeach
+                </table>
 
-            <button type="submit" class="btn btn-primary">Save user</button>
-        </form>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+        </div>
     </div>
 
 </div>

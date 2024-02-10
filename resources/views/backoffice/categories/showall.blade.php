@@ -29,7 +29,7 @@
                     <td class="">{{$category->name}}</td>
                     <td class="">{{$category->description}}</td>
                     <td class="">{{$category->prefix}}</td>
-                    <td class=""><button class="btn btn-primary btn-sm"><a href="{{ route('categories.editForm', [$category->id]) }}" class="text-white">Editar</a></button>
+                    <td class=""><button class="btn btn-primary btn-sm"><a href="{{ route('categories.showBackOfficeEdit', [$category->id]) }}" class="text-white">Editar</a></button>
                         <button class="btn btn-danger btn-sm deleteCategory" value="{{ $category->id }}">Eliminar</button>
                     </td>
                 </tr>
@@ -41,7 +41,7 @@
     @endif
 
     <div class="w-50 d-flex justify-content-evenly mt-5">
-        <button class="btn btn-success btn-sm text-white"><a href="{{ route('categories.createForm') }}" class="text-white">Crear</a></button>
+        <button class="btn btn-success btn-sm text-white"><a href="{{ route('categories.showBackOfficeCreate') }}" class="text-white">Crear</a></button>
         <button class="btn btn-primary btn-sm text-white"><a href="{{ route('main') }}" class="text-white">Volver</a></button>
     </div>
 </div>

@@ -9,6 +9,8 @@ use App\Models\Storehouse;
 use App\Models\Product_storehouse;
 use App\Http\Requests\CreateProductRequest;
 use App\Models\Discount;
+use App\Models\Image;
+use Faker\Extension\FileExtension;
 use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
@@ -40,7 +42,23 @@ class ProductController extends Controller
 
     public function backOfficeStore(CreateProductRequest $request)
     {
-        Product::create($request->validated());
+        $validated = $request->validated();
+        $images = $validated['images'];
+        $imageObj = array();
+
+        $product = Product::create($validated);
+
+        if (count($images) > 0) {
+            foreach ($images as $key => $image) {
+                $extension = $image->getClientOriginalExtension();
+                $fileName = 'id_' . $product->id . '_' . $key . '.' . $extension;
+                $image->storeAs('images/' . $fileName);
+                $imageObj[] = [
+                    'filename' => $fileName
+                ];
+            }
+            $product->images()->createMany($imageObj);
+        }
 
         return redirect()->back()->withSuccess('El producto se ha creado correctamente.');
     }

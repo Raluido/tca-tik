@@ -11,7 +11,7 @@
     </div>
 
     <div class="formWidth">
-        <form action="{{ route('categories.edit', [$category->id]) }}" method="post" id="sendForm" class="mt-5 shadow-lg text-center py-5">
+        <form action="{{ route('categories.backOfficeupdate', [$category->id]) }}" method="post" id="sendForm" class="mt-5 shadow-lg text-center py-5">
             @csrf
             @method('PUT')
             <div class="mb-4">

@@ -31,7 +31,8 @@ class CreateProductRequest extends FormRequest
             'tax' => 'required|numeric|between:0,99.99',
             'prefix' => 'required|between:1,3',
             'observations' => 'max:500',
-            'description' => 'max:500'
+            'description' => 'max:500',
+            'images.*' => 'mimes:jpg,jpeg,png',
         ];
     }
 
@@ -50,6 +51,7 @@ class CreateProductRequest extends FormRequest
             'prefix.required' => 'Tienes que indicar una referencia para el artículo.',
             'observations.max' => 'El número de caracteres máximo es de 500.',
             'description.max' => 'El número de caracteres máximo es de 500.',
+            'mimes' => 'Las imágenes deben tener el formato jpg, jpeg o png.'
         ];
     }
 }

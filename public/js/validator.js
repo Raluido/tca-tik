@@ -5,6 +5,7 @@ $(window).on('load', function () {
     let taxErr = true;
     let observationsErr = true;
     let descriptionErr = true;
+    let imagesErr = true;
 
     $('#nameValidator').on('keyup', function () {
         nameValidator();
@@ -29,7 +30,7 @@ $(window).on('load', function () {
 
     function priceValidator() {
         let priceVal = $('#priceValidator');
-        let regex = /(^[1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9])+\.[0-9]{2}/;
+        let regex = new RegExp('^\s*?[0-9]{1,4}\.[0-9]{2}\s*$');
         if (regex.test(priceVal.val())) {
             priceVal.css('border', '1px solid green');
             $('#priceError').text('');
@@ -47,10 +48,9 @@ $(window).on('load', function () {
 
     function taxValidator() {
         let taxVal = $('#taxValidator');
-        let regex = /(^[1-9]|[1-9][0-9])+\.[0-9]{2}/;
+        let regex = new RegExp('^\s*?[0-9]{1,2}\.[0-9]{2}\s*$');
         if (regex.test(taxVal.val())) {
             taxVal.css('border', '1px solid green');
-            console.log("aqui");
             $('#taxError').text('');
             taxErr = false;
             return taxErr;
@@ -111,6 +111,30 @@ $(window).on('load', function () {
         }
     }
 
+    $('#images').on('change', () => {
+        imagesValidator();
+    });
+
+    function imagesValidator() {
+        let imagesVal = $('#images');
+        let images = imagesVal.prop('files');
+        let allowFormats = [
+            'image/jpg', 'image/jpeg', 'image/png'
+        ];
+        for (let index = 0; index < images.length; index++) {
+            let element = images[index];
+            if (!allowFormats.includes(element.type)) {
+                imagesVal.css('border', '1px solid red');
+                $('#imagesError').text("Alguno de los archivos que intentas añadir no tiene extensión jpg, jpeg o png.");
+            } else {
+                $('#imagesError').text('');
+                imagesVal.css('border', '1px solid green');
+                imagesErr = false;
+                return imagesErr;
+            }
+        }
+    }
+
     $('#submitBtn').on('click', function () {
         nameValidator();
         priceValidator();
@@ -118,7 +142,8 @@ $(window).on('load', function () {
         prefixValidator();
         observationsValidator();
         descriptionValidator();
-        if (nameErr == false && prefixErr == false && priceErr == false && taxErr == false && descriptionErr == false && observationsErr == false) {
+        imagesValidator();
+        if (nameErr == false && prefixErr == false && priceErr == false && taxErr == false && descriptionErr == false && observationsErr == false && imagesErr == false) {
             $('#sendForm').on('submit', function () {
                 console.log("enviado");
             })
