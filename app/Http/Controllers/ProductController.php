@@ -12,6 +12,7 @@ use App\Models\Discount;
 use App\Models\Image;
 use Faker\Extension\FileExtension;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -88,5 +89,15 @@ class ProductController extends Controller
         $delete->delete();
 
         return $delete;
+    }
+
+    public function backOfficeDestroyImg(Image $image)
+    {
+        if (Storage::exists('images/' . $image->filename)) {
+            Storage::delete('images/' . $image->filename);
+            Image::find($image->id)->delete();
+        }
+
+        return true;
     }
 }

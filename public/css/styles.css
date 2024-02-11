@@ -221,6 +221,43 @@ td {
     background-color: whitesmoke;
 }
 
+.thumbnails {
+    position: relative;
+    margin: 2em;
+}
+
+.thumbnails>div {
+    margin-right: .5em;
+}
+
+.thumbnail {
+    position: relative;
+    display: inline-block;
+}
+
+.thumbnailImg,
+.thumbnailImg img {
+    width: 2em;
+    height: auto;
+}
+
+.thumbnailImg {
+    display: inline-block;
+}
+
+.thumbnailDelete {
+    width: .8em;
+    height: .8em;
+    border-radius: 100%;
+    background-color: red;
+    border: unset;
+    margin-top: 0 !important;
+    display: inline-block;
+    text-align: center;
+    position: absolute;
+    left: 1.5em;
+}
+
 footer {
     position: absolute;
     bottom: 0;

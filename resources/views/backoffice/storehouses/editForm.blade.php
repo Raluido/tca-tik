@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="d-flex flex-column align-items-center flex-grow-1 headerBottom">">
+<div class="d-flex flex-column align-items-center flex-grow-1 headerBottom">
 
     <h4 class="mt-5">Editar almacén</h4>
 
@@ -11,7 +11,7 @@
     </div>
 
     <div class="formWidth">
-        <form action="{{ route('storehouses.edit', [$storehouse]) }}" method="post" id="sendForm" class="mt-5 shadow-lg text-center py-5">
+        <form action="{{ route('storehouses.backOfficeUpdate', [$storehouse]) }}" method="post" id="sendForm" class="mt-5 shadow-lg text-center py-5">
             @csrf
             @method('PUT')
             <div class="mb-4">
@@ -32,7 +32,7 @@
             </div>
             <div class="d-flex justify-content-evenly">
                 <button class="btn btn-success btn-sm" id="submitBtn">Editar</button>
-                <button class="btn btn-primary btn-sm"><a href="{{ route('storehouses.showall') }}" class="text-white">Volver</a></button>
+                <button class="btn btn-primary btn-sm"><a href="{{ route('storehouses.showBackOfficeAll') }}" class="text-white">Volver</a></button>
             </div>
         </form>
     </div>

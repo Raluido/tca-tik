@@ -16,10 +16,10 @@ class Storehouse extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'prefix',
         'name',
-        'description',
         'address',
-        'prefix'
+        'description'
     ];
 
     public function products()

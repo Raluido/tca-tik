@@ -29,7 +29,7 @@
                     <td class="">{{$storehouse->name}}</td>
                     <td class="">{{$storehouse->description}}</td>
                     <td class="">{{$storehouse->address}}</td>
-                    <td class=""><button class="btn btn-success btn-sm"><a href="{{ route('storehouses.editForm', [$storehouse->id]) }}" class="text-white">Editar</a></button>
+                    <td class=""><button class="btn btn-success btn-sm"><a href="{{ route('storehouses.showBackOfficeEdit', [$storehouse->id]) }}" class="text-white">Editar</a></button>
                         <button class="btn btn-danger btn-sm deleteStorehouse" value="{{ $storehouse->id }}">Eliminar</button>
                     </td>
                 </tr>
@@ -40,7 +40,7 @@
     </div>
     @endif
     <div class="w-50 d-flex justify-content-evenly mt-5">
-        <button class="btn btn-success btn-sm"><a href="{{ route('storehouses.createForm') }}" class="text-white">Crear</a></button>
+        <button class="btn btn-success btn-sm"><a href="{{ route('storehouses.showBackOfficeCreate') }}" class="text-white">Crear</a></button>
         <button class="btn btn-primary btn-sm"><a href="{{ route('main') }}" class="text-white">Volver</a></button>
     </div>
 </div>

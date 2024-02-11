@@ -2,7 +2,7 @@ $(window).on('load', function () {
     $('.deleteProduct').on('click', function () {
         if (confirm("Estas seguro de eliminar la ficha de producto? Si lo haces eliminarás las unidades en el almacén.")) {
             $.ajax({
-                url: '/products/delete' + $(this).val(),
+                url: '/backoffice/products/' + $(this).val() + '/delete',
                 type: 'get',
                 data: {},
                 success: function () {
@@ -16,7 +16,7 @@ $(window).on('load', function () {
     $('.deleteCategory').on('click', function () {
         if (confirm("Estas seguro de eliminar la categoría? Si lo haces eliminarás las unidades de producto y la ficha del producto asociado.")) {
             $.ajax({
-                url: '/categories/delete/' + $(this).val(),
+                url: '/backoffice/categories/' + $(this).val() + '/delete',
                 type: 'get',
                 data: {},
                 success: function () {
@@ -30,7 +30,7 @@ $(window).on('load', function () {
     $('.deleteStorehouse').on('click', function () {
         if (confirm("Estas seguro de eliminar el almacén? Si lo haces eliminarás las unidades de producto que contenga.")) {
             $.ajax({
-                url: '/storehouses/delete/' + $(this).val(),
+                url: '/backoffice/storehouses/' + $(this).val() + '/delete',
                 type: 'get',
                 data: {},
                 success: function () {

@@ -11,7 +11,7 @@
     </div>
 
     <div class="formWidth">
-        <form action="{{ route('products.edit', [$product->id]) }}" method="post" id="sendForm" class="mt-5 shadow-lg text-center py-5">
+        <form action="{{ route('products.backOfficeupdate', [$product->id]) }}" method="post" id="sendForm" class="mt-5 shadow-lg text-center py-5">
             @csrf
             @method('PUT')
             <div class="mb-4">
@@ -41,16 +41,35 @@
                 <textarea name="" rows="10" class="w-75" id="observationsValidator" placeholder="Observaciones">{{ $product->observations }}</textarea>
                 <h5 id="observationsError"></h5>
             </div>
+            <div class="mb-4">
+                <input name="images[]" class="w-75" type="file" id="images" placeholder="Imágenes" multiple>
+                <h5 id="imagesError"></h5>
+                <div class="thumbnails">
+                    @foreach($product->images as $thumb)
+                    <div class="thumbnail">
+                        <div class="thumbnailImg">
+                            <img src="{{ Storage::disk('images')->url($thumb->filename) }}" alt="" class="">
+                        </div>
+                        <div class="thumbnailDelete text-white" data-id="{{ $thumb->id }}">
+                            <p class="" style="position:relative; bottom:7px">x</p>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
             <div class="d-flex justify-content-evenly">
                 <button class="btn btn-success btn-sm text-white" id="submitBtn">Editar</button>
-                <button class="btn btn-primary btn-sm"><a href="{{ route('products.showall') }}" class="text-white">Volver</a></button>
+                <button class="btn btn-primary btn-sm"><a href="{{ route('products.showBackOfficeAll') }}" class="text-white">Volver</a></button>
             </div>
         </form>
     </div>
 </div>
 
+<input type="hidden" value="{{ env('APP_URL') }}" id="url">
+
 @endsection
 
 @section('js')
 <script class="" type="module" src="{{ asset('js/validator.js') }}" defer></script>
+<script class="" type="module" src="{{ asset('js/deleteImg.js') }}" defer></script>
 @endsection

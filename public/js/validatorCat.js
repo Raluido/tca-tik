@@ -2,6 +2,7 @@ $(window).on('load', function () {
     let nameErr = true;
     let prefixErr = true;
     let descriptionErr = true;
+    let addressErr = true;
 
     $('#nameValidator').on('keyup', function () {
         nameValidator();
@@ -54,11 +55,29 @@ $(window).on('load', function () {
         }
     }
 
+    $('#addressValidator').on('keyup', function () {
+        addressValidator();
+    })
+
+    function addressValidator() {
+        let addressVal = $('#addressValidator');
+        if (addressVal.val().length < 201) {
+            addressVal.css('border', '1px solid green');
+            $('#addressError').text('');
+            addressErr = false;
+            return addressErr;
+        } else {
+            addressVal.css('border', '1px solid red');
+            $('#addressError').text("La dirección no debe contener más de 200 caracteres.");
+        }
+    }
+
     $('#submitBtn').on('click', function () {
         nameValidator();
         prefixValidator();
         descriptionValidator();
-        if (nameErr == false && prefixErr == false && descriptionErr == false) {
+        addressValidator();
+        if (nameErr == false && prefixErr == false && descriptionErr == false && addressErr == false) {
             $('#sendForm').on('submit', function () {
             })
         } else {
