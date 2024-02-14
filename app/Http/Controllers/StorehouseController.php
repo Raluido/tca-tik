@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Storehouse;
 use App\Http\Requests\CreateStorehouseRequest;
 use App\Models\Product_storehouse;
+use App\Models\Product;
+use App\Models\Item;
 use Illuminate\Support\Facades\Log;
 
 class StorehouseController extends Controller
@@ -24,7 +26,27 @@ class StorehouseController extends Controller
 
     public function backOfficeStore(CreateStorehouseRequest $request)
     {
-        Storehouse::create($request->validated());
+        $storehouse = Storehouse::create($request->validated());
+
+        $products = Product::all();
+        if (isset($products) && count($products) != 0) {
+            foreach ($products as $key => $value) {
+                $productStorehouse = Product_storehouse::create([
+                    'product_storehouse_has_products' => $value->id,
+                    'product_storehouse_has_storehouses' => $storehouse->id
+                ]);
+
+                log::info($productStorehouse->id);
+
+                Item::create([
+                    'item_has_product_storehouses' => $productStorehouse->id,
+                    'action' => 'init',
+                    'pricepu' => 0,
+                    'quantity' => 0,
+                    'stock' => 0
+                ]);
+            }
+        }
 
         return redirect()->back()->withSuccess('El almacén se ha creado correctamente.');
     }

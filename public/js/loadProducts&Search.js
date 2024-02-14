@@ -4,7 +4,7 @@ $(window).on('load', function () {
 
     $.ajax({
         type: 'GET',
-        url: '/storehousesManagement/showAllAjax',
+        url: url + '/backoffice/storehousesManagement/showAllAjax',
         data: {},
         success: function (data) {
             fullFilledTable(data);
@@ -14,7 +14,7 @@ $(window).on('load', function () {
     $('#inputSearch').on('keyup', function () {
         let inputSearch = $('#inputSearch').val();
         $.ajax({
-            url: url + '/storehousesManagement/searchBy/' + inputSearch,
+            url: url + '/backoffice/storehousesManagement/searchBy/' + inputSearch,
             type: 'get',
             data: {},
             success: function (data) {
@@ -46,7 +46,7 @@ $(window).on('load', function () {
         let inputSearch = $(this).attr('data-id');
         $.ajax({
             type: 'GET',
-            url: '/storehousesManagement/showAllAjax/' + inputSearch,
+            url: url + '/backoffice/storehousesManagement/showAllAjax/' + inputSearch,
             data: {},
             success: function (data) {
                 fullFilledTable(data);
@@ -60,7 +60,7 @@ $(window).on('load', function () {
         let offset = $(this)[0].getAttribute('data-offset');
         $.ajax({
             type: 'GET',
-            url: '/storehousesManagement/showAllAjax/' + inputSearch + '/' + offset,
+            url: url + '/backoffice/storehousesManagement/showAllAjax/' + inputSearch + '/' + offset,
             data: {},
             success: function (data) {
                 fullFilledTable(data);
@@ -103,7 +103,7 @@ $(window).on('load', function () {
         thCatPrd.innerHTML = 'Categoría del producto';
         tr.appendChild(thCatPrd);
         let thStocks = document.createElement('th');
-        thStocks.innerHTML = 'Stocks';
+        thStocks.innerHTML = 'Stock';
         tr.appendChild(thStocks);
         let tbody = document.createElement('tbody');
         $('.fullfilledTable').append(tbody);
@@ -123,7 +123,7 @@ $(window).on('load', function () {
             tdPrdCategory.innerHTML = element.pcategory;
             tr.appendChild(tdPrdCategory);
             let tdPrdTotal = document.createElement('td');
-            tdPrdTotal.innerHTML = element.total;
+            tdPrdTotal.innerHTML = element.stock;
             tr.appendChild(tdPrdTotal);
         })
         $('.paginationMng').empty();

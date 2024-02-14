@@ -16,7 +16,7 @@ class Item extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'item_has_product_storehouse',
+        'item_has_product_storehouses',
         'action',
         'pricepu',
         'quantity',

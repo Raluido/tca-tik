@@ -121,16 +121,23 @@ $(window).on('load', function () {
         let allowFormats = [
             'image/jpg', 'image/jpeg', 'image/png'
         ];
-        for (let index = 0; index < images.length; index++) {
-            let element = images[index];
-            if (!allowFormats.includes(element.type)) {
-                imagesVal.css('border', '1px solid red');
-                $('#imagesError').text("Alguno de los archivos que intentas añadir no tiene extensión jpg, jpeg o png.");
-            } else {
-                $('#imagesError').text('');
-                imagesVal.css('border', '1px solid green');
-                imagesErr = false;
-                return imagesErr;
+
+        if (images.length == 0) {
+            $('#imagesError').text("No has añadido ninguna imágen o imágenes al producto.");
+        }
+
+        else {
+            for (let index = 0; index < images.length; index++) {
+                let element = images[index];
+                if (!allowFormats.includes(element.type)) {
+                    imagesVal.css('border', '1px solid red');
+                    $('#imagesError').text("Alguno de los archivos que intentas añadir no tiene extensión jpg, jpeg o png.");
+                } else {
+                    $('#imagesError').text('');
+                    imagesVal.css('border', '1px solid green');
+                    imagesErr = false;
+                    return imagesErr;
+                }
             }
         }
     }

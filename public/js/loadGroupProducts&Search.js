@@ -10,12 +10,12 @@ $(window).on('load', function () {
             inputSearch = 0;
         }
         if (storehouseSelected == 0 && categorySelected == 0) {
-            window.location.assign(url + '/storehousesManagement/showProducts');
+            window.location.assign(url + '/backoffice/storehousesManagement/showProducts');
             return;
         }
         $.ajax({
             type: 'GET',
-            url: '/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch,
+            url: url + '/backoffice/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch,
             data: {},
             success: function (data) {
                 $('#offset').val(0);
@@ -44,12 +44,12 @@ $(window).on('load', function () {
         let categorySelected = $('#filterByCategory').val();
         let inputSearch = $('#searchProductId').val();
         if (storehouseSelected == 0 && categorySelected == 0) {
-            window.location.assign(url + '/storehousesManagement/showProducts');
+            window.location.assign(url + '/backoffice/storehousesManagement/showProducts');
             return;
         }
         $.ajax({
             type: 'GET',
-            url: '/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch,
+            url: url + '/backoffice/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch,
             data: {},
             success: function (data) {
                 $('#offset').val(0);
@@ -68,7 +68,7 @@ $(window).on('load', function () {
     $('#inputSearch1').on('keyup', function () {
         let inputSearch = $('#inputSearch1').val();
         $.ajax({
-            url: url + '/storehousesManagement/searchBy/' + inputSearch,
+            url: url + '/backoffice/storehousesManagement/searchBy/' + inputSearch,
             type: 'get',
             data: {},
             success: function (data) {
@@ -101,7 +101,7 @@ $(window).on('load', function () {
         let storehouseSelected = $('#storehouseSelected').val();
         $.ajax({
             type: 'GET',
-            url: '/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch,
+            url: url + '/backoffice/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch,
             data: {},
             success: function (data) {
                 fullFilledTable(data);
@@ -118,7 +118,7 @@ $(window).on('load', function () {
         let offset = $(this)[0].getAttribute('data-offset');
         $.ajax({
             type: 'GET',
-            url: '/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + offset,
+            url: url + '/backoffice/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + offset,
             data: {},
             success: function (data) {
                 fullFilledTable(data);
@@ -134,59 +134,65 @@ $(window).on('load', function () {
         let tr = document.createElement('tr');
         thead.appendChild(tr);
         $('.fullfilledTable').append(thead);
-        let thName = document.createElement('th');
-        thName.innerHTML = 'Nombre';
-        tr.appendChild(thName);
         let thPrefix = document.createElement('th');
-        thPrefix.innerHTML = 'Prefijo';
+        thPrefix.innerHTML = 'id';
         tr.appendChild(thPrefix);
+        let thName = document.createElement('th');
+        thName.innerHTML = 'Almacén';
+        tr.appendChild(thName);
         let thDcrp = document.createElement('th');
         thDcrp.innerHTML = 'Descripción';
         tr.appendChild(thDcrp);
-        let thPrd = document.createElement('th');
-        thPrd.innerHTML = 'Productos';
-        tr.appendChild(thPrd);
-        let thPrice = document.createElement('th');
-        thPrice.innerHTML = 'Precio';
-        tr.appendChild(thPrice);
         let thPrdId = document.createElement('th');
         thPrdId.innerHTML = 'Identificador del producto';
         tr.appendChild(thPrdId);
+        let thPrd = document.createElement('th');
+        thPrd.innerHTML = 'Productos';
+        tr.appendChild(thPrd);
         let thPrdCat = document.createElement('th');
         thPrdCat.innerHTML = 'Categoría del producto';
         tr.appendChild(thPrdCat);
-        let thtotal = document.createElement('th');
-        thtotal.innerHTML = 'Total';
-        tr.appendChild(thtotal);
+        let thPrice = document.createElement('th');
+        thPrice.innerHTML = 'Precio';
+        tr.appendChild(thPrice);
+        let thqtt = document.createElement('th');
+        thqtt.innerHTML = 'Cantidad';
+        tr.appendChild(thqtt);
+        let thstc = document.createElement('th');
+        thstc.innerHTML = 'Stock';
+        tr.appendChild(thstc);
         let tbody = document.createElement('tbody');
         $('.fullfilledTable').append(tbody);
         data.filtered.forEach(function (element) {
             tr = document.createElement('tr');
             tbody.appendChild(tr);
-            let tdName = document.createElement('td');
-            tdName.innerHTML = element.name;
-            tr.appendChild(tdName);
             let tdPrefix = document.createElement('td');
             tdPrefix.innerHTML = element.prefix;
             tr.appendChild(tdPrefix);
+            let tdName = document.createElement('td');
+            tdName.innerHTML = element.name;
+            tr.appendChild(tdName);
             let tdDscrp = document.createElement('td');
             tdDscrp.innerHTML = element.description;
             tr.appendChild(tdDscrp);
-            let tdPrdName = document.createElement('td');
-            tdPrdName.innerHTML = element.pname;
-            tr.appendChild(tdPrdName);
-            let tdPrdPrice = document.createElement('td');
-            tdPrdPrice.innerHTML = element.pprice;
-            tr.appendChild(tdPrdPrice);
             let tdPrdPrefix = document.createElement('td');
             tdPrdPrefix.innerHTML = element.pprefix;
             tr.appendChild(tdPrdPrefix);
+            let tdPrdName = document.createElement('td');
+            tdPrdName.innerHTML = element.pname;
+            tr.appendChild(tdPrdName);
             let tdPrdCat = document.createElement('td');
             tdPrdCat.innerHTML = element.pcategory;
             tr.appendChild(tdPrdCat);
-            let tdTotal = document.createElement('td');
-            tdTotal.innerHTML = element.total;
-            tr.appendChild(tdTotal);
+            let tdPrdPrice = document.createElement('td');
+            tdPrdPrice.innerHTML = element.pprice;
+            tr.appendChild(tdPrdPrice);
+            let tdQtt = document.createElement('td');
+            tdQtt.innerHTML = element.quantity;
+            tr.appendChild(tdQtt);
+            let tdStc = document.createElement('td');
+            tdStc.innerHTML = element.stock;
+            tr.appendChild(tdStc);
         })
         $('.paginationMng').empty();
         let showLefts = document.createElement('p');

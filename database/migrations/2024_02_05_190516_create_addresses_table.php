@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('address_has_user')->constrained(table: 'users', column: 'id');
-            $table->string("address");
-            $table->string("country");
-            $table->string("zipcode");
+            $table->string("address0");
+            $table->string("country0");
+            $table->string("zipcode0");
             $table->string("address1");
             $table->string("country1");
             $table->string("zipcode1");
+            $table->string('shipping_address_slc');
             $table->timestamps();
         });
     }

@@ -69,9 +69,7 @@
 
     <div class="mb-5 shadow-lg p-5">
         <h4 class="text-center mb-5">Productos en stock</h4>
-        <table class="table fullfilledTable overflow-scroll">
-
-        </table>
+        <table class="table fullfilledTable overflow-scroll"></table>
     </div>
     <div class="paginationMng w-100 d-sm-flex flex-sm-column align-items-sm-center d-md-flex flex-md-row justify-content-md-around mb-5">
     </div>

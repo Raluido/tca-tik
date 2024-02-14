@@ -15,8 +15,8 @@ class Product_storehouse extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'product_storehouse_has_storehouse',
-        'product_storehouse_has_product'
+        'product_storehouse_has_storehouses',
+        'product_storehouse_has_products'
     ];
 
     public function items()

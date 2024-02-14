@@ -10,6 +10,7 @@ use App\Models\Product_storehouse;
 use App\Http\Requests\CreateProductRequest;
 use App\Models\Discount;
 use App\Models\Image;
+use App\Models\Item;
 use Faker\Extension\FileExtension;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -59,6 +60,24 @@ class ProductController extends Controller
                 ];
             }
             $product->images()->createMany($imageObj);
+        }
+
+        $storehouses = Storehouse::all();
+        if (isset($storehouses) && count($storehouses) != 0) {
+            foreach ($storehouses as $key => $value) {
+                $productStorehouse = Product_storehouse::create([
+                    'product_storehouse_has_products' => $product->id,
+                    'product_storehouse_has_storehouses' => $value->id
+                ]);
+
+                Item::create([
+                    'item_has_product_storehouses' => $productStorehouse->id,
+                    'action' => 'init',
+                    'pricepu' => null,
+                    'quantity' => 0,
+                    'stock' => 0
+                ]);
+            }
         }
 
         return redirect()->back()->withSuccess('El producto se ha creado correctamente.');

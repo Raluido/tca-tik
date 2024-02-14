@@ -29,17 +29,15 @@ class StorehousesManagementController extends Controller
             $searchWhere = '';
         }
 
-        $countAllProducts = Db::select("SELECT products.product_has_category AS id, products.id AS pid, products.name AS pname, products.price AS pprice, products.prefix AS pprefix, categories.name AS pcategory, product_storehouses.product_storehouse_has_products, COUNT(*) as total FROM product_storehouses
-        INNER JOIN products ON products.id = product_storehouses.product_storehouse_has_products
-        INNER JOIN categories ON categories.id = products.product_has_category
-        $searchWhere GROUP BY product_storehouses.product_storehouse_has_products, products.product_has_category, products.id, products.name, products.price, products.prefix, categories.name ORDER BY products.id");
+        $countAllProducts = Product::count();
 
         [$pagination, $totalPrd] = $this->paginator($countAllProducts);
 
-        $productsAll = Db::select("SELECT products.product_has_category AS id, products.id AS pid, products.name AS pname, products.price AS pprice, products.prefix AS pprefix, categories.name AS pcategory, product_storehouses.product_storehouse_has_products, COUNT(*) as total FROM product_storehouses
+        $productsAll = Db::select("SELECT products.id AS pid, products.product_has_category AS id, products.name AS pname, products.price AS pprice, products.prefix AS pprefix, categories.name AS pcategory, SUM(items.stock) AS stock FROM items
+        INNER JOIN product_storehouses ON product_storehouses.id = items.item_has_product_storehouses
         INNER JOIN products ON products.id = product_storehouses.product_storehouse_has_products
         INNER JOIN categories ON categories.id = products.product_has_category
-        $searchWhere GROUP BY product_storehouses.product_storehouse_has_products, products.product_has_category, products.id, products.name, products.price, products.prefix, categories.name ORDER BY products.id LIMIT 10 OFFSET $offset");
+        $searchWhere GROUP BY products.id, products.product_has_category, products.name, products.price, products.prefix, categories.name ORDER BY products.id LIMIT 10 OFFSET $offset");
 
         return ['productsAll' => $productsAll, 'search' => $searchProductId, 'pagination' => $pagination, 'offset' => $offset, 'totalPrd' => $totalPrd];
     }
@@ -72,21 +70,22 @@ class StorehousesManagementController extends Controller
 
         if ($fillWheres != '') {
 
-            $filtered = Db::select("SELECT products.product_has_category AS id, storehouses.name AS name, storehouses.prefix AS prefix, storehouses.description AS description, products.id AS pid, products.name AS pname, products.price AS pprice, products.prefix AS pprefix, categories.name AS pcategory, product_storehouses.product_storehouse_has_products, product_storehouses.product_storehouse_has_storehouses, COUNT(*) as total FROM storehouses
-        INNER JOIN product_storehouses ON product_storehouses.product_storehouse_has_storehouses = storehouses.id
-        INNER JOIN products ON products.id = product_storehouses.product_storehouse_has_products
-        INNER JOIN categories ON categories.id = products.product_has_category
-        $fillWheres GROUP BY product_storehouses.product_storehouse_has_products, product_storehouses.product_storehouse_has_storehouses, products.product_has_category, storehouses.name, storehouses.prefix, storehouses.description, products.id, products.name, products.price, products.prefix, categories.name");
-        } else {
+            $filtered = Db::select("SELECT products.id AS pid, products.product_has_category AS id, storehouses.name, storehouses.prefix AS prefix, storehouses.description, products.name AS pname, products.price AS pprice, products.prefix AS pprefix, categories.name AS pcategory, items.quantity, items.stock FROM items
+            INNER JOIN product_storehouses ON product_storehouses.id = items.item_has_product_storehouses
+            INNER JOIN products ON products.id = product_storehouses.product_storehouse_has_products
+            INNER JOIN storehouses ON storehouses.id = product_storehouses.product_storehouse_has_storehouses
+            INNER JOIN categories ON categories.id = products.product_has_category
+            $fillWheres");
+
+            [$pagination, $totalPrd] = $this->paginator(count($filtered));
+
+            $filtered = Db::select("SELECT products.id AS pid, products.product_has_category AS id, storehouses.name, storehouses.prefix AS prefix, storehouses.description, products.name AS pname, products.price AS pprice, products.prefix AS pprefix, categories.name AS pcategory, items.quantity, items.stock FROM items
+            INNER JOIN product_storehouses ON product_storehouses.id = items.item_has_product_storehouses
+            INNER JOIN products ON products.id = product_storehouses.product_storehouse_has_products
+            INNER JOIN storehouses ON storehouses.id = product_storehouses.product_storehouse_has_storehouses
+            INNER JOIN categories ON categories.id = products.product_has_category
+            $fillWheres GROUP BY products.id, products.product_has_category, storehouses.name, storehouses.prefix, storehouses.description, products.name, products.price, products.prefix, categories.name ORDER BY products.id LIMIT 10 OFFSET $offset");
         }
-
-        [$pagination, $totalPrd] = $this->paginator($filtered);
-
-        $filtered = Db::select("SELECT products.product_has_category AS id, storehouses.name AS name, storehouses.prefix AS prefix, storehouses.description AS description, products.id AS pid, products.name AS pname, products.price AS pprice, products.prefix AS pprefix, categories.name AS pcategory, product_storehouses.product_storehouse_has_products, product_storehouses.product_storehouse_has_storehouses, COUNT(*) as total FROM storehouses
-        INNER JOIN product_storehouses ON product_storehouses.product_storehouse_has_storehouses = storehouses.id
-        INNER JOIN products ON products.id = product_storehouses.product_storehouse_has_products
-        INNER JOIN categories ON categories.id = products.product_has_category
-        $fillWheres GROUP BY product_storehouses.product_storehouse_has_products, product_storehouses.product_storehouse_has_storehouses, products.product_has_category, storehouses.name, storehouses.prefix, storehouses.description, products.id, products.name, products.price, products.prefix, categories.name ORDER BY products.id LIMIT 10 OFFSET $offset");
 
         return ['filtered' => $filtered, 'pagination' => $pagination, 'searchProductId' => $searchProductId, 'offset' => $offset, 'totalPrd' => $totalPrd];
     }
@@ -96,9 +95,8 @@ class StorehousesManagementController extends Controller
         return is_numeric($val) && floor($val) != $val;
     }
 
-    function paginator($filtered)
+    function paginator($totalPrd)
     {
-        $totalPrd = count($filtered);
         $offsetGroups = $totalPrd / 10;
 
         if ($this->is_decimal($offsetGroups)) $offsetGroups = round($offsetGroups);

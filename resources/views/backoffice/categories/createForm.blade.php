@@ -25,10 +25,6 @@
                 <textarea name="description" rows="10" class="w-75" id="descriptionValidator" placeholder="Descriptión la categoría"></textarea>
                 <h5 id="descriptionError"></h5>
             </div>
-            <div class="mb-4">
-                <input type="text" name="address" class="w-75" id="addressValidator" placeholder="Dirección">
-                <h5 id="addressError"></h5>
-            </div>
             <div class="d-flex justify-content-evenly">
                 <button class="btn btn-success btn-sm" id="submitBtn">Crear</button>
                 <button class="btn btn-primary btn-sm"><a href="{{ route('main') }}" class="text-white">Volver</a></button>
