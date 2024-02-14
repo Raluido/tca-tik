@@ -75,8 +75,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
                 Route::get('/showAllAjax/{search?}/{offset?}', 'StorehousesManagementController@showAllAjax')->name('storehousesManagement.showAllAjax');
                 Route::get('/showFilteredAjax/{storehouseSelected?}/{categorySelected?}/{productSelected?}/{search?}/{offset?}', 'StorehousesManagementController@showFilteredAjax')->name('storehousesManagement.showFilteredAjax');
                 Route::get('/searchBy/{search?}', 'StorehousesManagementController@searchBackOfficeByProduct')->name('storehousesManagement.searchBackOfficeByProduct');
-                Route::post('/productsCounter', 'StorehousesManagementController@backOfficeProductsCounter')->name('storehousesManagement.backOfficeProductsCounter');
-                Route::get('/addToStorehouse/{storehouse}/{product}', 'StorehousesManagementController@backOfficeAddToStorehouse')->name('storehousesManagement.backOfficeAddToStorehouse');
+                Route::post('/addToStorehouse', 'StorehousesManagementController@backOfficeAddToStorehouse')->name('storehousesManagement.backOfficeAddToStorehouse');
                 Route::get('/delete/{storehouse}/{product}', 'StorehousesManagementController@backOfficeRemoveFromStorehouse')->name('storehousesManagement.backOfficeRemoveFromStorehouse');
             });
 

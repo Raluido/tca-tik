@@ -7,6 +7,7 @@ use App\Models\Storehouse;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Product_storehouse;
+use App\Models\Item;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -84,7 +85,7 @@ class StorehousesManagementController extends Controller
             INNER JOIN products ON products.id = product_storehouses.product_storehouse_has_products
             INNER JOIN storehouses ON storehouses.id = product_storehouses.product_storehouse_has_storehouses
             INNER JOIN categories ON categories.id = products.product_has_category
-            $fillWheres GROUP BY products.id, products.product_has_category, storehouses.name, storehouses.prefix, storehouses.description, products.name, products.price, products.prefix, categories.name ORDER BY products.id LIMIT 10 OFFSET $offset");
+            $fillWheres GROUP BY products.id, products.product_has_category, storehouses.name, storehouses.prefix, storehouses.description, products.name, products.price, products.prefix, categories.name, items.quantity, items.stock ORDER BY products.id LIMIT 10 OFFSET $offset");
         }
 
         return ['filtered' => $filtered, 'pagination' => $pagination, 'searchProductId' => $searchProductId, 'offset' => $offset, 'totalPrd' => $totalPrd];
@@ -126,21 +127,19 @@ class StorehousesManagementController extends Controller
         return $productFiltered;
     }
 
-    public function backOfficeProductsCounter(Request $request)
+    public function backOfficeAddToStorehouse(Request $request)
     {
-        $products = Db::table('product_storehouses')->where('product_storehouse_has_storehouses', $request->storehouseId)->where('product_storehouse_has_products', $request->productId)->count();
+        $itemId = Product_storehouse::where('product_storehouse_has_storehouses', $request->storehouse)
+            ->where('product_storehouse_has_products', $request->product)
+            ->value('id');
 
-        return $products;
-    }
+        $latest = Item::where('item_has_product_storehouses', $itemId)->latest();
 
+        var_dump($latest);
 
-    public function backOfficeAddToStorehouse($storehouse, $product)
-    {
-        Product_storehouse::create(['product_storehouse_has_products' => $product, 'product_storehouse_has_storehouses' => $storehouse]);
+        Item::create(['item_has_product_storehouses' => $itemId, 'action' => $request->action, 'pricepu' => $request->price, 'quantity' =>  $request->quantity, 'stock' => ($latest->stock + $request->quantity)]);
 
-        $productCount = Db::table('product_storehouses')->where('product_storehouse_has_storehouses', $storehouse)->where('product_storehouse_has_products', $product)->count();
-
-        return [$productCount, $product];
+        return true;
     }
 
     public function backOfficeRemoveFromStorehouse(Storehouse $storehouse, Product $product)

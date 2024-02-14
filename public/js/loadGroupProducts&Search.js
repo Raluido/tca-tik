@@ -144,7 +144,7 @@ $(window).on('load', function () {
         thDcrp.innerHTML = 'Descripción';
         tr.appendChild(thDcrp);
         let thPrdId = document.createElement('th');
-        thPrdId.innerHTML = 'Identificador del producto';
+        thPrdId.innerHTML = 'Id';
         tr.appendChild(thPrdId);
         let thPrd = document.createElement('th');
         thPrd.innerHTML = 'Productos';
@@ -155,9 +155,6 @@ $(window).on('load', function () {
         let thPrice = document.createElement('th');
         thPrice.innerHTML = 'Precio';
         tr.appendChild(thPrice);
-        let thqtt = document.createElement('th');
-        thqtt.innerHTML = 'Cantidad';
-        tr.appendChild(thqtt);
         let thstc = document.createElement('th');
         thstc.innerHTML = 'Stock';
         tr.appendChild(thstc);
@@ -187,9 +184,6 @@ $(window).on('load', function () {
             let tdPrdPrice = document.createElement('td');
             tdPrdPrice.innerHTML = element.pprice;
             tr.appendChild(tdPrdPrice);
-            let tdQtt = document.createElement('td');
-            tdQtt.innerHTML = element.quantity;
-            tr.appendChild(tdQtt);
             let tdStc = document.createElement('td');
             tdStc.innerHTML = element.stock;
             tr.appendChild(tdStc);

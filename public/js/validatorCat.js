@@ -2,7 +2,6 @@ $(window).on('load', function () {
     let nameErr = true;
     let prefixErr = true;
     let descriptionErr = true;
-    let addressErr = true;
 
     $('#nameValidator').on('keyup', function () {
         nameValidator();
@@ -59,7 +58,7 @@ $(window).on('load', function () {
         nameValidator();
         prefixValidator();
         descriptionValidator();
-        if (nameErr == false && prefixErr == false && descriptionErr == false && addressErr == false) {
+        if (nameErr == false && prefixErr == false && descriptionErr == false) {
             $('#sendForm').on('submit', function () {
             })
         } else {

@@ -35,14 +35,15 @@
         </div>
     </div>
 
-    <div class="d-none filtersWidth mb-5 shadow-lg p-5" id="addNewPrd">
+    <div class="d-none mb-5 shadow-lg p-5" id="addNewPrd">
         <h4 class="text-center mb-5">Añadir nuevo</h4>
         <table class="table">
             <thead class="">
                 <tr class="">
-                    <th class="">Productos</th>
+                    <th class="">Producto</th>
                     <th class="">Acción</th>
-                    <th class="">Stocks</th>
+                    <th class="">Precio</th>
+                    <th class="">Cantidad</th>
                 </tr>
             </thead>
             <tbody class="">
@@ -55,9 +56,13 @@
                             @endforeach
                         </select>
                     </td>
+                    <td class=""><input type="text" id="action" class=""></td>
+                    <td class=""><input type="text" id="price" class=""></td>
+                    </td>
+                    <td class=""><input type="text" id="quantity" class=""></td>
                     <td class="">
-                        <button id="addProduct" class="btn btn-success btn-sm">Añadir</button>
-                        <button id="removeProduct" class="btn btn-danger btn-sm">Quitar</button>
+                        <button id="addProductsBtn" class="btn btn-success btn-sm">Añadir</button>
+                        <button id="removeProductBtn" class="btn btn-danger btn-sm">Quitar</button>
                     </td>
                     <td class="">
                         <div id="counter"></div>
@@ -89,4 +94,5 @@
 @section('js')
 <script class="" src="{{ asset('js/loadProducts&Search.js') }}" defer></script>
 <script class="" src="{{ asset('js/loadGroupProducts&Search.js') }}" defer></script>
+<script class="" src="{{ asset('js/addToStorehouse.js') }}" defer></script>
 @endsection
