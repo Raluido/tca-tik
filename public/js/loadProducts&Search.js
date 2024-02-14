@@ -100,11 +100,14 @@ $(window).on('load', function () {
         thIdPrd.innerHTML = 'Identificador del producto';
         tr.appendChild(thIdPrd);
         let thCatPrd = document.createElement('th');
-        thCatPrd.innerHTML = 'Categoría del producto';
+        thCatPrd.innerHTML = 'Categoría';
         tr.appendChild(thCatPrd);
         let thStocks = document.createElement('th');
         thStocks.innerHTML = 'Stock';
         tr.appendChild(thStocks);
+        let thDate = document.createElement('th');
+        thDate.innerHTML = 'Fecha';
+        tr.appendChild(thDate);
         let tbody = document.createElement('tbody');
         $('.fullfilledTable').append(tbody);
         data.productsAll.forEach(function (element) {
@@ -125,6 +128,9 @@ $(window).on('load', function () {
             let tdPrdTotal = document.createElement('td');
             tdPrdTotal.innerHTML = element.stock;
             tr.appendChild(tdPrdTotal);
+            let tdDate = document.createElement('td');
+            tdDate.innerHTML = element.updated_at;
+            tr.appendChild(tdDate);
         })
         $('.paginationMng').empty();
         let showLefts = document.createElement('p');

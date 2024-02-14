@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('item_has_product_storehouses')->constrained(table: 'product_storehouses', column: 'id');
             $table->string('action');
-            $table->float('pricepu', 0, 2);
+            $table->float('pricepu', 6, 2);
             $table->integer('quantity');
             $table->integer('stock');
             $table->timestamps();

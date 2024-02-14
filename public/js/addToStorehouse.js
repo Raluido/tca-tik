@@ -35,9 +35,6 @@ $(window).on('load', function () {
                         if (storehouseSelected != 0 && $('#addNewPrd').hasClass('d-none')) {
                             $('#addNewPrd').removeClass('d-none');
                             $('#addNewPrd').addClass('d-block');
-                        } else {
-                            $('#addNewPrd').removeClass('d-block');
-                            $('#addNewPrd').addClass('d-none');
                         }
                         if ($('#inputSearch').hasClass('d-block') && $('#inputSearch1').hasClass('d-none')) {
                             $('#inputSearch').removeClass('d-block');

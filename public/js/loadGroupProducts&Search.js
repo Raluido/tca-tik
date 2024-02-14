@@ -24,9 +24,6 @@ $(window).on('load', function () {
                 if (storehouseSelected != 0 && $('#addNewPrd').hasClass('d-none')) {
                     $('#addNewPrd').removeClass('d-none');
                     $('#addNewPrd').addClass('d-block');
-                } else {
-                    $('#addNewPrd').removeClass('d-block');
-                    $('#addNewPrd').addClass('d-none');
                 }
                 if ($('#inputSearch').hasClass('d-block') && $('#inputSearch1').hasClass('d-none')) {
                     $('#inputSearch').removeClass('d-block');
@@ -150,7 +147,7 @@ $(window).on('load', function () {
         thPrd.innerHTML = 'Productos';
         tr.appendChild(thPrd);
         let thPrdCat = document.createElement('th');
-        thPrdCat.innerHTML = 'Categoría del producto';
+        thPrdCat.innerHTML = 'Categoría';
         tr.appendChild(thPrdCat);
         let thPrice = document.createElement('th');
         thPrice.innerHTML = 'Precio';
@@ -158,6 +155,9 @@ $(window).on('load', function () {
         let thstc = document.createElement('th');
         thstc.innerHTML = 'Stock';
         tr.appendChild(thstc);
+        let thUpdated = document.createElement('th');
+        thUpdated.innerHTML = 'Fecha';
+        tr.appendChild(thUpdated);
         let tbody = document.createElement('tbody');
         $('.fullfilledTable').append(tbody);
         data.filtered.forEach(function (element) {
@@ -187,6 +187,9 @@ $(window).on('load', function () {
             let tdStc = document.createElement('td');
             tdStc.innerHTML = element.stock;
             tr.appendChild(tdStc);
+            let tdUpdated = document.createElement('td');
+            tdUpdated.innerHTML = element.updated_at;
+            tr.appendChild(tdUpdated);
         })
         $('.paginationMng').empty();
         let showLefts = document.createElement('p');
