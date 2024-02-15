@@ -21,7 +21,7 @@
         @endif
 
         <div class="formWidth">
-            <form method="POST" action="{{ route('roles.store') }}">
+            <form method="POST" action="{{ route('roles.backOfficeStore') }}">
                 @csrf
                 <div class="mb-3">
                     <label for="name" class="form-label">Nombre</label>

@@ -81,8 +81,24 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
                 // Route::get('/delete/{storehouse}/{product}', 'StorehousesManagementController@backOfficeRemoveFromStorehouse')->name('storehousesManagement.backOfficeRemoveFromStorehouse');
             });
 
-            Route::resource('roles', RolesController::class);
-            Route::resource('permissions', PermissionsController::class);
+            Route::group(['prefix' => 'roles'], function () {
+                Route::get('/index', 'RolesController@showBackOfficeIndex')->name('roles.showBackOfficeIndex');
+                Route::get('/create', 'RolesController@showBackOfficeCreate')->name('roles.showBackOfficeCreate');
+                Route::post('/store', 'RolesController@backOfficeStore')->name('roles.backOfficeStore');
+                Route::post('/show', 'RolesController@backOfficeShow')->name('roles.backOfficeShow');
+                Route::get('{rol}/edit', 'RolesController@showBackOfficeEdit')->name('roles.showBackOfficeEdit');
+                Route::patch('/{rol}/update', 'RolesController@backOfficeUpdate')->name('roles.backOfficeUpdate');
+                Route::delete('/{rol}/delete', 'RolesController@backOfficeDestroy')->name('roles.backOfficeDestroy');
+            });
+
+            Route::group(['prefix' => 'permissions'], function () {
+                Route::get('/showall', 'PermissionsController@showBackOfficeIndex')->name('permissions.showBackOfficeIndex');
+                Route::get('/create', 'PermissionsController@showBackOfficeCreate')->name('permissions.showBackOfficeCreate');
+                Route::post('/store', 'PermissionsController@backOfficeStore')->name('permissions.backOfficeStore');
+                Route::get('{permission}/edit', 'PermissionsController@showBackOfficeEdit')->name('permissions.showBackOfficeEdit');
+                Route::patch('/{permission}/update', 'PermissionsController@backOfficeUpdate')->name('permissions.backOfficeUpdate');
+                Route::delete('/{permission}/delete', 'PermissionsController@backOfficeDestroy')->name('permissions.backOfficeDestroy');
+            });
         });
     });
 

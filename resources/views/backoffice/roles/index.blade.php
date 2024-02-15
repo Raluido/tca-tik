@@ -6,7 +6,7 @@
 <div class="mt-5 d-flex flex-column align-items-center flex-grow-1 headerBottom">
     <h1>Roles</h1>
     <div class="lead">
-        Gestiona los roles.
+        Gestiona los roles
         <a href="{{ route('roles.create') }}" class="btn btn-primary btn-sm float-right">Añadir</a>
     </div>
 
@@ -40,9 +40,12 @@
             @endforeach
         </table>
 
-        <div class="d-flex">
-            {!! $roles->links() !!}
-        </div>
+    </div>
+    <div class="d-flex">
+        {!! $roles->links() !!}
+    </div>
+    <div class="mt-5">
+        <a href="{{ route('main') }}" class="btn btn-default">Volver</a>
     </div>
 
 </div>

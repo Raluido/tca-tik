@@ -36,8 +36,6 @@ class StorehouseController extends Controller
                     'product_storehouse_has_storehouses' => $storehouse->id
                 ]);
 
-                log::info($productStorehouse->id);
-
                 Item::create([
                     'item_has_product_storehouses' => $productStorehouse->id,
                     'action' => 'init',

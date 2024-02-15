@@ -25,7 +25,7 @@ class RolesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function showBackOfficeIndex(Request $request)
     {
         $roles = Role::orderBy('id', 'DESC')->paginate(5);
         return view('backoffice.roles.index', compact('roles'))
@@ -37,7 +37,7 @@ class RolesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function showBackOfficeCreate()
     {
         $permissions = Permission::get();
         return view('backoffice.roles.create', compact('permissions'));
@@ -49,7 +49,7 @@ class RolesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function backOfficeStore(Request $request)
     {
         $this->validate($request, [
             'name' => 'required|unique:roles,name',
@@ -59,8 +59,8 @@ class RolesController extends Controller
         $role = Role::create(['name' => $request->get('name')]);
         $role->syncPermissions($request->get('permission'));
 
-        return redirect()->route('backoffice.roles.index')
-            ->with('success', 'Role created successfully');
+        return redirect()->route('roles.showBackOfficeIndex')
+            ->withSuccess(__('Rol creado correctamente.'));
     }
 
     /**
@@ -69,7 +69,7 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Role $role)
+    public function backOfficeShow(Role $role)
     {
         $role = $role;
         $rolePermissions = $role->permissions;
@@ -83,7 +83,7 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Role $role)
+    public function showBackOfficeEdit(Role $role)
     {
         $role = $role;
         $rolePermissions = $role->permissions->pluck('name')->toArray();
@@ -99,7 +99,7 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Role $role, Request $request)
+    public function backOfficeUpdate(Role $role, Request $request)
     {
         $this->validate($request, [
             'name' => 'required',
@@ -110,8 +110,8 @@ class RolesController extends Controller
 
         $role->syncPermissions($request->get('permission'));
 
-        return redirect()->route('backoffice.roles.index')
-            ->with('success', 'Role updated successfully');
+        return redirect()->route('roles.showBackOfficeIndex')
+            ->withSuccess(__('Rol ha sido actualizado correctamente.'));
     }
 
     /**
@@ -120,11 +120,11 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Role $role)
+    public function backOfficeDestroy(Role $role)
     {
         $role->delete();
 
-        return redirect()->route('backoffice.roles.index')
-            ->with('success', 'Role deleted successfully');
+        return redirect()->route('roles.showBackOfficeIndex')
+            ->withSuccess(__('Rol ha sido eliminado correctamente.'));
     }
 }

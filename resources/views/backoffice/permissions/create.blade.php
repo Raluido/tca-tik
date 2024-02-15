@@ -1,33 +1,29 @@
 @extends('layouts.master')
 
 @section('content')
-    <div class="bg-light p-4 rounded">
-        <h2>Add new permission</h2>
-        <div class="lead">
-            Add new permission.
-        </div>
-
-        <div class="container mt-4">
-
-            <form method="POST" action="{{ route('permissions.store') }}">
-                @csrf
-                <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
-                    <input value="{{ old('name') }}" 
-                        type="text" 
-                        class="form-control" 
-                        name="name" 
-                        placeholder="Name" required>
-
-                    @if ($errors->has('name'))
-                        <span class="text-danger text-left">{{ $errors->first('name') }}</span>
-                    @endif
-                </div>
-
-                <button type="submit" class="btn btn-primary">Save permission</button>
-                <a href="{{ route('permissions.index') }}" class="btn btn-default">Back</a>
-            </form>
-        </div>
-
+<div class="mt-5 d-flex flex-column align-items-center flex-grow-1 headerBottom">
+    <h2>Añadir nuevo permiso</h2>
+    <div class="lead">
+        Añadir nuevo permiso.
     </div>
+
+    <div class="formWidth">
+        <form method="POST" action="{{ route('permissions.backOfficeStore') }}">
+            @csrf
+            <div class="mb-3">
+                <label for="name" class="form-label">Nombre</label>
+                <input value="{{ old('name') }}" type="text" class="form-control" name="name" placeholder="Name" required>
+
+                @if ($errors->has('name'))
+                <span class="text-danger text-left">{{ $errors->first('name') }}</span>
+                @endif
+            </div>
+            <div class="d-flex justify-content-center mt-5">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a href="{{ route('permissions.showBackOfficeIndex') }}" class="btn btn-default">Volver</a>
+            </div>
+        </form>
+    </div>
+
+</div>
 @endsection

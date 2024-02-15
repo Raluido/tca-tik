@@ -17,13 +17,14 @@ class RegisterController extends Controller
     public function perform(RegisterRequest $request)
     {
         $credentials = $request->validated();
-        User::create($credentials);
+        $user = User::create($credentials);
+        $user->assignRole('user');
 
         if (Auth::attempt($credentials)) {
 
             $request->session()->regenerate();
 
-            return redirect()->intended('/');
+            return redirect()->intended('main');
         }
     }
 }

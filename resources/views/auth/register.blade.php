@@ -19,11 +19,11 @@
         <div class="mb-4 d-flex justify-content-center">
             <input type="email" name="email" class="w-75" placeholder="Email" require="required">
         </div>
-        <div class="d-flex justify-content-center">
+        <div class="mb-4 d-flex justify-content-center">
             <input type="text" name="password" class="w-75" placeholder="Contraseña" require="required">
         </div>
         <div class="d-flex justify-content-center">
-            <input type="text" name="password_confirmation" class="w-75" placeholder="Contraseña" require="required">
+            <input type="text" name="password_confirmation" class="w-75" placeholder="Repite Contraseña" require="required">
         </div>
         <div class="mt-5 d-flex justify-content-around btn-sm">
             <input type="submit" value="Registrar" class="btn btn-success btn-sm">

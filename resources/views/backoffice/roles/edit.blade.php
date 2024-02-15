@@ -29,12 +29,12 @@
                     <input value="{{ $role->name }}" type="text" class="form-control" name="name" placeholder="Nombre" required>
                 </div>
 
-                <label for="permissions" class="form-label">Assign Permissions</label>
+                <label for="permissions" class="form-label">Asignar permisos</label>
 
                 <table class="table table-striped">
                     <thead>
                         <th scope="col" width="1%"><input type="checkbox" name="all_permission"></th>
-                        <th scope="col" width="20%">Name</th>
+                        <th scope="col" width="20%">Nombre</th>
                         <th scope="col" width="1%">Guard</th>
                     </thead>
 
@@ -51,8 +51,11 @@
                     @endforeach
                 </table>
 
-                <button type="submit" class="btn btn-primary">Editar</button>
-                <a href="{{ route('roles.index') }}" class="btn btn-default">Volver</a>
+                <div class="d-flex justify-content-center mt-5">
+
+                    <button type="submit" class="btn btn-primary">Editar</button>
+                    <a href="{{ route('roles.showBackOfficeIndex') }}" class="btn btn-default">Volver</a>
+                </div>
             </form>
         </div>
     </div>

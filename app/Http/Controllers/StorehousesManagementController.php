@@ -32,7 +32,7 @@ class StorehousesManagementController extends Controller
 
         if ($historic == 'false') {
 
-            $countAllProducts = Product::count();
+            $countAllProducts = Item::count();
             [$pagination, $totalPrd] = $this->paginator($countAllProducts);
             $productsAll = Db::select("SELECT storehouses.name AS sname, products.id AS pid, products.product_has_category AS id, products.name AS pname, products.price AS pprice, products.prefix AS pprefix, categories.name AS pcategory, items.updated_at, SUM(items.stock) AS stock FROM items
         INNER JOIN product_storehouses ON product_storehouses.id = items.item_has_product_storehouses
@@ -57,6 +57,7 @@ class StorehousesManagementController extends Controller
 
     public function showFilteredAjax($storehouseSelectedId = 0, $categorySelectedId = 0, $searchProductId = 0, $offset = 0)
     {
+        log::info("aqui");
         $fillWheres = '';
 
         $storeAnd = " AND storehouses.id = " . $storehouseSelectedId;

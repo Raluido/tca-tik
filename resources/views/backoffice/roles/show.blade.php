@@ -14,7 +14,7 @@
         <div class="tableWidth">
             <table class="table table-striped">
                 <thead>
-                    <th scope="col" width="20%">Name</th>
+                    <th scope="col" width="20%">Nombre</th>
                     <th scope="col" width="1%">Guard</th>
                 </thead>
 
@@ -30,7 +30,7 @@
 
 </div>
 <div class="mt-4">
-    <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-info">Edit</a>
-    <a href="{{ route('roles.index') }}" class="btn btn-default">Back</a>
+    <a href="{{ route('backoffice.roles.edit', $role->id) }}" class="btn btn-info">Editar</a>
+    <a href="{{ route('backoffice.roles.index') }}" class="btn btn-default">Volver</a>
 </div>
 @endsection

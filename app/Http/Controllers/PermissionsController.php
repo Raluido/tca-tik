@@ -13,7 +13,7 @@ class PermissionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function showBackOfficeIndex()
     {
         $permissions = Permission::all();
 
@@ -27,7 +27,7 @@ class PermissionsController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function showBackOfficeCreate()
     {
         return view('backoffice.permissions.create');
     }
@@ -38,7 +38,7 @@ class PermissionsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function backOfficeStore(Request $request)
     {
         $request->validate([
             'name' => 'required|unique:users,name'
@@ -46,8 +46,8 @@ class PermissionsController extends Controller
 
         Permission::create($request->only('name'));
 
-        return redirect()->route('backoffice.permissions.index')
-            ->withSuccess(__('Permission created successfully.'));
+        return redirect()->route('permissions.showBackOfficeIndex')
+            ->withSuccess(__('El permiso se ha creado correctamente.'));
     }
 
     /**
@@ -56,7 +56,7 @@ class PermissionsController extends Controller
      * @param  Permission  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Permission $permission)
+    public function showBackOfficeEdit(Permission $permission)
     {
         return view('backoffice.permissions.edit', [
             'permission' => $permission
@@ -70,7 +70,7 @@ class PermissionsController extends Controller
      * @param  Permission  $permission
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Permission $permission)
+    public function backOfficeUpdate(Request $request, Permission $permission)
     {
         $request->validate([
             'name' => 'required|unique:permissions,name,' . $permission->id
@@ -78,8 +78,8 @@ class PermissionsController extends Controller
 
         $permission->update($request->only('name'));
 
-        return redirect()->route('backoffice.permissions.index')
-            ->withSuccess(__('Permission updated successfully.'));
+        return redirect()->route('permissions.showBackOfficeIndex')
+            ->withSuccess(__('El permiso se ha actualizado correctamente.'));
     }
 
     /**
@@ -88,11 +88,11 @@ class PermissionsController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Permission $permission)
+    public function backOfficeDestroy(Permission $permission)
     {
         $permission->delete();
 
-        return redirect()->route('backoffice.permissions.index')
-            ->withSuccess(__('Permission deleted successfully.'));
+        return redirect()->route('permissions.showBackOfficeIndex')
+            ->withSuccess(__('El permiso se ha eliminado correctamente.'));
     }
 }

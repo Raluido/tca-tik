@@ -6,11 +6,17 @@
 
 <div class="headerBottomWelcome">
 
-    <h6 class="text-center mt-5">Bienvenido!</h6>
+    <h6 class="text-center mt-5">Bienvenido! Para acceder a todo el contenido ha de registrarse</h6>
 
 </div>
 
 @endguest
+
+@role('user')
+
+<h6 class="text-center mt-5">Bienvenido!</h6>
+
+@endrole
 
 @role('admin')
 
@@ -61,13 +67,13 @@
 
         <details class="">
             <summary class="">Roles</summary>
-            <a href="{{ route('roles.index') }}" class="text-secondary">
+            <a href="{{ route('roles.showBackOfficeIndex') }}" class="text-secondary">
                 <p class="text-end me-5">Gestionar roles</p>
             </a>
         </details>
         <details class="">
             <summary class="">Permisos</summary>
-            <a href="{{ route('permissions.index') }}" class="text-secondary">
+            <a href="{{ route('permissions.showBackOfficeIndex') }}" class="text-secondary">
                 <p class="text-end me-5">Gestionar permisos</p>
             </a>
         </details>
