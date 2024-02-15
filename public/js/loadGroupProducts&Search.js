@@ -6,6 +6,7 @@ $(window).on('load', function () {
         let storehouseSelected = $('#filterByStorehouse').val();
         let categorySelected = $('#categorySelected').val();
         let inputSearch = $('#searchProductId').val();
+        $('#historicContainer').addClass('d-none');
         if (inputSearch == '') {
             inputSearch = 0;
         }
@@ -40,6 +41,7 @@ $(window).on('load', function () {
         let storehouseSelected = $('#storehouseSelected').val();
         let categorySelected = $('#filterByCategory').val();
         let inputSearch = $('#searchProductId').val();
+        $('#historicContainer').addClass('d-none');
         if (storehouseSelected == 0 && categorySelected == 0) {
             window.location.assign(url + '/backoffice/storehousesManagement/showProducts');
             return;

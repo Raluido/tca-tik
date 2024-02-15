@@ -73,7 +73,7 @@ class ProductController extends Controller
                 Item::create([
                     'item_has_product_storehouses' => $productStorehouse->id,
                     'action' => 'init',
-                    'pricepu' => null,
+                    'pricepu' => 0,
                     'quantity' => 0,
                     'stock' => 0
                 ]);

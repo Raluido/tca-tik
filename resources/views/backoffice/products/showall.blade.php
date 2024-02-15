@@ -47,7 +47,7 @@
 
 
     <div class="w-50 d-flex justify-content-evenly mt-5">
-        <button class="btn btn-success btn-sm"><a href="{{ route('products.backOfficeStore') }}" class="text-white">Crear</a></button>
+        <button class="btn btn-success btn-sm"><a href="{{ route('products.showBackOfficeCreate') }}" class="text-white">Crear</a></button>
         <button class="btn btn-primary btn-sm"><a href="{{ route('main') }}" class="text-white">Volver</a></button>
     </div>
 </div>

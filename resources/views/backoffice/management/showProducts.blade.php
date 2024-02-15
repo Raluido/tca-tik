@@ -18,7 +18,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="d-flex justify-content-evenly">
+            <div class="d-flex justify-content-evenly mb-4">
                 <label for="filterByCategory" class="">Categorias</label>
                 <select name="" id="filterByCategory" class="w-50">
                     <option value="0" class="">Todas</option>
@@ -26,6 +26,12 @@
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
                 </select>
+            </div>
+        </div>
+        <div class="">
+            <div class="d-flex justify-content-center" id="historicContainer">
+                <label for="historic" class="me-4">Historico</label>
+                <input type="checkbox" id="historic" class="">
             </div>
         </div>
         <div class="d-flex flex-column align-items-center">
@@ -64,9 +70,6 @@
                         <button id="addProductsBtn" class="btn btn-success btn-sm">Añadir</button>
                         <button id="removeProductBtn" class="btn btn-danger btn-sm">Quitar</button>
                     </td>
-                    <td class="">
-                        <div id="counter"></div>
-                    </td>
                 </tr>
             </tbody>
         </table>
@@ -90,6 +93,7 @@
 <input type="hidden" value="0" id="storehouseSelected">
 <input type="hidden" value="0" id="categorySelected">
 <input type="hidden" value="0" id="offset">
+<input type="hidden" value="false" id="historicSelected">
 
 @section('js')
 <script class="" src="{{ asset('js/loadProducts&Search.js') }}" defer></script>

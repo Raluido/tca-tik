@@ -11,6 +11,22 @@ $(window).on('load', function () {
         }
     })
 
+    $('#historic').on('change', function () {
+        let inputSearch = $('#searchProductId').val();
+        let historic = $(this).prop('checked');
+        let offset = $('#offset').val();
+        console.log(historic);
+        $.ajax({
+            type: 'GET',
+            url: url + '/backoffice/storehousesManagement/showAllAjax/' + inputSearch + '/' + offset + '/' + historic,
+            data: {},
+            success: function (data) {
+                fullFilledTable(data);
+                $('#historicSelected').val(historic);
+            }
+        })
+    })
+
     $('#inputSearch').on('keyup', function () {
         let inputSearch = $('#inputSearch').val();
         $.ajax({
@@ -58,9 +74,10 @@ $(window).on('load', function () {
     $('div').on('click', 'div#pages', function () {
         let inputSearch = $('#searchProductId').val();
         let offset = $(this)[0].getAttribute('data-offset');
+        let historic = $('#historicSelected').val();
         $.ajax({
             type: 'GET',
-            url: url + '/backoffice/storehousesManagement/showAllAjax/' + inputSearch + '/' + offset,
+            url: url + '/backoffice/storehousesManagement/showAllAjax/' + inputSearch + '/' + offset + '/' + historic,
             data: {},
             success: function (data) {
                 fullFilledTable(data);
@@ -83,13 +100,15 @@ $(window).on('load', function () {
         })
     }
 
-
     function fullFilledTable(data) {
         $('.fullfilledTable').empty();
         let thead = document.createElement('thead');
         let tr = document.createElement('tr');
         thead.appendChild(tr);
         $('.fullfilledTable').append(thead);
+        let thStorehouse = document.createElement('th');
+        thStorehouse.innerHTML = 'Almacén';
+        tr.appendChild(thStorehouse);
         let thPName = document.createElement('th');
         thPName.innerHTML = 'Productos';
         tr.appendChild(thPName);
@@ -97,7 +116,7 @@ $(window).on('load', function () {
         thPrice.innerHTML = 'Precio';
         tr.appendChild(thPrice);
         let thIdPrd = document.createElement('th');
-        thIdPrd.innerHTML = 'Identificador del producto';
+        thIdPrd.innerHTML = 'Id Producto';
         tr.appendChild(thIdPrd);
         let thCatPrd = document.createElement('th');
         thCatPrd.innerHTML = 'Categoría';
@@ -113,6 +132,9 @@ $(window).on('load', function () {
         data.productsAll.forEach(function (element) {
             tr = document.createElement('tr');
             tbody.appendChild(tr);
+            let tdSName = document.createElement('td');
+            tdSName.innerHTML = element.sname;
+            tr.appendChild(tdSName);
             let tdPName = document.createElement('td');
             tdPName.innerHTML = element.pname;
             tr.appendChild(tdPName);

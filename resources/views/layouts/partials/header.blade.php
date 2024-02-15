@@ -46,11 +46,12 @@
     <div id="logo">
         <img src="{{ Storage::url('logo.jpeg') }}" alt="" class="">
     </div>
-    <div id="login" class="d-flex justify-content-center align-items-center mr-3">
+    <div id="login" class="d-flex flex-column justify-content-center align-items-center mr-3">
         @if(auth()->id())
         <a href="{{ route('login.logout') }}" class="text-secondary">Logout</a>
         @else
         <a href="{{ route('login.show') }}" class="text-secondary">Login</a>
+        <a href="{{ route('register.show') }}" class="text-secondary">Registrate</a>
         @endif
     </div>
 </div>

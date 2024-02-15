@@ -22,7 +22,7 @@ class StorehousesManagementController extends Controller
         return view('backoffice.management.showProducts', ['storehouses' => $storehouses, 'categories' => $categories, 'products' => $products]);
     }
 
-    public function showAllAjax($searchProductId = 0, $offset = 0, $historic = 0)
+    public function showAllAjax($searchProductId = 0, $offset = 0, $historic = 'false')
     {
         if ($searchProductId != 0) {
             $searchWhere = "WHERE products.id = " . $searchProductId;
@@ -30,22 +30,24 @@ class StorehousesManagementController extends Controller
             $searchWhere = '';
         }
 
-        if ($historic == 0) {
+        if ($historic == 'false') {
 
             $countAllProducts = Product::count();
             [$pagination, $totalPrd] = $this->paginator($countAllProducts);
-            $productsAll = Db::select("SELECT products.id AS pid, products.product_has_category AS id, products.name AS pname, products.price AS pprice, products.prefix AS pprefix, categories.name AS pcategory, items.updated_at, SUM(items.stock) AS stock FROM items
+            $productsAll = Db::select("SELECT storehouses.name AS sname, products.id AS pid, products.product_has_category AS id, products.name AS pname, products.price AS pprice, products.prefix AS pprefix, categories.name AS pcategory, items.updated_at, SUM(items.stock) AS stock FROM items
         INNER JOIN product_storehouses ON product_storehouses.id = items.item_has_product_storehouses
         INNER JOIN products ON products.id = product_storehouses.product_storehouse_has_products
+        INNER JOIN storehouses ON storehouses.id = product_storehouses.product_storehouse_has_storehouses
         INNER JOIN categories ON categories.id = products.product_has_category
-        $searchWhere GROUP BY products.id, products.product_has_category, products.name, products.price, products.prefix, categories.name, items.updated_at ORDER BY products.id LIMIT 10 OFFSET $offset");
-        } else {
+        $searchWhere GROUP BY storehouses.name, products.id, products.product_has_category, products.name, products.price, products.prefix, categories.name, items.updated_at ORDER BY items.updated_at LIMIT 10 OFFSET $offset");
+        } elseif ($historic == 'true') {
 
             $countAllProducts = Item::count();
             [$pagination, $totalPrd] = $this->paginator($countAllProducts);
-            $productsAll = Db::select("SELECT products.id AS pid, products.product_has_category AS id, products.name AS pname, products.price AS pprice, products.prefix AS pprefix, categories.name AS pcategory, items.stock, items.updated_at FROM items
+            $productsAll = Db::select("SELECT storehouses.name AS sname, products.id AS pid, products.product_has_category AS id, products.name AS pname, products.price AS pprice, products.prefix AS pprefix, categories.name AS pcategory, items.stock, items.updated_at FROM items
         INNER JOIN product_storehouses ON product_storehouses.id = items.item_has_product_storehouses
         INNER JOIN products ON products.id = product_storehouses.product_storehouse_has_products
+        INNER JOIN storehouses ON storehouses.id = product_storehouses.product_storehouse_has_storehouses
         INNER JOIN categories ON categories.id = products.product_has_category
         $searchWhere ORDER BY items.updated_at DESC LIMIT 10 OFFSET $offset");
         }
@@ -139,7 +141,6 @@ class StorehousesManagementController extends Controller
 
     public function backOfficeAddToStorehouse(Request $request)
     {
-        log::info("aqui");
         $itemId = Product_storehouse::where('product_storehouse_has_storehouses', $request->storehouse)
             ->where('product_storehouse_has_products', $request->product)
             ->value('id');
