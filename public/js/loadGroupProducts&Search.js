@@ -134,7 +134,7 @@ $(window).on('load', function () {
         thead.appendChild(tr);
         $('.fullfilledTable').append(thead);
         let thPrefix = document.createElement('th');
-        thPrefix.innerHTML = 'id';
+        thPrefix.innerHTML = 'Id almacén';
         tr.appendChild(thPrefix);
         let thName = document.createElement('th');
         thName.innerHTML = 'Almacén';
@@ -143,10 +143,10 @@ $(window).on('load', function () {
         thDcrp.innerHTML = 'Descripción';
         tr.appendChild(thDcrp);
         let thPrdId = document.createElement('th');
-        thPrdId.innerHTML = 'Id';
+        thPrdId.innerHTML = 'Id Producto';
         tr.appendChild(thPrdId);
         let thPrd = document.createElement('th');
-        thPrd.innerHTML = 'Productos';
+        thPrd.innerHTML = 'Producto';
         tr.appendChild(thPrd);
         let thPrdCat = document.createElement('th');
         thPrdCat.innerHTML = 'Categoría';
@@ -166,13 +166,13 @@ $(window).on('load', function () {
             tr = document.createElement('tr');
             tbody.appendChild(tr);
             let tdPrefix = document.createElement('td');
-            tdPrefix.innerHTML = element.prefix;
+            tdPrefix.innerHTML = element.sprefix;
             tr.appendChild(tdPrefix);
             let tdName = document.createElement('td');
-            tdName.innerHTML = element.name;
+            tdName.innerHTML = element.sname;
             tr.appendChild(tdName);
             let tdDscrp = document.createElement('td');
-            tdDscrp.innerHTML = element.description;
+            tdDscrp.innerHTML = element.sdescription;
             tr.appendChild(tdDscrp);
             let tdPrdPrefix = document.createElement('td');
             tdPrdPrefix.innerHTML = element.pprefix;
