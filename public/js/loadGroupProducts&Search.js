@@ -2,6 +2,24 @@ $(window).on('load', function () {
 
     let url = document.getElementById('url').value;
 
+    $('#historic1').on('change', function () {
+        let inputSearch = $('#searchProductId').val();
+        let categorySelected = $('#categorySelected').val();
+        let storehouseSelected = $('#storehouseSelected').val();
+        let historic = $(this).prop('checked');
+        let offset = $('#offset').val();
+        console.log(historic);
+        $.ajax({
+            type: 'GET',
+            url: url + '/backoffice/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + offset + '/' + historic,
+            data: {},
+            success: function (data) {
+                fullFilledTable(data);
+                $('#historicSelected').val(historic);
+            }
+        })
+    })
+
     $('#filterByStorehouse').on('change', function () {
         let storehouseSelected = $('#filterByStorehouse').val();
         let categorySelected = $('#categorySelected').val();
@@ -134,7 +152,7 @@ $(window).on('load', function () {
         thead.appendChild(tr);
         $('.fullfilledTable').append(thead);
         let thPrefix = document.createElement('th');
-        thPrefix.innerHTML = 'Id almacén';
+        thPrefix.innerHTML = 'Id';
         tr.appendChild(thPrefix);
         let thName = document.createElement('th');
         thName.innerHTML = 'Almacén';
@@ -143,17 +161,17 @@ $(window).on('load', function () {
         thDcrp.innerHTML = 'Descripción';
         tr.appendChild(thDcrp);
         let thPrdId = document.createElement('th');
-        thPrdId.innerHTML = 'Id Producto';
+        thPrdId.innerHTML = 'Id';
         tr.appendChild(thPrdId);
         let thPrd = document.createElement('th');
         thPrd.innerHTML = 'Producto';
         tr.appendChild(thPrd);
-        let thPrdCat = document.createElement('th');
-        thPrdCat.innerHTML = 'Categoría';
-        tr.appendChild(thPrdCat);
         let thPrice = document.createElement('th');
         thPrice.innerHTML = 'Precio';
         tr.appendChild(thPrice);
+        let thPrdCat = document.createElement('th');
+        thPrdCat.innerHTML = 'Categoría';
+        tr.appendChild(thPrdCat);
         let thstc = document.createElement('th');
         thstc.innerHTML = 'Stock';
         tr.appendChild(thstc);
@@ -180,12 +198,12 @@ $(window).on('load', function () {
             let tdPrdName = document.createElement('td');
             tdPrdName.innerHTML = element.pname;
             tr.appendChild(tdPrdName);
-            let tdPrdCat = document.createElement('td');
-            tdPrdCat.innerHTML = element.pcategory;
-            tr.appendChild(tdPrdCat);
             let tdPrdPrice = document.createElement('td');
             tdPrdPrice.innerHTML = element.pprice;
             tr.appendChild(tdPrdPrice);
+            let tdPrdCat = document.createElement('td');
+            tdPrdCat.innerHTML = element.cname;
+            tr.appendChild(tdPrdCat);
             let tdStc = document.createElement('td');
             tdStc.innerHTML = element.stock;
             tr.appendChild(tdStc);
