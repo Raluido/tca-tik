@@ -5,18 +5,25 @@
 @guest
 
 <div class="headerBottomWelcome">
-
-    <h6 class="text-center mt-5">Bienvenido! Para acceder a todo el contenido ha de registrarse</h6>
+    <div class="">
+        @foreach($products as $product)
+        <div class="card">
+            @foreach($product->images as $image)
+            <div class="imgContainer">
+                <img src="{{ url('images/' . $image) }}" alt="" class="">
+            </div>
+            @endforeach
+            <h4 class="">{{ $product->name }}</h4>
+            <p class="">{{ $product->description }}</p>
+            <h5 class="">{{ $product->price }}</h5>
+        </div>
+        @endforeach
+    </div>
 
 </div>
 
 @endguest
 
-@role('user')
-
-<h6 class="text-center mt-5">Bienvenido!</h6>
-
-@endrole
 
 @role('admin')
 

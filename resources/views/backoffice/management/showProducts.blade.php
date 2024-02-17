@@ -36,7 +36,6 @@
         </div>
         <div class="d-flex flex-column align-items-center">
             <input type="text" id="inputSearch" class="d-block mt-5 text-center w-75" placeholder="Búsqueda por producto">
-            <input type="text" id="inputSearch1" class="d-none mt-5 text-center w-75" placeholder="Búsqueda por producto">
             <div class="d-none" id="searchDropdown"></div>
         </div>
     </div>
@@ -96,7 +95,7 @@
 <input type="hidden" value="false" id="historicSelected">
 
 @section('js')
-<script class="" src="{{ asset('js/loadProducts&Search.js') }}" defer></script>
+<!-- <script class="" src="{{ asset('js/loadProducts&Search.js') }}" defer></script> -->
 <script class="" src="{{ asset('js/loadGroupProducts&Search.js') }}" defer></script>
 <script class="" src="{{ asset('js/addToStorehouse.js') }}" defer></script>
 @endsection

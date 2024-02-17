@@ -2,13 +2,21 @@ $(window).on('load', function () {
 
     let url = document.getElementById('url').value;
 
-    $('#historic1').on('change', function () {
+    $.ajax({
+        type: 'GET',
+        url: url + '/backoffice/storehousesManagement/showFilteredAjax',
+        data: {},
+        success: function (data) {
+            fullFilledTable(data);
+        }
+    })
+
+    $('#historic').on('change', function () {
         let inputSearch = $('#searchProductId').val();
         let categorySelected = $('#categorySelected').val();
         let storehouseSelected = $('#storehouseSelected').val();
-        let historic = $(this).prop('checked');
+        let historic = $('#historic').prop('checked');
         let offset = $('#offset').val();
-        console.log(historic);
         $.ajax({
             type: 'GET',
             url: url + '/backoffice/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + offset + '/' + historic,
@@ -24,17 +32,10 @@ $(window).on('load', function () {
         let storehouseSelected = $('#filterByStorehouse').val();
         let categorySelected = $('#categorySelected').val();
         let inputSearch = $('#searchProductId').val();
-        $('#historicContainer').addClass('d-none');
-        if (inputSearch == '') {
-            inputSearch = 0;
-        }
-        if (storehouseSelected == 0 && categorySelected == 0) {
-            window.location.assign(url + '/backoffice/storehousesManagement/showProducts');
-            return;
-        }
+        let historic = $('#historic').prop('checked');
         $.ajax({
             type: 'GET',
-            url: url + '/backoffice/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch,
+            url: url + '/backoffice/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + 0 + '/' + historic,
             data: {},
             success: function (data) {
                 $('#offset').val(0);
@@ -59,14 +60,10 @@ $(window).on('load', function () {
         let storehouseSelected = $('#storehouseSelected').val();
         let categorySelected = $('#filterByCategory').val();
         let inputSearch = $('#searchProductId').val();
-        $('#historicContainer').addClass('d-none');
-        if (storehouseSelected == 0 && categorySelected == 0) {
-            window.location.assign(url + '/backoffice/storehousesManagement/showProducts');
-            return;
-        }
+        let historic = $('#historic').prop('checked');
         $.ajax({
             type: 'GET',
-            url: url + '/backoffice/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch,
+            url: url + '/backoffice/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + 0 + '/' + historic,
             data: {},
             success: function (data) {
                 $('#offset').val(0);
@@ -82,8 +79,12 @@ $(window).on('load', function () {
         })
     })
 
-    $('#inputSearch1').on('keyup', function () {
-        let inputSearch = $('#inputSearch1').val();
+    $('#inputSearch').on('keyup', function () {
+        let inputSearch = $('#inputSearch').val();
+        let categorySelected = $('#categorySelected').val();
+        let storehouseSelected = $('#storehouseSelected').val();
+        let historic = $('#historic').prop('checked');
+        let offset = $('#offset').val();
         $.ajax({
             url: url + '/backoffice/storehousesManagement/searchBy/' + inputSearch,
             type: 'get',
@@ -92,6 +93,15 @@ $(window).on('load', function () {
                 if (typeof data === 'string') {
                     $('#searchDropdown').removeClass('d-block');
                     $('#searchDropdown').addClass('d-none');
+                    $('#searchProductId').val(0);
+                    $.ajax({
+                        type: 'GET',
+                        url: url + '/backoffice/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + 0 + '/' + offset + '/' + historic,
+                        data: {},
+                        success: function (data) {
+                            fullFilledTable(data);
+                        }
+                    })
                 } else {
                     if (data[0] === undefined) {
                         $('#searchDropdown').html("<p style='display:block;'>No results</p>");
@@ -100,7 +110,7 @@ $(window).on('load', function () {
                     } else if (data[0] !== undefined) {
                         $('#searchDropdown').empty();
                         data.forEach(element => {
-                            $('#searchDropdown').append("<div class='searchResults1' data-id =" + element.id + " style='display:block; margin-bottom:.5em;'>" + element.name + "</div>");
+                            $('#searchDropdown').append("<div class='searchResults' data-id =" + element.id + " style='display:block; margin-bottom:.5em;'>" + element.name + "</div>");
                         })
                         $('#searchDropdown').removeClass('d-none');
                         $('#searchDropdown').addClass('d-block');
@@ -110,15 +120,16 @@ $(window).on('load', function () {
         });
     })
 
-    $('#searchDropdown').on('click', 'div.searchResults1', function () {
+    $('#searchDropdown').on('click', 'div.searchResults', function () {
         $('#searchDropdown').removeClass('d-block');
         $('#searchDropdown').addClass('d-none');
         let inputSearch = $(this).attr('data-id');
         let categorySelected = $('#categorySelected').val();
         let storehouseSelected = $('#storehouseSelected').val();
+        let historic = $('#historic').prop('checked');
         $.ajax({
             type: 'GET',
-            url: url + '/backoffice/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch,
+            url: url + '/backoffice/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + 0 + '/' + historic,
             data: {},
             success: function (data) {
                 fullFilledTable(data);
@@ -128,14 +139,15 @@ $(window).on('load', function () {
 
     })
 
-    $('div').on('click', 'div#pages1', function () {
+    $('div').on('click', 'div#pages', function () {
         let inputSearch = $('#searchProductId').val();
         let storehouseSelected = $('#storehouseSelected').val();
         let categorySelected = $('#categorySelected').val();
         let offset = $(this)[0].getAttribute('data-offset');
+        let historic = $('#historic').prop('checked');
         $.ajax({
             type: 'GET',
-            url: url + '/backoffice/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + offset,
+            url: url + '/backoffice/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + offset + '/' + historic,
             data: {},
             success: function (data) {
                 fullFilledTable(data);
@@ -221,13 +233,13 @@ $(window).on('load', function () {
             inputSearch = 0;
         }
         if (parseInt(data.offset) > 0) {
-            paginates.innerHTML += "<li class='d-inline-block pe-auto' style='border-right:1px solid gray; cursor:pointer'><div id='pages1' data-offset=" + (parseInt(data.offset) - 10) + "><</div></li>";
+            paginates.innerHTML += "<li class='d-inline-block pe-auto' style='border-right:1px solid gray; cursor:pointer'><div id='pages' data-offset=" + (parseInt(data.offset) - 10) + "><</div></li>";
         }
         data.pagination.forEach(function (element) {
-            paginates.innerHTML += "<li class='d-inline-block pe-auto' style='border-right:1px solid gray; cursor:pointer'><div id='pages1' data-offset=" + element.offset + ">" + element.page + "</div></li>";
+            paginates.innerHTML += "<li class='d-inline-block pe-auto' style='border-right:1px solid gray; cursor:pointer'><div id='pages' data-offset=" + element.offset + ">" + element.page + "</div></li>";
         })
         if ((parseInt(data.offset) + 10) < data.totalPrd) {
-            paginates.innerHTML += "<li class='d-inline-block pe-auto' style='cursor:pointer;'><div id='pages1' data-offset=" + (parseInt(data.offset) + 10) + ">></div></li>";
+            paginates.innerHTML += "<li class='d-inline-block pe-auto' style='cursor:pointer;'><div id='pages' data-offset=" + (parseInt(data.offset) + 10) + ">></div></li>";
         }
         for (let item of paginates.children) if (item.children[0].getAttribute('data-offset') == offset.value) item.children[0].classList.add('bg-primary');
         $('.paginationMng').append(paginates);
