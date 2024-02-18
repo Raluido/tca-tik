@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="mt-5 d-flex flex-column align-items-center flex-grow-1 flex-wrap headerBottom">
+<div class="mt-5 d-md-flex flex-column align-items-center flex-grow-1 flex-wrap headerBottom">
 
     <h4 class="text-center mb-5">Gestión de almacenes</h4>
 
@@ -40,47 +40,16 @@
         </div>
     </div>
 
-    <div class="d-none mb-5 shadow-lg p-5" id="addNewPrd">
-        <h4 class="text-center mb-5">Añadir nuevo</h4>
-        <table class="table">
-            <thead class="">
-                <tr class="">
-                    <th class="">Producto</th>
-                    <th class="">Acción</th>
-                    <th class="">Precio</th>
-                    <th class="">Cantidad</th>
-                </tr>
-            </thead>
-            <tbody class="">
-                <tr class="">
-                    <td class="">
-                        <select name="" id="productSelected" class="">
-                            <option value="0" class=""></option>
-                            @foreach($products as $product)
-                            <option value="{{ $product->id }}">{{ $product->name }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-                    <td class=""><input type="text" id="action" class=""></td>
-                    <td class=""><input type="text" id="price" class=""></td>
-                    </td>
-                    <td class=""><input type="text" id="quantity" class=""></td>
-                    <td class="">
-                        <button id="addProductsBtn" class="btn btn-success btn-sm">Añadir</button>
-                        <button id="removeProductBtn" class="btn btn-danger btn-sm">Quitar</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="" id="addNewPrd">
     </div>
 
-    <div class="mb-5 shadow-lg p-5">
-        <h4 class="text-center mb-5">Productos en stock</h4>
-        <table class="table fullfilledTable overflow-scroll"></table>
+    <div class="mb-5 shadow-lg p-5 fixoverflowTable">
+        <h4 class="text-center">Productos en stock</h4>
+        <table class="table fullfilledTable overflow-scroll mx-3"></table>
     </div>
-    <div class="paginationMng w-100 d-sm-flex flex-sm-column align-items-sm-center d-md-flex flex-md-row justify-content-md-around mb-5">
+    <div class="paginationMng w-100">
     </div>
-    <div class="submitForm">
+    <div class="w-50 d-flex justify-content-evenly mt-5">
         <button class="btn btn-primary btn-sm"><a href="{{ route('main') }}" class="text-white">Volver</a></button>
     </div>
 </div>
@@ -95,7 +64,6 @@
 <input type="hidden" value="false" id="historicSelected">
 
 @section('js')
-<!-- <script class="" src="{{ asset('js/loadProducts&Search.js') }}" defer></script> -->
 <script class="" src="{{ asset('js/loadGroupProducts&Search.js') }}" defer></script>
 <script class="" src="{{ asset('js/addToStorehouse.js') }}" defer></script>
 @endsection

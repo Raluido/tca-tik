@@ -19,7 +19,7 @@ ul li {
 .tableWidth,
 .formWidth,
 .filtersWidth {
-    width: 95%;
+    width: 100%;
 }
 
 .filtersWidth {
@@ -145,6 +145,10 @@ th,
 td {
     border: 1px solid gray;
     font-size: .8em;
+}
+
+.fixoverflowTable {
+    overflow-x: auto;
 }
 
 th,

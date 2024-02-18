@@ -11,6 +11,23 @@ $(window).on('load', function () {
         }
     })
 
+    $('body').on('change', 'select#productSelected', function () {
+        let categorySelected = $('#categorySelected').val();
+        let storehouseSelected = $('#storehouseSelected').val();
+        let inputSearch = $(this).val();
+        let historic = $('#historic').prop('checked');
+        let offset = $('#offset').val();
+        $.ajax({
+            type: 'GET',
+            url: url + '/backoffice/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + offset + '/' + historic,
+            data: {},
+            success: function (data) {
+                fullFilledTable(data);
+                $('#searchProductId').val(inputSearch);
+            }
+        })
+    })
+
     $('#historic').on('change', function () {
         let inputSearch = $('#searchProductId').val();
         let categorySelected = $('#categorySelected').val();
@@ -39,18 +56,9 @@ $(window).on('load', function () {
             data: {},
             success: function (data) {
                 $('#offset').val(0);
+                (storehouseSelected != 0) ? addNewPrd(data) : $('#addNewPrd').empty() && $('#addNewPrd').attr('class', '');
                 fullFilledTable(data);
                 $('#storehouseSelected').val(storehouseSelected);
-                if (storehouseSelected != 0 && $('#addNewPrd').hasClass('d-none')) {
-                    $('#addNewPrd').removeClass('d-none');
-                    $('#addNewPrd').addClass('d-block');
-                }
-                if ($('#inputSearch').hasClass('d-block') && $('#inputSearch1').hasClass('d-none')) {
-                    $('#inputSearch').removeClass('d-block');
-                    $('#inputSearch').addClass('d-none');
-                    $('#inputSearch1').removeClass('d-none');
-                    $('#inputSearch1').addClass('d-block');
-                }
                 $('#offset').val(0);
             }
         })
@@ -69,12 +77,6 @@ $(window).on('load', function () {
                 $('#offset').val(0);
                 fullFilledTable(data);
                 $('#categorySelected').val(categorySelected);
-                if ($('#inputSearch').hasClass('d-block') && $('#inputSearch1').hasClass('d-none')) {
-                    $('#inputSearch').removeClass('d-block');
-                    $('#inputSearch').addClass('d-none');
-                    $('#inputSearch1').removeClass('d-none');
-                    $('#inputSearch1').addClass('d-block');
-                }
             }
         })
     })
@@ -228,20 +230,77 @@ $(window).on('load', function () {
         showLefts.innerHTML = "Showing <span class=''>" + (data.offset) + "</span> of <span class=''>" + data.totalPrd + "</span> results";
         $('.paginationMng').append(showLefts);
         let paginates = document.createElement('ul');
-        paginates.setAttribute('class', 'text-center');
+        paginates.style = 'display:inline-block';
         if (inputSearch == '') {
             inputSearch = 0;
         }
         if (parseInt(data.offset) > 0) {
-            paginates.innerHTML += "<li class='d-inline-block pe-auto' style='border-right:1px solid gray; cursor:pointer'><div id='pages' data-offset=" + (parseInt(data.offset) - 10) + "><</div></li>";
+            paginates.innerHTML += "<li class='d-inline-block pe-auto' style='border-right:1px solid gray; cursor:pointer; white-space:nowrap'><div id='pages' data-offset=" + (parseInt(data.offset) - 10) + "><</div></li>";
         }
         data.pagination.forEach(function (element) {
-            paginates.innerHTML += "<li class='d-inline-block pe-auto' style='border-right:1px solid gray; cursor:pointer'><div id='pages' data-offset=" + element.offset + ">" + element.page + "</div></li>";
+            paginates.innerHTML += "<li class='d-inline-block pe-auto' style='border-right:1px solid gray; cursor:pointer; white-space:nowrap'><div id='pages' data-offset=" + element.offset + ">" + element.page + "</div></li>";
         })
         if ((parseInt(data.offset) + 10) < data.totalPrd) {
-            paginates.innerHTML += "<li class='d-inline-block pe-auto' style='cursor:pointer;'><div id='pages' data-offset=" + (parseInt(data.offset) + 10) + ">></div></li>";
+            paginates.innerHTML += "<li class='d-inline-block pe-auto' style='cursor:pointer; white-space:nowrap;'><div id='pages' data-offset=" + (parseInt(data.offset) + 10) + ">></div></li>";
         }
         for (let item of paginates.children) if (item.children[0].getAttribute('data-offset') == offset.value) item.children[0].classList.add('bg-primary');
         $('.paginationMng').append(paginates);
+    }
+
+    function addNewPrd(data) {
+        $('#addNewPrd').empty();
+        $('#addNewPrd').css('overflow-x', 'auto');
+        $('#addNewPrd').attr('class', 'shadow-lg mb-5 p-5');
+        let h4 = document.createElement('h4');
+        h4.innerHTML = "Añadir producto";
+        h4.setAttribute('class', 'mb-5 text-center');
+        $('#addNewPrd').append(h4);
+        let tableAddPrd = document.createElement('table');
+        tableAddPrd.setAttribute('class', 'table');
+        $('#addNewPrd').append(tableAddPrd);
+        let thead = document.createElement('thead');
+        tableAddPrd.appendChild(thead);
+        let tr = document.createElement('tr');
+        thead.appendChild(tr);
+        let thProduct = document.createElement('th');
+        thProduct.innerHTML = 'Producto';
+        tr.appendChild(thProduct);
+        let thAction = document.createElement('th');
+        thAction.innerHTML = 'Acción';
+        tr.appendChild(thAction);
+        let thPrice = document.createElement('th');
+        thPrice.innerHTML = 'Precio';
+        tr.appendChild(thPrice);
+        let thQuantity = document.createElement('th');
+        thQuantity.innerHTML = 'Cantidad';
+        tr.appendChild(thQuantity);
+        let tbody = document.createElement('tbody');
+        tableAddPrd.appendChild(tbody);
+        tr = document.createElement('tr');
+        tbody.appendChild(tr);
+        let tdSelectContainer = document.createElement('td');
+        tr.appendChild(tdSelectContainer);
+        let tdSelect = document.createElement('select');
+        tdSelect.setAttribute('id', 'productSelected');
+        tdSelectContainer.appendChild(tdSelect);
+        data.products.forEach(function (element) {
+            if (element.id == $('#searchProductId').val()) {
+                tdSelect.innerHTML += "<option value=" + element.id + "selected='selected'>" + element.name + "</option>";
+            } else {
+                tdSelect.innerHTML += "<option value=" + element.id + ">" + element.name + "</option>";
+            }
+        })
+        let tdAction = document.createElement('td');
+        tdAction.innerHTML = "<input type=text id='action' class=''>";
+        tr.appendChild(tdAction);
+        let tdPrice = document.createElement('td');
+        tdPrice.innerHTML = "<input type=text id='price' class=''>";
+        tr.appendChild(tdPrice);
+        let tdQuantity = document.createElement('td');
+        tdQuantity.innerHTML = "<input type=text id='quantity' class=''>";
+        tr.appendChild(tdQuantity);
+        let tdButtons = document.createElement('td');
+        tdButtons.innerHTML = "<button id='addProductsBtn' class='btn btn-success btn-sm me-3'>Añadir</button><button id='removeProductBtn' class='btn btn-danger btn-sm'>Quitar</button>";
+        tr.appendChild(tdButtons);
     }
 })

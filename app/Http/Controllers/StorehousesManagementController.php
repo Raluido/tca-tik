@@ -24,6 +24,8 @@ class StorehousesManagementController extends Controller
 
     public function showFilteredAjax($storehouseSelectedId = 0, $categorySelectedId = 0, $searchProductId = 0, $offset = 0, $historic = 'false')
     {
+        $products = Product::all();
+
         $fillWheres = '';
 
         $storeAnd = " AND storehouses.id = " . $storehouseSelectedId;
@@ -84,7 +86,7 @@ class StorehousesManagementController extends Controller
             ORDER BY storehouses.name, t.updated_at DESC LIMIT 10 OFFSET $offset");
         }
 
-        return ['filtered' => $filtered, 'pagination' => $pagination, 'searchProductId' => $searchProductId, 'offset' => $offset, 'totalPrd' => $totalPrd];
+        return ['products' => $products, 'filtered' => $filtered, 'pagination' => $pagination, 'searchProductId' => $searchProductId, 'offset' => $offset, 'totalPrd' => $totalPrd];
     }
 
     function is_decimal($val)

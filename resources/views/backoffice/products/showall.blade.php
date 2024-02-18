@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="mt-5 d-flex flex-column align-items-center flex-grow-1 headerBottom">
+<div class="mt-5 d-md-flex flex-column align-items-center flex-grow-1 headerBottom">
 
     <h4 class="text-center mb-5">Tabla de productos</h4>
 
@@ -13,7 +13,7 @@
     @if(is_null($products) || count($products) == 0)
     <p id="noItems">Aún no has creado ningún producto.</p>
     @else
-    <div class="tableWidth">
+    <div class="fixoverflowTable">
         <table class="table">
             <thead class="">
                 <tr class="">
@@ -41,12 +41,14 @@
                 @endforeach
             </tbody>
         </table>
-        {{ $products->links() }}
+    </div>
+    <div class="">
+    {{ $products->links() }}
     </div>
     @endif
 
 
-    <div class="w-50 d-flex justify-content-evenly mt-5">
+    <div class="d-flex justify-content-evenly mt-5">
         <button class="btn btn-success btn-sm"><a href="{{ route('products.showBackOfficeCreate') }}" class="text-white">Crear</a></button>
         <button class="btn btn-primary btn-sm"><a href="{{ route('main') }}" class="text-white">Volver</a></button>
     </div>
