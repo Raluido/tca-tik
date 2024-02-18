@@ -283,9 +283,10 @@ $(window).on('load', function () {
         let tdSelect = document.createElement('select');
         tdSelect.setAttribute('id', 'productSelected');
         tdSelectContainer.appendChild(tdSelect);
+        let inputSearchId = $('#searchProductId').val();
         data.products.forEach(function (element) {
-            if (element.id == $('#searchProductId').val()) {
-                tdSelect.innerHTML += "<option value=" + element.id + "selected='selected'>" + element.name + "</option>";
+            if (element.id == inputSearchId) {
+                tdSelect.innerHTML += "<option value='" + element.id + "'selected='selected'>" + element.name + "</option>";
             } else {
                 tdSelect.innerHTML += "<option value=" + element.id + ">" + element.name + "</option>";
             }
