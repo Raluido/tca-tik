@@ -26,6 +26,9 @@
 
     </form>
 
+    <p class="mt-5"><i class="fa-solid fa-arrow-right me-2"></i>Aún no te has <a href="{{ route('register.show') }}" class="text-secondary">registrado</a></p>
+
 </div>
+
 
 @endsection

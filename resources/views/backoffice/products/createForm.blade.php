@@ -61,7 +61,7 @@
                 <input name="images[]" class="w-75" type="file" id="images" placeholder="Imágenes" multiple>
                 <h5 id="imagesError"></h5>
             </div>
-            <div class="d-flex justify-content-evenly">
+            <div class="d-flex justify-content-evenly mt-5">
                 <input type="submit" class="btn btn-success btn-sm" id="submitBtn" value="Crear">
                 <button class="btn btn-primary btn-sm"><a href="{{ route('main') }}" class="text-white">Volver</a></button>
             </div>

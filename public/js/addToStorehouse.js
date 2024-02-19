@@ -31,7 +31,7 @@ $(window).on('load', function () {
                     url: url + '/backoffice/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + offset + '/' + historic,
                     data: {},
                     success: function (data) {
-                        fullFilledTable(data);
+                        fullFilledTable(data, historic);
                         $('#storehouseSelected').val(storehouseSelected);
                         $('#offset').val(0);
                     }
@@ -41,22 +41,24 @@ $(window).on('load', function () {
     })
 
     $('body').on('click', 'button#removeProduct', function () {
-        let categorySelected = $('#categorySelected').val();
-        let storehouseSelected = $('#storehouseSelected').val();
-        let inputSearch = $('#searchProductId').val();
-        let historic = $('#historicSelected').val();
-        let offset = $('#offset').val();
-        $.ajax({
-            type: 'get',
-            url: url + '/storehousesManagement/delete/' + $('#filterByStorehouse').val() + '/' + $('#productsCounter').val(),
-            data: {},
-            success: function (data) {
-                window.location.href = url + '/storehousesManagement/showBy/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + offset + '/' + historic;
-            }
-        })
+        if (confirm("Vas a eliminar un movimiento del stock\nEstás seguro?") == true) {
+            let categorySelected = $('#categorySelected').val();
+            let storehouseSelected = $('#storehouseSelected').val();
+            let inputSearch = $('#searchProductId').val();
+            let historic = $('#historicSelected').val();
+            let offset = $('#offset').val();
+            $.ajax({
+                type: 'get',
+                url: url + '/storehousesManagement/delete/' + storehouseSelected + '/' + $(this).attr('data-id'),
+                data: {},
+                success: function (data) {
+                    fullFilledTable(data, historic);
+                }
+            })
+        }
     })
 
-    function fullFilledTable(data) {
+    function fullFilledTable(data, historic) {
         $('.fullfilledTable').empty();
         let thead = document.createElement('thead');
         let tr = document.createElement('tr');
@@ -89,6 +91,11 @@ $(window).on('load', function () {
         let thUpdated = document.createElement('th');
         thUpdated.innerHTML = 'Fecha';
         tr.appendChild(thUpdated);
+        if (historic == false) {
+            let thDel = document.createElement('th');
+            thDel.innerHTML = 'Borrar';
+            tr.appendChild(thDel);
+        }
         let tbody = document.createElement('tbody');
         $('.fullfilledTable').append(tbody);
         data.filtered.forEach(function (element) {
@@ -121,6 +128,11 @@ $(window).on('load', function () {
             let tdUpdated = document.createElement('td');
             tdUpdated.innerHTML = element.updated_at;
             tr.appendChild(tdUpdated);
+            if (element.stock > 0 && historic == false) {
+                let tdDel = document.createElement('td');
+                tdDel.innerHTML = "<button class='btn btn-danger btn-sm' id='removeProduct' data-id=" + element.id + ">Borrar</button>";
+                tr.appendChild(tdDel);
+            }
         })
         $('.paginationMng').empty();
         let showLefts = document.createElement('p');

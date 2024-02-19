@@ -20,17 +20,16 @@
         </div>
         @endif
 
-        <div class="formWidth">
-            <form method="POST" action="{{ route('roles.update', $role->id) }}">
-                @method('patch')
-                @csrf
-                <div class="mb-3">
-                    <label for="name" class="form-label">Nombre</label>
-                    <input value="{{ $role->name }}" type="text" class="form-control" name="name" placeholder="Nombre" required>
-                </div>
+        <form method="POST" action="{{ route('roles.backOfficeUpdate', $role->id) }}">
+            @method('patch')
+            @csrf
+            <div class="mb-3">
+                <label for="name" class="form-label">Nombre</label>
+                <input value="{{ $role->name }}" type="text" class="form-control" name="name" placeholder="Nombre" required>
+            </div>
 
-                <label for="permissions" class="form-label">Asignar permisos</label>
-
+            <label for="permissions" class="form-label">Asignar permisos</label>
+            <div class="fixoverflowTable">
                 <table class="table table-striped">
                     <thead>
                         <th scope="col" width="1%"><input type="checkbox" name="all_permission"></th>
@@ -50,14 +49,13 @@
                     </tr>
                     @endforeach
                 </table>
+            </div>
 
-                <div class="d-flex justify-content-center mt-5">
-
-                    <button type="submit" class="btn btn-primary">Editar</button>
-                    <a href="{{ route('roles.showBackOfficeIndex') }}" class="btn btn-default">Volver</a>
-                </div>
-            </form>
-        </div>
+            <div class="w-100 d-flex justify-content-evenly mt-5">
+                <button type="submit" class="btn btn-success btn-sm">Editar</button>
+                <a href="{{ route('roles.showBackOfficeIndex') }}" class="btn btn-primary btn-sm">Volver</a>
+            </div>
+        </form>
     </div>
 </div>
 @endsection

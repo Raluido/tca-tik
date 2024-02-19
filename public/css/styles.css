@@ -27,7 +27,11 @@ ul li {
 }
 
 .headerBottom {
-    padding-bottom: 50vh;
+    padding-bottom: 40vh;
+}
+
+.headerBottomWelcome {
+    padding-bottom: 70vh;
 }
 
 #pageContainer {
@@ -138,6 +142,13 @@ header>div {
 .controlPanelElements h4 {
     text-align: end;
     margin-top: .5em;
+}
+
+.cardsContainer {
+    display: grid;
+    grid-template-columns: 80%;
+    justify-content: center;
+    row-gap: 1%;
 }
 
 table,
@@ -262,14 +273,6 @@ td {
     left: 1.5em;
 }
 
-.cardsContainer {
-    display: grid;
-    grid-template-columns: 25% 25% 25%;
-    column-gap: 5%;
-    row-gap: 5%;
-    justify-content: center;
-}
-
 .card {
     padding: 1em;
 }
@@ -336,6 +339,14 @@ footer div:nth-child(-n+4) {
 
     .loginForm {
         width: 60%;
+    }
+
+    .cardsContainer {
+        display: grid;
+        grid-template-columns: 25% 25% 25%;
+        column-gap: 5%;
+        row-gap: 5%;
+        justify-content: center;
     }
 }
 

@@ -43,15 +43,16 @@
         </div>
     </div>
     <div id="desktopMenuDummie"></div>
-    <div id="logo">
-        <img src="{{ Storage::url('logo.jpeg') }}" alt="" class="">
-    </div>
+    <a href="{{ route('main') }}" class="">
+        <div id="logo">
+            <img src="{{ Storage::url('logo.jpeg') }}" alt="" class="">
+        </div>
+    </a>
     <div id="login" class="d-flex flex-column justify-content-center align-items-center mr-3">
         @if(auth()->id())
-        <a href="{{ route('login.logout') }}" class="text-secondary">Logout</a>
+        <a href="{{ route('login.logout') }}" class="text-secondary"><i class="fa-solid fa-arrow-right-from-bracket"></i><span class="d-none ms-2 d-md-inline-block">Logout</span></a>
         @else
-        <a href="{{ route('login.show') }}" class="text-secondary">Login</a>
-        <a href="{{ route('register.show') }}" class="text-secondary">Registrate</a>
+        <a href="{{ route('login.show') }}" class="text-secondary"><i class="fa-regular fa-user"></i><span class="d-none ms-2 d-md-inline-block">Login</span></a>
         @endif
     </div>
 </div>

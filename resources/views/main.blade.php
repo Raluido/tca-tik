@@ -5,6 +5,11 @@
 @guest
 
 <div class="headerBottomWelcome">
+    <div class="banner">
+        <h5 class="">
+            Ofertas destacadas
+        </h5>
+    </div>
     <div class="cardsContainer">
         @foreach($products as $product)
         <div class="card">

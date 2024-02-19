@@ -8,6 +8,7 @@ use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Log;
 
 class RolesController extends Controller
 {
@@ -71,7 +72,6 @@ class RolesController extends Controller
      */
     public function backOfficeShow(Role $role)
     {
-        $role = $role;
         $rolePermissions = $role->permissions;
 
         return view('backoffice.roles.show', compact('role', 'rolePermissions'));
@@ -85,7 +85,6 @@ class RolesController extends Controller
      */
     public function showBackOfficeEdit(Role $role)
     {
-        $role = $role;
         $rolePermissions = $role->permissions->pluck('name')->toArray();
         $permissions = Permission::get();
 

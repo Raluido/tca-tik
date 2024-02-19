@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="mt-5 d-flex flex-column align-items-center flex-grow-1 headerBottom">
+<div class="mt-5 d-flex flex-column headerBottom">
     <h1>Users</h1>
     <div class="lead">
         Gestión de usuarios
@@ -13,7 +13,7 @@
         @include('layouts.partials.messages')
     </div>
 
-    <div class="tableWidth">
+    <div class="fixoverflowTable">
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -53,8 +53,8 @@
         {!! $users->links() !!}
     </div>
 
-    <div class="mt-5">
-        <a href="{{ route('main') }}" class="btn btn-default">Volver</a>
+    <div class="w-100 d-flex justify-content-evenly mt-5">
+        <a href="{{ route('main') }}" class="btn btn-primary btn-sm">Volver</a>
     </div>
 
 </div>

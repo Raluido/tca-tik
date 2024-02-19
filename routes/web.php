@@ -77,17 +77,17 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
                 Route::get('/showFilteredAjax/{storehouseSelected?}/{categorySelected?}/{productSelected?}/{search?}/{offset?}/{historic?}', 'StorehousesManagementController@showFilteredAjax')->name('storehousesManagement.showFilteredAjax');
                 Route::get('/searchBy/{search?}', 'StorehousesManagementController@searchBackOfficeByProduct')->name('storehousesManagement.searchBackOfficeByProduct');
                 Route::post('/addToStorehouse', 'StorehousesManagementController@backOfficeAddToStorehouse')->name('storehousesManagement.backOfficeAddToStorehouse');
-                // Route::get('/delete/{storehouse}/{product}', 'StorehousesManagementController@backOfficeRemoveFromStorehouse')->name('storehousesManagement.backOfficeRemoveFromStorehouse');
+                Route::get('/delete/{storehouse}/{item}', 'StorehousesManagementController@backOfficeRemoveFromStorehouse')->name('storehousesManagement.backOfficeRemoveFromStorehouse');
             });
 
             Route::group(['prefix' => 'roles'], function () {
                 Route::get('/index', 'RolesController@showBackOfficeIndex')->name('roles.showBackOfficeIndex');
                 Route::get('/create', 'RolesController@showBackOfficeCreate')->name('roles.showBackOfficeCreate');
                 Route::post('/store', 'RolesController@backOfficeStore')->name('roles.backOfficeStore');
-                Route::post('/show', 'RolesController@backOfficeShow')->name('roles.backOfficeShow');
-                Route::get('{rol}/edit', 'RolesController@showBackOfficeEdit')->name('roles.showBackOfficeEdit');
-                Route::patch('/{rol}/update', 'RolesController@backOfficeUpdate')->name('roles.backOfficeUpdate');
-                Route::delete('/{rol}/delete', 'RolesController@backOfficeDestroy')->name('roles.backOfficeDestroy');
+                Route::get('{role}/show', 'RolesController@backOfficeShow')->name('roles.backOfficeShow');
+                Route::get('{role}/edit', 'RolesController@showBackOfficeEdit')->name('roles.showBackOfficeEdit');
+                Route::patch('/{role}/update', 'RolesController@backOfficeUpdate')->name('roles.backOfficeUpdate');
+                Route::delete('/{role}/delete', 'RolesController@backOfficeDestroy')->name('roles.backOfficeDestroy');
             });
 
             Route::group(['prefix' => 'permissions'], function () {

@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="d-flex flex-column align-items-center flex-grow-1 headerBottom">
+<div class="mt-5 d-md-flex flex-column align-items-center flex-grow-1 headerBottom">
 
     <h5 class="mt-5">Crear nueva categoría</h5>
 
@@ -25,7 +25,7 @@
                 <textarea name="description" rows="10" class="w-75" id="descriptionValidator" placeholder="Descriptión la categoría"></textarea>
                 <h5 id="descriptionError"></h5>
             </div>
-            <div class="d-flex justify-content-evenly">
+            <div class="w-100 d-flex justify-content-evenly mt-5">
                 <button class="btn btn-success btn-sm" id="submitBtn">Crear</button>
                 <button class="btn btn-primary btn-sm"><a href="{{ route('main') }}" class="text-white">Volver</a></button>
             </div>

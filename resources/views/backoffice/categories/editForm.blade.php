@@ -27,7 +27,7 @@
                 <h5 id="prefixError"></h5>
             </div>
 
-            <div class="d-flex justify-content-evenly">
+            <div class="w-100 mt-5 d-flex justify-content-evenly">
                 <button class="btn btn-success btn-sm" id="submitBtn">Editar</button>
                 <button class="btn btn-primary btn-sm"><a href="{{ route('main') }}" class="text-white">Volver</a></button>
             </div>

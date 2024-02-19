@@ -19,9 +19,9 @@
                 <span class="text-danger text-left">{{ $errors->first('name') }}</span>
                 @endif
             </div>
-            <div class="d-flex justify-content-center mt-5">
-                <button type="submit" class="btn btn-primary">Guardar</button>
-                <a href="{{ route('permissions.showBackOfficeIndex') }}" class="btn btn-default">Volver</a>
+            <div class="d-flex justify-content-evenly mt-5">
+                <button type="submit" class="btn btn-success btn-sm">Guardar</button>
+                <a href="{{ route('permissions.showBackOfficeIndex') }}" class="btn btn-primary btn-sm">Volver</a>
             </div>
         </form>
     </div>

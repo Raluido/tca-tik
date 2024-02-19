@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="mt-5 d-flex flex-column align-items-center headerBottom">
+<div class="mt-5 d-md-flex flex-column align-items-center flex-grow-1 headerBottom">
 
     <h4 class="text-center mb-5">Tabla de producto</h4>
 
@@ -10,7 +10,7 @@
         @include('layouts.partials.messages')
     </div>
 
-    <div class="tableWidth">
+    <div class="fixoverflowTable">
         <table class="table">
             <thead class="">
                 <tr class="">
@@ -36,7 +36,7 @@
             </tbody>
         </table>
     </div>
-    <div class="w-50 d-flex justify-content-evenly mt-5">
+    <div class="w-100 d-flex justify-content-evenly mt-5">
         <button class="btn btn-success btn-sm"><a href="{{ route('products.showBackOfficeCreate') }}" class="text-white">Crear</a></button>
         <button class="btn btn-primary btn-sm"><a href="{{ route('products.showBackOfficeAll') }}" class="text-white">Volver</a></button>
     </div>

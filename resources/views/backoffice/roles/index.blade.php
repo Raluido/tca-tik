@@ -7,7 +7,7 @@
     <h1>Roles</h1>
     <div class="lead">
         Gestiona los roles
-        <a href="{{ route('roles.create') }}" class="btn btn-primary btn-sm float-right">Añadir</a>
+        <a href="{{ route('roles.showBackOfficeCreate') }}" class="btn btn-success btn-sm float-right">Añadir</a>
     </div>
 
     <div class="mt-2">
@@ -26,13 +26,13 @@
                 <td>{{ $role->id }}</td>
                 <td>{{ $role->name }}</td>
                 <td>
-                    <a class="btn btn-info btn-sm" href="{{ route('roles.show', $role->id) }}">Mostrar</a>
+                    <a class="btn btn-info btn-sm" href="{{ route('roles.backOfficeShow', $role->id) }}">Mostrar</a>
                 </td>
                 <td>
-                    <a class="btn btn-primary btn-sm" href="{{ route('roles.edit', $role->id) }}">Editar</a>
+                    <a class="btn btn-primary btn-sm" href="{{ route('roles.showBackOfficeEdit', $role->id) }}">Editar</a>
                 </td>
                 <td>
-                    {{ html()->form('DELETE',  route('roles.destroy', [$role->id]), ('display:inline'))->open() }}
+                    {{ html()->form('DELETE',  route('roles.backOfficeDestroy', [$role->id]), ('display:inline'))->open() }}
                     {{ html()->submit('Borrar')->class('btn btn-danger btn-sm') }}
                     {{ html()->form()->close() }}
                 </td>
@@ -45,7 +45,7 @@
         {!! $roles->links() !!}
     </div>
     <div class="mt-5">
-        <a href="{{ route('main') }}" class="btn btn-default">Volver</a>
+        <a href="{{ route('main') }}" class="btn btn-primary btn-sm">Volver</a>
     </div>
 
 </div>

@@ -20,16 +20,16 @@
         </div>
         @endif
 
-        <div class="formWidth">
-            <form method="POST" action="{{ route('roles.backOfficeStore') }}">
-                @csrf
-                <div class="mb-3">
-                    <label for="name" class="form-label">Nombre</label>
-                    <input value="{{ old('name') }}" type="text" class="form-control" name="name" placeholder="Nombre" required>
-                </div>
+        <form method="POST" action="{{ route('roles.backOfficeStore') }}">
+            @csrf
+            <div class="mb-3">
+                <label for="name" class="form-label">Nombre</label>
+                <input value="{{ old('name') }}" type="text" class="form-control" name="name" placeholder="Nombre" required>
+            </div>
 
-                <label for="permissions" class="form-label">Asignar permisos</label>
+            <label for="permissions" class="form-label">Asignar permisos</label>
 
+            <div class="fixoverflowTable">
                 <table class="table table-striped">
                     <thead>
                         <th scope="col" width="1%"><input type="checkbox" name="all_permission"></th>
@@ -47,10 +47,12 @@
                     </tr>
                     @endforeach
                 </table>
-
-                <button type="submit" class="btn btn-primary">Guardar</button>
-            </form>
-        </div>
+            </div>
+            <div class="w-100 d-flex justify-content-evenly mt-5">
+                <button type="submit" class="btn btn-success btn-sm">Guardar</button>
+                <button class="btn btn-primary btn-sm text-white"><a href="{{ route('roles.showBackOfficeIndex') }}" class="text-white">Volver</a></button>
+            </div>
+        </form>
     </div>
 
 </div>

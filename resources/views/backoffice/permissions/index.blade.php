@@ -2,18 +2,19 @@
 
 @section('content')
 
-<div class="mt-5 d-flex flex-column align-items-center flex-grow-1 headerBottom">
+<div class="mt-5 d-flex flex-column headerBottom">
+
     <h2>Permisos</h2>
     <div class="lead">
-        Gestiona tus permisos aqui.
-        <a href="{{ route('permissions.showBackOfficeCreate') }}" class="btn btn-primary btn-sm float-right">Añadir permiso</a>
+        Gestiona tus permisos aquí
+        <a href="{{ route('permissions.showBackOfficeCreate') }}" class="btn btn-success btn-sm float-right">Añadir permiso</a>
     </div>
 
     <div class="mt-2">
         @include('layouts.partials.messages')
     </div>
 
-    <div class="tableWidth">
+    <div class="fixoverflowTable">
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -40,8 +41,8 @@
         </table>
     </div>
 
-    <div class="mt-5">
-        <a href="{{ route('main') }}" class="btn btn-default">Volver</a>
+    <div class="w-100 d-flex justify-content-evenly mt-5">
+        <a href="{{ route('main') }}" class="btn btn-primary btn-sm">Volver</a>
     </div>
 
 </div>

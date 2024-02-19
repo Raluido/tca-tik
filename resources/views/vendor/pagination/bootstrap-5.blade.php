@@ -26,7 +26,7 @@
         </ul>
     </div>
 
-    <div class="d-block flex-sm-fill d-sm-flex align-items-sm-center justify-content-sm-between">
+    <div class="d-flex flex-column align-items-center">
         <div class="">
             <p class="small text-muted">
                 {!! __('Showing') !!}

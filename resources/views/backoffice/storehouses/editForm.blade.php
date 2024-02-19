@@ -30,7 +30,7 @@
                 <input type="text" name="address" class="w-75" value="{{ $storehouse->address }}" id="addressValidator" placeholder="Dirección">
                 <h5 id="addressError"></h5>
             </div>
-            <div class="d-flex justify-content-evenly">
+            <div class="w-100 mt5 d-flex justify-content-evenly">
                 <button class="btn btn-success btn-sm" id="submitBtn">Editar</button>
                 <button class="btn btn-primary btn-sm"><a href="{{ route('storehouses.showBackOfficeAll') }}" class="text-white">Volver</a></button>
             </div>

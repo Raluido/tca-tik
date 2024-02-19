@@ -62,7 +62,7 @@
                 </div>
             </div>
             <input type="hidden" name="id" value="{{ $product->id }}">
-            <div class="d-flex justify-content-evenly">
+            <div class="w-100 mt-5 d-flex justify-content-evenly">
                 <button class="btn btn-success btn-sm text-white" id="submitBtn">Editar</button>
                 <button class="btn btn-primary btn-sm"><a href="{{ route('products.showBackOfficeAll') }}" class="text-white">Volver</a></button>
             </div>
