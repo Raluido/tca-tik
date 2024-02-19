@@ -262,6 +262,24 @@ td {
     left: 1.5em;
 }
 
+.cardsContainer {
+    display: grid;
+    grid-template-columns: 25% 25% 25%;
+    column-gap: 5%;
+    row-gap: 5%;
+    justify-content: center;
+}
+
+.card {
+    padding: 1em;
+}
+
+.imgContainer,
+.imgContainer img {
+    width: 100%;
+    height: auto;
+}
+
 footer {
     position: absolute;
     bottom: 0;

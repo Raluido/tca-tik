@@ -53,11 +53,11 @@ class ProductController extends Controller
         if (count($images) > 0) {
             foreach ($images as $key => $image) {
                 $extension = $image->getClientOriginalExtension();
-                $fileName = 'id_' . $product->id . '_' . $key . '.' . $extension;
+                $fileName = 'id_' . $product->id . '_' . time() . '.' . $extension;
                 $image->storeAs('images/' . $fileName);
-                $imageObj[] = [
+                $imageObj[] = new Image([
                     'filename' => $fileName
-                ];
+                ]);
             }
             $product->images()->createMany($imageObj);
         }
@@ -94,7 +94,23 @@ class ProductController extends Controller
     {
         $update = Product::find($product->id);
 
-        $update->update($request->validated());
+        $validated = $request->validated();
+        $images = $validated['images'];
+        $imageObj = array();
+
+        $update->update($validated);
+
+        if (count($images) > 0) {
+            foreach ($images as $key => $image) {
+                $extension = $image->getClientOriginalExtension();
+                $fileName = 'id_' . $product->id . '_' . time() . '.' . $extension;
+                $image->storeAs('images/' . $fileName);
+                $imageObj[] = new Image([
+                    'filename' => $fileName
+                ]);
+            }
+            $update->images()->saveMany($imageObj);
+        }
 
         return redirect()->back()->withSuccess('El producto se ha actulizado correctamente.');
     }

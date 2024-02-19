@@ -284,6 +284,7 @@ $(window).on('load', function () {
         tdSelect.setAttribute('id', 'productSelected');
         tdSelectContainer.appendChild(tdSelect);
         let inputSearchId = $('#searchProductId').val();
+        tdSelect.innerHTML = "<option value='0'>Selecciona un producto</option>";
         data.products.forEach(function (element) {
             if (element.id == inputSearchId) {
                 tdSelect.innerHTML += "<option value='" + element.id + "'selected='selected'>" + element.name + "</option>";

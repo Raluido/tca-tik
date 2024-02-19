@@ -5,12 +5,12 @@
 @guest
 
 <div class="headerBottomWelcome">
-    <div class="">
+    <div class="cardsContainer">
         @foreach($products as $product)
         <div class="card">
             @foreach($product->images as $image)
             <div class="imgContainer">
-                <img src="{{ url('images/' . $image) }}" alt="" class="">
+                <img src="{{ Storage::disk('images')->url($image->filename) }}" alt="" class="">
             </div>
             @endforeach
             <h4 class="">{{ $product->name }}</h4>

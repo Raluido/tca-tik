@@ -11,9 +11,13 @@
     </div>
 
     <div class="formWidth">
-        <form action="{{ route('products.backOfficeupdate', [$product->id]) }}" method="post" id="sendForm" class="mt-5 shadow-lg text-center py-5">
+        <form action="{{ route('products.backOfficeupdate', [$product->id]) }}" method="post" id="sendForm" class="mt-5 shadow-lg text-center py-5" enctype="multipart/form-data">
             @csrf
             @method('PUT')
+            <div class="mb-4">
+                <input name="prefix" type="text" class="w-75" value="{{ $product->prefix }}" id="prefixValidator" placeholder="identificador del producto">
+                <h5 id="prefixError"></h5>
+            </div>
             <div class="mb-4">
                 <input type="text" name="name" id="nameValidator" class="w-75" value="{{ $product->name }}" placeholder="Nombre">
                 <h5 id="nameError"></h5>
@@ -30,8 +34,8 @@
                 <h5 id="priceError"></h5>
             </div>
             <div class="mb-4">
-                <input name="prefix" type="text" class="w-75" value="{{ $product->prefix }}" id="prefixValidator" placeholder="identificador del producto">
-                <h5 id="prefixError"></h5>
+                <input name="tax" class="w-75" type="number" step="0.01" id="taxValidator" value="{{ $product->tax }}" placeholder="Impuesto">
+                <h5 id="taxError"></h5>
             </div>
             <div class="mb-4">
                 <textarea name="description" rows="10" class="w-75" id="descriptionValidator" placeholder="Descriptión del producto">{{ $product->description }}</textarea>
@@ -57,6 +61,7 @@
                     @endforeach
                 </div>
             </div>
+            <input type="hidden" name="id" value="{{ $product->id }}">
             <div class="d-flex justify-content-evenly">
                 <button class="btn btn-success btn-sm text-white" id="submitBtn">Editar</button>
                 <button class="btn btn-primary btn-sm"><a href="{{ route('products.showBackOfficeAll') }}" class="text-white">Volver</a></button>
