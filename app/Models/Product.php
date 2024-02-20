@@ -38,7 +38,7 @@ class Product extends Model
 
     public function storehouses()
     {
-        return $this->belongsToMany(Storehouse::class, 'product_storehouse', 'product_storehouse_has_product', 'product_storehouse_has_storehouse');
+        return $this->belongsToMany(Storehouse::class, 'product_storehouses', 'product_storehouse_has_products', 'product_storehouse_has_storehouses');
     }
 
     public function images()

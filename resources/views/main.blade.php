@@ -5,22 +5,29 @@
 @guest
 
 <div class="headerBottomWelcome">
-    <div class="banner">
-        <h5 class="">
+    <div class="banner mt-5">
+        <h5 class="text-center">
             Ofertas destacadas
         </h5>
     </div>
     <div class="cardsContainer">
         @foreach($products as $product)
         <div class="card">
+            @if(count($product->images) == 0)
+            <div class="imgContainer">
+                <img src="{{ Storage::disk('images')->url('default.png') }}" alt="" class="">
+            </div>
+            @else
             @foreach($product->images as $image)
             <div class="imgContainer">
                 <img src="{{ Storage::disk('images')->url($image->filename) }}" alt="" class="">
             </div>
             @endforeach
+            @endif
             <h4 class="">{{ $product->name }}</h4>
             <p class="">{{ $product->description }}</p>
-            <h5 class="">{{ $product->price }}</h5>
+            <h5 class="">{{ $product->price }}€</h5>
+            <p class="">{{ $product->price }}€</p>
         </div>
         @endforeach
     </div>

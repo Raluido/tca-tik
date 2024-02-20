@@ -25,6 +25,6 @@ class Item extends Model
 
     public function product_storehouse()
     {
-        return $this->belongsTo(Product_storehouse::class, 'item_has_product_storehouse');
+        return $this->belongsTo(Product_storehouse::class, 'item_has_product_storehouses');
     }
 }

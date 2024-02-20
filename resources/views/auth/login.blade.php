@@ -24,9 +24,9 @@
             <button class="btn btn-primary btn-sm"><a href="{{ route('main') }}" class="text-white">Menú principal</a></button>
         </div>
 
-    </form>
+        <p class="my-4 text-center"><i class="fa-solid fa-arrow-right me-2"></i><a href="{{ route('register.show') }}" class="text-secondary">Regístrate!</a></p>
 
-    <p class="mt-5"><i class="fa-solid fa-arrow-right me-2"></i>Aún no te has <a href="{{ route('register.show') }}" class="text-secondary">registrado</a></p>
+    </form>
 
 </div>
 
