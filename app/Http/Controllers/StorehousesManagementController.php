@@ -50,24 +50,24 @@ class StorehousesManagementController extends Controller
 
         if ($historic == 'true') {
 
-            $filtered = Db::select("SELECT storehouses.name AS sname, items.id, storehouses.prefix AS sprefix, storehouses.description AS sdescription, products.prefix AS pprefix, products.name AS pname, products.price AS pprice, categories.name AS cname, items.updated_at, items.stock FROM items
+            $filtered = Db::select("SELECT storehouses.name AS sname, items.id, storehouses.prefix AS sprefix, storehouses.description AS sdescription, products.prefix AS pprefix, products.name AS pname, products.price AS pprice, categories.name AS cname, items.updated_at, items.quantity, items.action, items.stock FROM items
             INNER JOIN product_storehouses ON product_storehouses.id = items.item_has_product_storehouses
             INNER JOIN products ON products.id = product_storehouses.product_storehouse_has_products
             INNER JOIN storehouses ON storehouses.id = product_storehouses.product_storehouse_has_storehouses
             INNER JOIN categories ON categories.id = products.product_has_category
-            $fillWheres GROUP BY storehouses.name, items.id, storehouses.prefix, storehouses.description, products.prefix, products.name, products.price, categories.name, items.updated_at, items.stock ORDER BY storehouses.name, items.updated_at;");
+            $fillWheres GROUP BY storehouses.name, items.id, storehouses.prefix, storehouses.description, products.prefix, products.name, products.price, categories.name, items.updated_at, items.quantity, items.action, items.stock ORDER BY storehouses.name, items.updated_at;");
 
             [$pagination, $totalPrd] = $this->paginator(count($filtered));
 
-            $filtered = Db::select("SELECT storehouses.name AS sname, items.id, storehouses.prefix AS sprefix, storehouses.description AS sdescription, products.prefix AS pprefix, products.name AS pname, products.price AS pprice, categories.name AS cname, items.updated_at, items.stock FROM items
+            $filtered = Db::select("SELECT storehouses.name AS sname, items.id, storehouses.prefix AS sprefix, storehouses.description AS sdescription, products.prefix AS pprefix, products.name AS pname, products.price AS pprice, categories.name AS cname, items.updated_at, items.quantity, items.action, items.stock FROM items
             INNER JOIN product_storehouses ON product_storehouses.id = items.item_has_product_storehouses
             INNER JOIN products ON products.id = product_storehouses.product_storehouse_has_products
             INNER JOIN storehouses ON storehouses.id = product_storehouses.product_storehouse_has_storehouses
             INNER JOIN categories ON categories.id = products.product_has_category
-            $fillWheres GROUP BY storehouses.name, storehouses.prefix, items.id, storehouses.description, products.prefix, products.name, products.price, categories.name, items.updated_at, items.stock ORDER BY storehouses.name, items.updated_at LIMIT 10 OFFSET $offset");
+            $fillWheres GROUP BY storehouses.name, storehouses.prefix, items.id, storehouses.description, products.prefix, products.name, products.price, categories.name, items.updated_at, items.quantity, items.action, items.stock ORDER BY storehouses.name, items.updated_at LIMIT 10 OFFSET $offset");
         } elseif ($historic == 'false') {
 
-            $filtered = Db::select("SELECT storehouses.name AS sname, t.id, storehouses.prefix AS sprefix, storehouses.description AS sdescription, products.prefix AS pprefix, products.name AS pname, products.price AS pprice, categories.name AS cname, t.updated_at, t.stock FROM (SELECT *, ROW_NUMBER() OVER (PARTITION BY item_has_product_storehouses ORDER BY updated_at DESC) AS rowNumber FROM items) t
+            $filtered = Db::select("SELECT storehouses.name AS sname, t.id, storehouses.prefix AS sprefix, storehouses.description AS sdescription, products.prefix AS pprefix, products.name AS pname, products.price AS pprice, categories.name AS cname, t.updated_at, t.quantity, t.action, t.stock FROM (SELECT *, ROW_NUMBER() OVER (PARTITION BY item_has_product_storehouses ORDER BY updated_at DESC) AS rowNumber FROM items) t
             INNER JOIN product_storehouses ON product_storehouses.id = t.item_has_product_storehouses
             INNER JOIN products ON products.id = product_storehouses.product_storehouse_has_products
             INNER JOIN storehouses ON storehouses.id = product_storehouses.product_storehouse_has_storehouses
@@ -76,13 +76,13 @@ class StorehousesManagementController extends Controller
             $fillWheres");
 
             [$pagination, $totalPrd] = $this->paginator(count($filtered));
-            $filtered = Db::select("SELECT storehouses.name AS sname, t.id, storehouses.prefix AS sprefix, storehouses.description AS sdescription, products.prefix AS pprefix, products.name AS pname, products.price AS pprice, categories.name AS cname, t.updated_at, t.stock FROM (SELECT *, ROW_NUMBER() OVER (PARTITION BY item_has_product_storehouses ORDER BY updated_at DESC) AS rowNumber FROM items) t
+            $filtered = Db::select("SELECT storehouses.name AS sname, t.id, storehouses.prefix AS sprefix, storehouses.description AS sdescription, products.prefix AS pprefix, products.name AS pname, products.price AS pprice, categories.name AS cname, t.updated_at, t.quantity, t.action, t.stock FROM (SELECT *, ROW_NUMBER() OVER (PARTITION BY item_has_product_storehouses ORDER BY updated_at DESC) AS rowNumber FROM items) t
             INNER JOIN product_storehouses ON product_storehouses.id = t.item_has_product_storehouses
             INNER JOIN products ON products.id = product_storehouses.product_storehouse_has_products
             INNER JOIN storehouses ON storehouses.id = product_storehouses.product_storehouse_has_storehouses
             INNER JOIN categories ON categories.id = products.product_has_category
             WHERE t.rowNumber = 1 
-            $fillWheres GROUP BY storehouses.name, t.id, storehouses.prefix, storehouses.description, products.prefix, products.name, products.price, categories.name, t.updated_at, t.stock 
+            $fillWheres GROUP BY storehouses.name, t.id, storehouses.prefix, storehouses.description, products.prefix, products.name, products.price, categories.name, t.updated_at, t.quantity, t.action, t.stock 
             ORDER BY storehouses.name, t.updated_at DESC LIMIT 10 OFFSET $offset");
         }
 

@@ -238,7 +238,7 @@ function fullFilledTable(data, historic) {
         let tdUpdated = document.createElement('td');
         tdUpdated.innerHTML = element.updated_at;
         tr.appendChild(tdUpdated);
-        if (element.stock > 0 && historic == false) {
+        if (element.stock > 0 && element.quantity > 0 && element.action == 'purchase' && historic == false) {
             let tdDel = document.createElement('td');
             tdDel.innerHTML = "<button class='btn btn-danger btn-sm' id='removeProduct' data-id=" + element.id + ">Borrar</button>";
             tr.appendChild(tdDel);

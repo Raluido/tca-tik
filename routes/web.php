@@ -15,18 +15,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
-    Route::get('/', 'GeneralController@showmain')->name('main');
+    Route::get('/main/{filterBy?}/{offset?}', 'GeneralController@showmain')->name('main');
 
-    Route::get('login', 'LoginController@show')->name('login.show');
-    Route::get('register', 'RegisterController@show')->name('register.show');
-    Route::post('register', 'RegisterController@perform')->name('register.perform');
+    Route::get('/login', 'LoginController@show')->name('login.show');
+    Route::get('/register', 'RegisterController@show')->name('register.show');
+    Route::post('/register', 'RegisterController@perform')->name('register.perform');
 
     Route::middleware(['throttle:login'])->group(function () {
         Route::post('login', 'LoginController@login')->name('login.perform');
     });
 
     Route::group(['middleware' => 'auth'], function () {
-        Route::get('logout', 'LoginController@logout')->name('login.logout');
+        Route::get('/logout', 'LoginController@logout')->name('login.logout');
 
 
         // Back office

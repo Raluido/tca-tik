@@ -65,4 +65,9 @@ class Product extends Model
     {
         return $this->hasMany(Review::class, 'review_has_product');
     }
+
+    public function items()
+    {
+        return $this->hasManyThrough(Item::class, Product_storehouse::class, 'product_storehouse_has_products', 'item_has_product_storehouses');
+    }
 }

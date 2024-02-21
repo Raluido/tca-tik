@@ -11,15 +11,17 @@ class GeneralController extends Controller
 {
     public function showmain($filterBy = 0, $offset = 0)
     {
-        $products = Product::join('categories', 'categories.id', '=', 'products.product_has_category')
+        $products = Product::select('products.name', 'products.description', 'products.price', 'images')
+            ->with('images')
             ->where(function ($query) use ($filterBy) {
                 if ($filterBy != 0) {
-                    $query->where('categories.id', '=', 1);
+                    $query->where('categories.id', '=', $filterBy);
                 }
             })
             ->get();
 
-        log::info($products[0]->storehouses[0]->pivot->images);
+        log::info($products);
+        die();
 
         return view('main', ['products' => $products]);
     }

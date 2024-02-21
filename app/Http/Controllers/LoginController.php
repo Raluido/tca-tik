@@ -44,7 +44,7 @@ class LoginController extends Controller
         } else {
 
             RateLimiter::hit('login', 60);
-            
+
             if (RateLimiter::tooManyAttempts('login', 5)) {
                 return redirect()->back()->withErrors('Has alcanzado el número máximo de intentos, no podrás volver a intentarlo hasta pasado un minuto.');
             } else {

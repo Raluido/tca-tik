@@ -27,7 +27,6 @@
             <h4 class="">{{ $product->name }}</h4>
             <p class="">{{ $product->description }}</p>
             <h5 class="">{{ $product->price }}€</h5>
-            <p class="">{{ $product->price }}€</p>
         </div>
         @endforeach
     </div>

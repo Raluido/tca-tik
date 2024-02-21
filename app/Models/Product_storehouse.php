@@ -18,9 +18,4 @@ class Product_storehouse extends Model
         'product_storehouse_has_storehouses',
         'product_storehouse_has_products'
     ];
-
-    public function items()
-    {
-        return $this->hasMany(Item::class, 'item_has_product_storehouses');
-    }
 }
