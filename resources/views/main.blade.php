@@ -5,31 +5,22 @@
 @guest
 
 <div class="headerBottomWelcome">
+    <div class="filters mt-5 ps-5">
+        <select name="" id="filterByCat" class="">
+            <option value="0" class="">Categorías</option>
+            @foreach($categories as $category)
+            <option value="{{ $category->id }}" class="">{{ $category->name }}</option>
+            @endforeach
+        </select>
+        <input type="text" value="" id="searchFilter">
+    </div>
+
     <div class="banner mt-5">
         <h5 class="text-center">
             Ofertas destacadas
         </h5>
     </div>
-    <div class="cardsContainer">
-        @foreach($products as $product)
-        <div class="card">
-            @if(count($product->images) == 0)
-            <div class="imgContainer">
-                <img src="{{ Storage::disk('images')->url('default.png') }}" alt="" class="">
-            </div>
-            @else
-            @foreach($product->images as $image)
-            <div class="imgContainer">
-                <img src="{{ Storage::disk('images')->url($image->filename) }}" alt="" class="">
-            </div>
-            @endforeach
-            @endif
-            <h4 class="">{{ $product->name }}</h4>
-            <p class="">{{ $product->description }}</p>
-            <h5 class="">{{ $product->price }}€</h5>
-        </div>
-        @endforeach
-    </div>
+    <div class="cardsContainer"></div>
 
 </div>
 
@@ -105,8 +96,12 @@
 </div>
 
 @endrole
-
 @endsection
 
+<input type="hidden" value="{{ env('APP_URL') }}" id="url">
+<input type="hidden" id="offsetSelected" value="0">
+<input type="hidden" id="filterSelected" value="0">
+
 @section('js')
+<script class="" src="{{ asset('js/productsCustomersFilter.js') }}" defer></script>
 @endsection

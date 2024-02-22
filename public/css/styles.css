@@ -169,6 +169,15 @@ header>div {
     margin-bottom: 3em;
 }
 
+.carousel ul {
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.carousel ul li {
+    display: inline-block;
+}
+
 table,
 th,
 td {

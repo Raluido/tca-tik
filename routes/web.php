@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
-    Route::get('/{filterBy?}/{offset?}', 'GeneralController@showmain')->name('main');
+    Route::get('/', 'GeneralController@showmain')->name('main');
+    Route::get('/filterAjax/{filterBy?}/{search?}/{offset?}', 'GeneralController@filterAjax')->name('main.filterAjax');
 
     Route::get('/login', 'LoginController@show')->name('login.show');
     Route::get('/register', 'RegisterController@show')->name('register.show');
