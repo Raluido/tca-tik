@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
-    Route::get('/main/{filterBy?}/{offset?}', 'GeneralController@showmain')->name('main');
+    Route::get('/{filterBy?}/{offset?}', 'GeneralController@showmain')->name('main');
 
     Route::get('/login', 'LoginController@show')->name('login.show');
     Route::get('/register', 'RegisterController@show')->name('register.show');
