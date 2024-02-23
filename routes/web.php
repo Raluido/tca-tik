@@ -16,8 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
     Route::get('/', 'GeneralController@showmain')->name('main');
-    Route::get('/showProductsAjax/{filterBy?}/{search?}/{offset?}', 'GeneralController@showProductsAjax')->name('main.filterAjax');
-    Route::get('/searchBy/{search?}', 'GeneralController@searchByProduct')->name('storehousesManagement.searchByProduct');
+    Route::get('/showProductsAjax/{filterBy?}/{search?}/{offset?}', 'GeneralController@showProductsAjax')->name('main.showProductsAjax');
+    Route::get('/searchBy/{search?}', 'GeneralController@searchByProduct')->name('main.searchByProduct');
+    Route::get('/showProduct/{product}', 'ProductController@showProduct')->name('main.showProduct');
+    Route::get('/addToCart/{product}', 'ProductController@addToCart')->name('main.addToCart');
 
     Route::get('/login', 'LoginController@show')->name('login.show');
     Route::get('/register', 'RegisterController@show')->name('register.show');

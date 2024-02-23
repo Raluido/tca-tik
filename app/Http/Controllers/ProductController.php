@@ -11,6 +11,7 @@ use App\Http\Requests\CreateProductRequest;
 use App\Models\Discount;
 use App\Models\Image;
 use App\Models\Item;
+use Illuminate\Support\Facades\DB;
 use Faker\Extension\FileExtension;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -134,5 +135,35 @@ class ProductController extends Controller
         }
 
         return true;
+    }
+
+    public function showProduct(Product $product)
+    {
+        $product = Db::select("SELECT products.name AS pname, products.description AS pdescription, products.price AS pprice, 
+        products.prefix AS pprefix, products.id, SUM(t.stock) AS totalStock, GROUP_CONCAT(DISTINCT images.filename) 
+        AS images FROM (SELECT *, ROW_NUMBER() OVER (PARTITION BY items.item_has_product_storehouses ORDER BY updated_at DESC) AS rownumber FROM items) t
+        INNER JOIN product_storehouses ON product_storehouses.id = t.item_has_product_storehouses
+        INNER JOIN products ON products.id = product_storehouses.product_storehouse_has_products
+        INNER JOIN categories ON categories.id = products.product_has_category
+        LEFT JOIN images ON products.id = images.image_has_product
+        WHERE rownumber = 1 AND products.id = $product->id GROUP BY products.id");
+
+        $product = $product[0];
+
+        return view('product.product', ['product' => $product]);
+    }
+
+    public function addToCart(Product $product)
+    {
+        if (session()->has('cartList')) {
+            $cartList = session("cartList");
+        } else {
+            $cartList = [];
+        }
+
+        $cartList[] = $product->id;
+
+        session()->forget('cartList');
+        session(['cartList' => $cartList]);
     }
 }

@@ -105,8 +105,9 @@ function fullFilledTable(data) {
     let cardsContainer = $('.cardsContainer');
     cardsContainer.empty();
     data.products.forEach(function (element) {
-        let card = document.createElement('div');
+        let card = document.createElement('a');
         card.setAttribute('class', 'card');
+        card.setAttribute('href', url + '/showProduct/' + element.id);
         cardsContainer.append(card);
         let imageFilename = element.imageFilename;
         if (imageFilename !== null) {
@@ -143,9 +144,8 @@ function fullFilledTable(data) {
         }
         card.innerHTML += "<h4 class=''>" + element.pname + "</h4><p class=''>" + element.pdescription + "</p>" +
             "<h5 class=''>" + element.pprice + "€</h5>" +
-            `${element.stockTotal == 0 ? "<p class='text-danger'>No hay stock</p>" : "<p class=''>" + element.stockTotal + " uds.</p>"}` +
-            `${element.stockTotal != 0 ? "<div class='text-end'><button class='btn btn-success btn-sm' id='addToCart' data-id='" + element.id + "'>Añadir</button></div>" :
-                "<div class='text-end'><button class='btn btn-success btn-sm' id='addToCart' data-id='" + element.id + "'disabled>Añadir</button></div>"}`;
+            `${element.stockTotal == 0 ? "<p class='text-danger'>No hay stock</p>" : "<p class=''>" + element.stockTotal + " uds.</p>"}`;
+
 
         $('.paginationMng').empty();
         let showLefts = document.createElement('p');
