@@ -47,8 +47,7 @@
         <h4 class="text-center">Productos en stock</h4>
         <table class="table fullfilledTable overflow-scroll mx-3"></table>
     </div>
-    <div class="paginationMng w-100 d-flex align-items-center flex-column">
-    </div>
+    <div class="paginationMng w-100 d-flex align-items-center flex-column"></div>
     <div class="w-100 d-flex justify-content-evenly mt-5">
         <button class="btn btn-primary btn-sm"><a href="{{ route('main') }}" class="text-white">Volver</a></button>
     </div>
@@ -64,6 +63,6 @@
 <input type="hidden" value="false" id="historicSelected">
 
 @section('js')
-<script class="" src="{{ asset('js/loadGroupProducts&Search.js') }}" defer></script>
+<script class="" src="{{ asset('js/showProductsBackend.js') }}" defer></script>
 <script class="" src="{{ asset('js/addToStorehouse.js') }}" defer></script>
 @endsection

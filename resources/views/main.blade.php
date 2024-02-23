@@ -5,14 +5,19 @@
 @guest
 
 <div class="headerBottomWelcome">
-    <div class="filters mt-5 ps-5">
-        <select name="" id="filterByCat" class="">
-            <option value="0" class="">Categorías</option>
-            @foreach($categories as $category)
-            <option value="{{ $category->id }}" class="">{{ $category->name }}</option>
-            @endforeach
-        </select>
-        <input type="text" value="" id="searchFilter">
+    <div class="filters mt-5 d-flex justify-content-evenly">
+        <div class="">
+            <select name="" id="filterByCat" class="">
+                <option value="0" class="">Categorías</option>
+                @foreach($categories as $category)
+                <option value="{{ $category->id }}" class="">{{ $category->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="d-flex align-items-top">
+            <input type="text" value="" id="inputSearch">
+            <div class="d-none" id="searchDropdown"></div>
+        </div>
     </div>
 
     <div class="banner mt-5">
@@ -21,7 +26,7 @@
         </h5>
     </div>
     <div class="cardsContainer"></div>
-
+    <div class="paginationMng w-100 d-flex align-items-center flex-column"></div>
 </div>
 
 @endguest
@@ -99,9 +104,10 @@
 @endsection
 
 <input type="hidden" value="{{ env('APP_URL') }}" id="url">
-<input type="hidden" id="offsetSelected" value="0">
-<input type="hidden" id="filterSelected" value="0">
+<input type="hidden" id="offset" value="0">
+<input type="hidden" id="searchProductId" value="0">
+<input type="hidden" id="categorySelected" value="0">
 
 @section('js')
-<script class="" src="{{ asset('js/productsCustomersFilter.js') }}" defer></script>
+<script class="" src="{{ asset('js/showProductsCustomers.js') }}" defer></script>
 @endsection

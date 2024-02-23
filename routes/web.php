@@ -16,7 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
     Route::get('/', 'GeneralController@showmain')->name('main');
-    Route::get('/filterAjax/{filterBy?}/{search?}/{offset?}', 'GeneralController@filterAjax')->name('main.filterAjax');
+    Route::get('/showProductsAjax/{filterBy?}/{search?}/{offset?}', 'GeneralController@showProductsAjax')->name('main.filterAjax');
+    Route::get('/searchBy/{search?}', 'GeneralController@searchByProduct')->name('storehousesManagement.searchByProduct');
 
     Route::get('/login', 'LoginController@show')->name('login.show');
     Route::get('/register', 'RegisterController@show')->name('register.show');
@@ -75,7 +76,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
             Route::group(['prefix' => 'storehousesManagement'], function () {
                 Route::get('/showProducts', 'StorehousesManagementController@showBackOfficeAll')->name('storehousesManagement.showBackOfficeAll');
-                Route::get('/showFilteredAjax/{storehouseSelected?}/{categorySelected?}/{productSelected?}/{search?}/{offset?}/{historic?}', 'StorehousesManagementController@showFilteredAjax')->name('storehousesManagement.showFilteredAjax');
+                Route::get('/showProductsAjax/{storehouseSelected?}/{categorySelected?}/{productSelected?}/{search?}/{offset?}/{historic?}', 'StorehousesManagementController@showProductsAjax')->name('storehousesManagement.showProductsAjax');
                 Route::get('/searchBy/{search?}', 'StorehousesManagementController@searchBackOfficeByProduct')->name('storehousesManagement.searchBackOfficeByProduct');
                 Route::post('/addToStorehouse', 'StorehousesManagementController@backOfficeAddToStorehouse')->name('storehousesManagement.backOfficeAddToStorehouse');
                 Route::get('/delete/{storehouse}/{item}', 'StorehousesManagementController@backOfficeRemoveFromStorehouse')->name('storehousesManagement.backOfficeRemoveFromStorehouse');

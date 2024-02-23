@@ -17,7 +17,7 @@ class GeneralController extends Controller
         return view('main', ['categories' => $categories]);
     }
 
-    public function filterAjax($filterBy = 0, $search = 0, $offset = 0)
+    public function showProductsAjax($filterBy = 0, $search = 0, $offset = 0)
     {
         $filterByAnd = " AND categories.id = " . $filterBy;
         $searchAnd = " AND products.id = " . $search;
@@ -44,7 +44,7 @@ class GeneralController extends Controller
 
         [$pagination, $totalPrd] = $this->paginator(count($products));
 
-        $products = Db::select("SELECT products.name AS pname, products.prefix AS pprefix, products.price AS pprice, products.description AS pdescription, products.observations AS pobservations, categories.name AS cname, sum(t.stock) AS stockTotal, GROUP_CONCAT(DISTINCT images.filename) AS imageFilename
+        $products = Db::select("SELECT products.id, products.name AS pname, products.prefix AS pprefix, products.price AS pprice, products.description AS pdescription, products.observations AS pobservations, categories.name AS cname, sum(t.stock) AS stockTotal, GROUP_CONCAT(DISTINCT images.filename) AS imageFilename
         FROM (SELECT *, ROW_NUMBER() OVER (PARTITION BY item_has_product_storehouses ORDER BY updated_at DESC) AS rownumber FROM items) t
         INNER JOIN product_storehouses ON product_storehouses.id = t.item_has_product_storehouses
         INNER JOIN products ON products.id = product_storehouses.product_storehouse_has_products
@@ -54,8 +54,6 @@ class GeneralController extends Controller
         WHERE t.rownumber = 1
         $fillWheres
         GROUP BY products.id LIMIT 10 OFFSET $offset;");
-
-        log::info($products);
 
         return ['products' => $products, 'filterBy' => $filterBy, 'offset' => $offset, 'pagination' => $pagination, 'totalPrd' => $totalPrd];
     }
@@ -82,5 +80,17 @@ class GeneralController extends Controller
     function is_decimal($val)
     {
         return is_numeric($val) && floor($val) != $val;
+    }
+
+    public function searchByProduct($inputSearch = '')
+    {
+        if ($inputSearch != '') {
+            $productFiltered = Product::where('products.name', 'LIKE', '%' . $inputSearch . '%')
+                ->get();
+        } else {
+            $productFiltered = null;
+        }
+
+        return $productFiltered;
     }
 }

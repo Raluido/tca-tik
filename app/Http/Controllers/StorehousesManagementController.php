@@ -22,7 +22,7 @@ class StorehousesManagementController extends Controller
         return view('backoffice.management.showProducts', ['storehouses' => $storehouses, 'categories' => $categories, 'products' => $products]);
     }
 
-    public function showFilteredAjax($storehouseSelectedId = 0, $categorySelectedId = 0, $searchProductId = 0, $offset = 0, $historic = 'false')
+    public function showProductsAjax($storehouseSelectedId = 0, $categorySelectedId = 0, $searchProductId = 0, $offset = 0, $historic = 'false')
     {
         $products = Product::all();
 

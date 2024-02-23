@@ -10,7 +10,7 @@ $(window).on('load', function () {
 
     $.ajax({
         type: 'GET',
-        url: url + '/backoffice/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + offset + '/' + historic,
+        url: url + '/backoffice/storehousesManagement/showProductsAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + offset + '/' + historic,
         data: {},
         success: function (data) {
             fullFilledTable(data, historic);
@@ -25,7 +25,7 @@ $(window).on('load', function () {
         let offset = $('#offset').val();
         $.ajax({
             type: 'GET',
-            url: url + '/backoffice/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + offset + '/' + historic,
+            url: url + '/backoffice/storehousesManagement/showProductsAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + offset + '/' + historic,
             data: {},
             success: function (data) {
                 fullFilledTable(data, historic);
@@ -42,7 +42,7 @@ $(window).on('load', function () {
         let offset = $('#offset').val();
         $.ajax({
             type: 'GET',
-            url: url + '/backoffice/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + offset + '/' + historic,
+            url: url + '/backoffice/storehousesManagement/showProductsAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + offset + '/' + historic,
             data: {},
             success: function (data) {
                 fullFilledTable(data, historic);
@@ -58,7 +58,7 @@ $(window).on('load', function () {
         let historic = $('#historic').prop('checked');
         $.ajax({
             type: 'GET',
-            url: url + '/backoffice/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + 0 + '/' + historic,
+            url: url + '/backoffice/storehousesManagement/showProductsAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + 0 + '/' + historic,
             data: {},
             success: function (data) {
                 $('#offset').val(0);
@@ -77,7 +77,7 @@ $(window).on('load', function () {
         let historic = $('#historic').prop('checked');
         $.ajax({
             type: 'GET',
-            url: url + '/backoffice/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + 0 + '/' + historic,
+            url: url + '/backoffice/storehousesManagement/showProductsAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + 0 + '/' + historic,
             data: {},
             success: function (data) {
                 $('#offset').val(0);
@@ -104,7 +104,7 @@ $(window).on('load', function () {
                     $('#searchProductId').val(0);
                     $.ajax({
                         type: 'GET',
-                        url: url + '/backoffice/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + 0 + '/' + offset + '/' + historic,
+                        url: url + '/backoffice/storehousesManagement/showProductsAjax/' + storehouseSelected + '/' + categorySelected + '/' + 0 + '/' + offset + '/' + historic,
                         data: {},
                         success: function (data) {
                             fullFilledTable(data, historic);
@@ -137,7 +137,7 @@ $(window).on('load', function () {
         let historic = $('#historic').prop('checked');
         $.ajax({
             type: 'GET',
-            url: url + '/backoffice/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + 0 + '/' + historic,
+            url: url + '/backoffice/storehousesManagement/showProductsAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + 0 + '/' + historic,
             data: {},
             success: function (data) {
                 fullFilledTable(data, historic);
@@ -155,7 +155,7 @@ $(window).on('load', function () {
         let historic = $('#historic').prop('checked');
         $.ajax({
             type: 'GET',
-            url: url + '/backoffice/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + offset + '/' + historic,
+            url: url + '/backoffice/storehousesManagement/showProductsAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + offset + '/' + historic,
             data: {},
             success: function (data) {
                 fullFilledTable(data, historic);
