@@ -2,7 +2,6 @@
 
 @section('content')
 
-@guest
 
 <div class="headerBottomWelcome">
     <div class="filters mt-5 d-flex justify-content-evenly">
@@ -28,8 +27,6 @@
     <div class="cardsContainer"></div>
     <div class="paginationMng w-100 d-flex align-items-center flex-column"></div>
 </div>
-
-@endguest
 
 
 @role('admin')

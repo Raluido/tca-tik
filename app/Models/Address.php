@@ -20,9 +20,7 @@ class Address extends Model
         'address',
         'country',
         'zipcode',
-        'address1',
-        'country1',
-        'zipcode1'
+        'shipping_address_slc'
     ];
 
     public function user()

@@ -11,10 +11,13 @@ use App\Http\Requests\CreateProductRequest;
 use App\Models\Discount;
 use App\Models\Image;
 use App\Models\Item;
+use App\Models\User;
+use ArrayObject;
 use Illuminate\Support\Facades\DB;
 use Faker\Extension\FileExtension;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use GuzzleHttp;
 
 class ProductController extends Controller
 {
@@ -139,6 +142,8 @@ class ProductController extends Controller
 
     public function showProduct(Product $product)
     {
+        log::info("yes" . $this->distanceClientStorehouses());
+
         $product = Db::select("SELECT products.name AS pname, products.description AS pdescription, products.price AS pprice, 
         products.prefix AS pprefix, products.id, SUM(t.stock) AS totalStock, GROUP_CONCAT(DISTINCT images.filename) 
         AS images FROM (SELECT *, ROW_NUMBER() OVER (PARTITION BY items.item_has_product_storehouses ORDER BY updated_at DESC) AS rownumber FROM items) t
@@ -155,15 +160,53 @@ class ProductController extends Controller
 
     public function addToCart(Product $product)
     {
-        if (session()->has('cartList')) {
-            $cartList = session("cartList");
-        } else {
-            $cartList = [];
+        // if (session()->has('cartList')) {
+        //     $cartList = session("cartList");
+        // } else {
+        //     $cartList = [];
+        // }
+
+        // $cartList[] = $product->id;
+
+        // session()->forget('cartList');
+        // session(['cartList' => $cartList]);
+    }
+
+    public function distanceClientStorehouses()
+    {
+        $clientStorehouses = array();
+        $storehouses = Storehouse::all();
+        $userAddresses = User::find(auth()->id())->addresses;
+
+        foreach ($userAddresses as $key => $value) {
+            if ($value->shipping_address_slc) $destination = $value->address . ',' . $value->zipcode . ',' . $value->country;
+            continue;
         }
 
-        $cartList[] = $product->id;
+        if ($destination) {
+            foreach ($storehouses as $storehouse) {
+                $clientStorehouses[] = new ArrayObject([
+                    'id' => $storehouse->id,
+                    'distance' => $this->getDistance($storehouse->address, $destination)
+                ]);
+            }
+        } else {
+            return redirect()->back()->withErrors("Ha habido un error con la dirección de envío, consulte al administrador");
+        }
 
-        session()->forget('cartList');
-        session(['cartList' => $cartList]);
+        return $clientStorehouses;
+    }
+
+    public function getDistance($origin, $destination)
+    {
+        $key = '5ZCPy75ETZGM6gZvtRyiY5OKB7uAnhrkJh9QM7AeywcHP3YnHxnh4Ic1B6idSCR3';
+        $client = new GuzzleHttp\Client();
+        $res = $client->request('GET', "https://api.distancematrix.ai/maps/api/distancematrix/json?origins=" . $origin . "&destinations=" . $destination . "&key=" . $key);
+
+        if ($res->getStatusCode() == 200) {
+            $distance = json_decode($res->getBody(), true)['rows'][0]['elements'][0]['distance']['value'];
+        }
+
+        return $distance;
     }
 }

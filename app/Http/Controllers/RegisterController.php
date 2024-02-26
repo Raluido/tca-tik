@@ -24,7 +24,7 @@ class RegisterController extends Controller
 
             $request->session()->regenerate();
 
-            return redirect()->intended('main');
+            return redirect()->intended('/');
         }
     }
 }
