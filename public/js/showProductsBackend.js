@@ -312,7 +312,10 @@ function addNewPrd(data) {
         }
     })
     let tdAction = document.createElement('td');
-    tdAction.innerHTML = "<input type=text id='action' class=''>";
+    let tdActionSelect = document.createElement('select');
+    tdActionSelect.setAttribute('id', 'action');
+    tdAction.appendChild(tdActionSelect);
+    tdActionSelect.innerHTML = "<option value='0' selected='selected'>Selecciona una</option><option value ='purchase'>Compra</option><option value='sell'>Venta</option>";
     tr.appendChild(tdAction);
     let tdPrice = document.createElement('td');
     tdPrice.innerHTML = "<input type=text id='price' class=''>";

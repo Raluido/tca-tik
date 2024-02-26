@@ -28,7 +28,7 @@ $(window).on('load', function () {
             success: function () {
                 $.ajax({
                     type: 'GET',
-                    url: url + '/backoffice/storehousesManagement/showFilteredAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + offset + '/' + historic,
+                    url: url + '/backoffice/storehousesManagement/showProductsAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + offset + '/' + historic,
                     data: {},
                     success: function (data) {
                         fullFilledTable(data, historic);
@@ -49,7 +49,7 @@ $(window).on('load', function () {
             let offset = $('#offset').val();
             $.ajax({
                 type: 'get',
-                url: url + '/storehousesManagement/delete/' + storehouseSelected + '/' + $(this).attr('data-id'),
+                url: url + '/backoffice/storehousesManagement/delete/' + $(this).attr('data-id'),
                 data: {},
                 success: function (data) {
                     fullFilledTable(data, historic);

@@ -142,8 +142,6 @@ class ProductController extends Controller
 
     public function showProduct(Product $product)
     {
-        log::info("yes" . $this->distanceClientStorehouses());
-
         $product = Db::select("SELECT products.name AS pname, products.description AS pdescription, products.price AS pprice, 
         products.prefix AS pprefix, products.id, SUM(t.stock) AS totalStock, GROUP_CONCAT(DISTINCT images.filename) 
         AS images FROM (SELECT *, ROW_NUMBER() OVER (PARTITION BY items.item_has_product_storehouses ORDER BY updated_at DESC) AS rownumber FROM items) t
@@ -158,37 +156,84 @@ class ProductController extends Controller
         return view('product.product', ['product' => $product]);
     }
 
-    public function addToCart(Product $product)
+    public function addToCart(Product $product, $quantity)
     {
-        // if (session()->has('cartList')) {
-        //     $cartList = session("cartList");
-        // } else {
-        //     $cartList = [];
-        // }
+        $cartList = array();
+        $added = false;
 
-        // $cartList[] = $product->id;
+        if (session()->has('cartList')) {
+            $cartList = session("cartList");
+            foreach ($cartList as $cartItem) {
+                if ($cartItem['id'] == $product->id) {
+                    $cartItem['quantity'] += $quantity;
+                    $added = true;
+                }
+            }
+        } else {
+            $cartList = [];
+        }
 
-        // session()->forget('cartList');
-        // session(['cartList' => $cartList]);
+        if (!$added) {
+            $cartList[] = new ArrayObject([
+                'id' =>  $product->id,
+                'quantity' => 0
+            ]);
+        }
+
+        session()->forget('cartList');
+        session(['cartList' => $cartList]);
+    }
+
+    public function showCart()
+    {
+        if (session()->has('cartList')) {
+            $cartList = session("cartList");
+            $products = array();
+            foreach ($cartList as $cartItem) {
+                $result = Db::select("SELECT products.name, products.description, products.price, GROUP_CONCAT(DISTINCT images.filename) AS images FROM products
+                LEFT JOIN images ON images.image_has_product = products.id
+                WHERE products.id = $cartItem[id] 
+                GROUP BY products.name, products.description, products.price LIMIT 1;");
+
+                $products[] = $result[0];
+
+                end($products)->quantity = $cartItem['quantity'];
+
+                log::info($cartItem['quantity']);
+            }
+        } else {
+            $products = "El carro está vacío!";
+        }
+
+        return view('product.showCart', ['products' => $products]);
     }
 
     public function distanceClientStorehouses()
     {
         $clientStorehouses = array();
+        $destination = '';
+        $storehouseDistanceBefore = 0;
         $storehouses = Storehouse::all();
         $userAddresses = User::find(auth()->id())->addresses;
 
         foreach ($userAddresses as $key => $value) {
             if ($value->shipping_address_slc) $destination = $value->address . ',' . $value->zipcode . ',' . $value->country;
+            else return redirect()->back()->withErrors("Ha habido un error con la dirección de envío, consulte al administrador");
             continue;
         }
 
         if ($destination) {
             foreach ($storehouses as $storehouse) {
-                $clientStorehouses[] = new ArrayObject([
+                $storehouseDistance = new ArrayObject([
                     'id' => $storehouse->id,
                     'distance' => $this->getDistance($storehouse->address, $destination)
                 ]);
+                if ($storehouseDistance['distance'] < $storehouseDistanceBefore) {
+                    array_unshift($clientStorehouses, $storehouseDistance);
+                } else {
+                    array_push($clientStorehouses, $storehouseDistance);
+                    $storehouseDistanceBefore = $storehouseDistance['distance'];
+                }
             }
         } else {
             return redirect()->back()->withErrors("Ha habido un error con la dirección de envío, consulte al administrador");

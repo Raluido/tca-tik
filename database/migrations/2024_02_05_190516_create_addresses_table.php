@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string("address");
             $table->string("country");
             $table->string("zipcode");
-            $table->boolean('shipping_address_slc');
+            $table->boolean('shipping_address_slc')->default(0);
             $table->timestamps();
         });
     }

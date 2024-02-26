@@ -142,9 +142,9 @@ class StorehousesManagementController extends Controller
         return true;
     }
 
-    public function backOfficeRemoveFromStorehouse(Storehouse $storehouse, Item $item)
+    public function backOfficeRemoveFromStorehouse($itemId)
     {
-        $item = Item::find($item->id);
+        $item = Item::find($itemId);
 
         $item->delete();
 

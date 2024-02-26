@@ -42,13 +42,15 @@
             </ul>
         </div>
     </div>
-    <div id="desktopMenuDummie"></div>
     <a href="{{ route('main') }}" class="">
         <div id="logo">
             <img src="{{ Storage::url('logo.jpeg') }}" alt="" class="">
         </div>
     </a>
-    <div id="login" class="d-flex flex-column justify-content-center align-items-center mr-3">
+    <div class="cart d-flex flex-column justify-content-center align-items-center">
+        <a href="{{ route('main.showCart') }}" class="text-secondary"><i class="fa-solid fa-cart-shopping"></i></a>
+    </div>
+    <div id="login" class="d-flex flex-column justify-content-center align-items-center">
         @if(auth()->id())
         <a href="{{ route('login.logout') }}" class="text-secondary"><i class="fa-solid fa-arrow-right-from-bracket"></i><span class="d-none ms-2 d-md-inline-block">Logout</span></a>
         @else

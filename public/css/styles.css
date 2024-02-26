@@ -41,7 +41,7 @@ ul li {
 
 header>div {
     display: grid;
-    grid-template-columns: 17% 66% 17%;
+    grid-template-columns: 10% 60% 15% 15%;
 }
 
 #desktopMenuDummie {

@@ -17,7 +17,7 @@
             <input type="text" name="name" class="w-75" placeholder="Usuario" require="required">
         </div>
         <div class="d-flex justify-content-center">
-            <input type="text" name="password" class="w-75" placeholder="Contraseña" require="required">
+            <input type="password" name="password" class="w-75" placeholder="Contraseña" require="required">
         </div>
         <div class="mt-5 d-flex justify-content-around btn-sm">
             <input type="submit" value="Acceder" class="btn btn-success btn-sm">
