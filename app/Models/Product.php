@@ -51,11 +51,6 @@ class Product extends Model
         return $this->hasMany(Shipping_price::class, 'shipping_price_has_products');
     }
 
-    public function orders()
-    {
-        return $this->belongsToMany(Order::class, 'order_product', 'order_product_has_order', 'order_product_has_product');
-    }
-
     public function discount()
     {
         return $this->belongsTo(Discount::class, 'product_has_discount');
@@ -74,5 +69,10 @@ class Product extends Model
     public function latestItems()
     {
         return $this->hasManyThrough(Item::class, Product_storehouse::class, 'product_storehouse_has_products', 'item_has_product_storehouses');
+    }
+
+    public function carts()
+    {
+        $this->hasMany(Cart::class, 'cart_has_products');
     }
 }

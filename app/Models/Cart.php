@@ -16,18 +16,9 @@ class Cart extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'cart_has_order_product',
+        'cart_has_products',
+        'session_id',
         'quantity',
         'total'
     ];
-
-    public function order_product()
-    {
-        return $this->belongsTo(Order_product::class, 'cart_has_order_product');
-    }
-
-    public function invoice()
-    {
-        return $this->hasOne(Invoice::class, 'invoice_has_cart');
-    }
 }

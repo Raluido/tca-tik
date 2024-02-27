@@ -182,6 +182,38 @@ class ProductController extends Controller
 
         session()->forget('cartList');
         session(['cartList' => $cartList]);
+
+        return end($cartList)->quantity;
+    }
+
+    public function removeFromCart(Product $product, $quantity)
+    {
+        $cartList = array();
+        $added = false;
+
+        if (session()->has('cartList')) {
+            $cartList = session("cartList");
+            foreach ($cartList as $cartItem) {
+                if ($cartItem['id'] == $product->id) {
+                    $cartItem['quantity'] += $quantity;
+                    $added = true;
+                }
+            }
+        } else {
+            $cartList = [];
+        }
+
+        if (!$added) {
+            $cartList[] = new ArrayObject([
+                'id' =>  $product->id,
+                'quantity' => 0
+            ]);
+        }
+
+        session()->forget('cartList');
+        session(['cartList' => $cartList]);
+
+        return end($cartList)->quantity;
     }
 
     public function showCart()
@@ -190,10 +222,10 @@ class ProductController extends Controller
             $cartList = session("cartList");
             $products = array();
             foreach ($cartList as $cartItem) {
-                $result = Db::select("SELECT products.name, products.description, products.price, GROUP_CONCAT(DISTINCT images.filename) AS images FROM products
+                $result = Db::select("SELECT products.id, products.name, products.description, products.price, GROUP_CONCAT(DISTINCT images.filename) AS images FROM products
                 LEFT JOIN images ON images.image_has_product = products.id
                 WHERE products.id = $cartItem[id] 
-                GROUP BY products.name, products.description, products.price LIMIT 1;");
+                GROUP BY products.id, products.name, products.description, products.price LIMIT 1;");
 
                 $products[] = $result[0];
 

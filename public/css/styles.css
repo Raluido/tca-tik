@@ -309,6 +309,26 @@ td {
     height: auto;
 }
 
+.addRemoveItems {
+    width: 10em;
+    display: flex;
+}
+
+#removeFromCartOne,
+#addToCartOne {
+    background-color: lightgray;
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .8em 1.5em;
+}
+
+#cartItemAmount {
+    width: 70%;
+    border: unset;
+}
+
 footer {
     position: absolute;
     bottom: 0;

@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="">
+<div class="headerBottomWelcome">
     <h4 class="">Mi cesta</h4>
     <div class="">
         <div class="">
@@ -22,7 +22,10 @@
                 <h4 class="">{{ $product->price }} €</h4>
                 <p class="">{{ $product->description }}</p>
             </div>
-            <div class=""><span class=""></span>{{ $product->quantity }}<span class=""></span></div>
+            <div class="addRemoveItems">
+                <div id="removeFromCartOne" data-id="{{ $product->id }}">-</div><input type="text" data-id="{{ $product->id }}" id="cartItemAmount" value="{{ $product->quantity }}">
+                <div id="addToCartOne" data-id="{{ $product->id }}">+</div>
+            </div>
             @endforeach
             @else
             <div class="">
@@ -33,9 +36,10 @@
     </div>
 </div>
 
+<input type="hidden" value="{{ env('APP_URL') }}" id="url">
 @endsection
 
 
 @section('js')
-
+<script class="" type="text/javascript" src="{{ asset('js/addToCart.js') }}" defer></script>
 @endsection

@@ -19,16 +19,22 @@ class Order extends Model
         'order_has_user',
         'order_has_payment',
         'code',
-        'total'
+        'total',
+        'tax'
     ];
-
-    public function products()
-    {
-        $this->belongsToMany(Product::class, 'order_product', 'order_product_has_order', 'order_product_has_product');
-    }
 
     public function shipping_log()
     {
         return $this->hasOne(Shipping_log::class, 'shipping_log_has_order');
+    }
+
+    public function items()
+    {
+        return $this->hasMany(Item::class, 'item_has_order');
+    }
+
+    public function invoice()
+    {
+        return $this->hasOne(Invoice::class, 'invoice_has_order');
     }
 }

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('item_has_product_storehouses')->constrained(table: 'product_storehouses', column: 'id');
+            $table->foreignId('item_has_order')->nullable()->constrained(table: 'orders', column: 'id');
             $table->string('action');
             $table->float('pricepu', 6, 2);
             $table->integer('quantity');

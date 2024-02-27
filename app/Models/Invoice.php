@@ -16,14 +16,14 @@ class Invoice extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'invoice_has_cart',
+        'invoice_has_order',
         'number',
         'isPaid',
         'paymentDate'
     ];
 
-    public function cart()
+    public function order()
     {
-        $this->belongsTo(Cart::class, 'invoice_has_cart');
+        $this->belongsTo(Order::class, 'invoice_has_order');
     }
 }

@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="row">
+<div class="headerBottomWelcome row">
     <div class="col-md-8 row">
         @if(!is_null($product->images))
         @php $images = explode(',', $product->images); @endphp
@@ -43,7 +43,7 @@
         <p class="text-red">No hay stock</p>
         @endif
         @if($product->totalStock != 0)
-        <button id="addToCart" data-id="{{ $product->id }}">Añadir al carrito</button>
+        <button id="addToCartOne" data-id="{{ $product->id }}">Añadir al carrito</button>
         @else
         <button class="" disabled>Añadir al carrito</button>
         @endif

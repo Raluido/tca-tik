@@ -19,7 +19,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/showProductsAjax/{filterBy?}/{search?}/{offset?}', 'GeneralController@showProductsAjax')->name('main.showProductsAjax');
     Route::get('/searchBy/{search?}', 'GeneralController@searchByProduct')->name('main.searchByProduct');
     Route::get('/showProduct/{product}', 'ProductController@showProduct')->name('main.showProduct');
-    Route::get('/addToCart/{product}/{quantity?}', 'ProductController@addToCart')->name('main.addToCart');
+    Route::get('/addToCart/{product}/{quantity}', 'ProductController@addToCart')->name('main.addToCart');
+    Route::get('/removeFromCart/{product}/{quantity}', 'ProductController@removeFromCart')->name('main.removeFromCart');
     Route::get('/showCart', 'ProductController@showCart')->name('main.showCart');
 
     Route::get('/login', 'LoginController@show')->name('login.show');
