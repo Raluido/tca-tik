@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignId('cart_has_products')->constrained(table: 'products', column: 'id');
             $table->string('session_id');
             $table->string('quantity');
-            $table->float('total');
             $table->timestamps();
         });
     }

@@ -15,15 +15,13 @@ class StorehousesManagementController extends Controller
 {
     public function showBackOfficeAll()
     {
-        $categories = Category::all();
-        $storehouses = Storehouse::all();
-        $products = Product::all();
-
-        return view('backoffice.management.showProducts', ['storehouses' => $storehouses, 'categories' => $categories, 'products' => $products]);
+        return view('backoffice.management.showProducts');
     }
 
     public function showProductsAjax($storehouseSelectedId = 0, $categorySelectedId = 0, $searchProductId = 0, $offset = 0, $historic = 'false')
     {
+        $categories = Category::all();
+        $storehouses = Storehouse::all();
         $products = Product::all();
 
         $fillWheres = '';
@@ -64,7 +62,8 @@ class StorehousesManagementController extends Controller
             INNER JOIN products ON products.id = product_storehouses.product_storehouse_has_products
             INNER JOIN storehouses ON storehouses.id = product_storehouses.product_storehouse_has_storehouses
             INNER JOIN categories ON categories.id = products.product_has_category
-            $fillWheres GROUP BY storehouses.name, storehouses.prefix, items.id, storehouses.description, products.prefix, products.name, products.price, categories.name, items.updated_at, items.quantity, items.action, items.stock ORDER BY storehouses.name, items.updated_at LIMIT 10 OFFSET $offset");
+            $fillWheres GROUP BY storehouses.name, storehouses.prefix, items.id, storehouses.description, products.prefix, products.name, products.price, categories.name, items.updated_at, items.quantity, items.action, items.stock 
+            ORDER BY storehouses.name, items.updated_at ASC LIMIT 10 OFFSET $offset");
         } elseif ($historic == 'false') {
 
             $filtered = Db::select("SELECT storehouses.name AS sname, t.id, storehouses.prefix AS sprefix, storehouses.description AS sdescription, products.prefix AS pprefix, products.name AS pname, products.price AS pprice, categories.name AS cname, t.updated_at, t.quantity, t.action, t.stock FROM (SELECT *, ROW_NUMBER() OVER (PARTITION BY item_has_product_storehouses ORDER BY updated_at DESC) AS rowNumber FROM items) t
@@ -82,11 +81,11 @@ class StorehousesManagementController extends Controller
             INNER JOIN storehouses ON storehouses.id = product_storehouses.product_storehouse_has_storehouses
             INNER JOIN categories ON categories.id = products.product_has_category
             WHERE t.rowNumber = 1 
-            $fillWheres GROUP BY storehouses.name, t.id, storehouses.prefix, storehouses.description, products.prefix, products.name, products.price, categories.name, t.updated_at, t.quantity, t.action, t.stock 
-            ORDER BY storehouses.name, t.updated_at DESC LIMIT 10 OFFSET $offset");
+            $fillWheres GROUP BY storehouses.name, storehouses.prefix, t.id, storehouses.description, products.prefix, products.name, products.price, categories.name, t.updated_at, t.quantity, t.action, t.stock 
+            ORDER BY storehouses.name, t.updated_at ASC LIMIT 10 OFFSET $offset");
         }
 
-        return ['products' => $products, 'filtered' => $filtered, 'pagination' => $pagination, 'searchProductId' => $searchProductId, 'offset' => $offset, 'totalPrd' => $totalPrd];
+        return ['storehouses' => $storehouses, 'categories' => $categories, 'products' => $products, 'filtered' => $filtered, 'pagination' => $pagination, 'searchProductId' => $searchProductId, 'offset' => $offset, 'totalPrd' => $totalPrd];
     }
 
     function is_decimal($val)
@@ -144,9 +143,17 @@ class StorehousesManagementController extends Controller
 
     public function backOfficeRemoveFromStorehouse($itemId)
     {
-        $item = Item::find($itemId);
+        $product_storehouseId = Item::where('id', $itemId)->value('item_has_product_storehouses');
 
-        $item->delete();
+        $delete = Item::find($itemId);
+        $delete->delete();
+
+        $items = Item::select('id')->where('id', '>', $itemId)->where('item_has_product_storehouses', $product_storehouseId)->get();
+
+
+        foreach ($items as $item) {
+            Db::table('items')->where('id', $item->id)->decrement('stock', $delete->quantity);
+        }
 
         return true;
     }

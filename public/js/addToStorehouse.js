@@ -51,14 +51,23 @@ $(window).on('load', function () {
                 type: 'get',
                 url: url + '/backoffice/storehousesManagement/delete/' + $(this).attr('data-id'),
                 data: {},
-                success: function (data) {
-                    fullFilledTable(data, historic);
+                success: function () {
+                    $.ajax({
+                        type: 'GET',
+                        url: url + '/backoffice/storehousesManagement/showProductsAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + offset + '/' + historic,
+                        data: {},
+                        success: function (data) {
+                            fullFilledTable(data, historic);
+                            $('#storehouseSelected').val(storehouseSelected);
+                            $('#offset').val(0);
+                        }
+                    })
                 }
             })
         }
     })
 
-    function fullFilledTable(data, historic) {
+    function fullFilledTable(data) {
         $('.fullfilledTable').empty();
         let thead = document.createElement('thead');
         let tr = document.createElement('tr');
@@ -85,17 +94,19 @@ $(window).on('load', function () {
         let thPrdCat = document.createElement('th');
         thPrdCat.innerHTML = 'Categoría';
         tr.appendChild(thPrdCat);
+        let thqtt = document.createElement('th');
+        thqtt.innerHTML = 'Cantidad';
+        tr.appendChild(thqtt);
         let thstc = document.createElement('th');
         thstc.innerHTML = 'Stock';
         tr.appendChild(thstc);
         let thUpdated = document.createElement('th');
         thUpdated.innerHTML = 'Fecha';
         tr.appendChild(thUpdated);
-        if (historic == false) {
-            let thDel = document.createElement('th');
-            thDel.innerHTML = 'Borrar';
-            tr.appendChild(thDel);
-        }
+        let thDel = document.createElement('th');
+        thDel.innerHTML = 'Borrar';
+        tr.appendChild(thDel);
+
         let tbody = document.createElement('tbody');
         $('.fullfilledTable').append(tbody);
         data.filtered.forEach(function (element) {
@@ -122,13 +133,16 @@ $(window).on('load', function () {
             let tdPrdCat = document.createElement('td');
             tdPrdCat.innerHTML = element.cname;
             tr.appendChild(tdPrdCat);
+            let tdQtt = document.createElement('td');
+            tdQtt.innerHTML = element.quantity;
+            tr.appendChild(tdQtt);
             let tdStc = document.createElement('td');
             tdStc.innerHTML = element.stock;
             tr.appendChild(tdStc);
             let tdUpdated = document.createElement('td');
             tdUpdated.innerHTML = element.updated_at;
             tr.appendChild(tdUpdated);
-            if (element.stock > 0 && element.quantity > 0 && element.action == 'purchase' && historic == false) {
+            if (element.stock > 0 && element.quantity > 0) {
                 let tdDel = document.createElement('td');
                 tdDel.innerHTML = "<button class='btn btn-danger btn-sm' id='removeProduct' data-id=" + element.id + ">Borrar</button>";
                 tr.appendChild(tdDel);

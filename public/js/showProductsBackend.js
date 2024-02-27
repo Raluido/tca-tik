@@ -13,7 +13,8 @@ $(window).on('load', function () {
         url: url + '/backoffice/storehousesManagement/showProductsAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + offset + '/' + historic,
         data: {},
         success: function (data) {
-            fullFilledTable(data, historic);
+            fullFilledTable(data);
+            filters(data);
         }
     })
 
@@ -28,7 +29,9 @@ $(window).on('load', function () {
             url: url + '/backoffice/storehousesManagement/showProductsAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + offset + '/' + historic,
             data: {},
             success: function (data) {
-                fullFilledTable(data, historic);
+                fullFilledTable(data);
+                filters(data, categorySelected, storehouseSelected, inputSearch);
+                (storehouseSelected != 0 && inputSearch != 0) ? addNewPrd(data) : $('#addNewPrd').empty() && $('#addNewPrd').attr('class', '');
                 $('#searchProductId').val(inputSearch);
             }
         })
@@ -45,13 +48,14 @@ $(window).on('load', function () {
             url: url + '/backoffice/storehousesManagement/showProductsAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + offset + '/' + historic,
             data: {},
             success: function (data) {
-                fullFilledTable(data, historic);
+                fullFilledTable(data);
+                filters(data, categorySelected, storehouseSelected, inputSearch);
                 $('#historicSelected').val(historic);
             }
         })
     })
 
-    $('#filterByStorehouse').on('change', function () {
+    $('div').on('change', 'select#filterByStorehouse', function () {
         let storehouseSelected = $('#filterByStorehouse').val();
         let categorySelected = $('#categorySelected').val();
         let inputSearch = $('#searchProductId').val();
@@ -62,15 +66,16 @@ $(window).on('load', function () {
             data: {},
             success: function (data) {
                 $('#offset').val(0);
-                (storehouseSelected != 0) ? addNewPrd(data) : $('#addNewPrd').empty() && $('#addNewPrd').attr('class', '');
-                fullFilledTable(data, historic);
+                (storehouseSelected != 0 && inputSearch != 0) ? addNewPrd(data) : $('#addNewPrd').empty() && $('#addNewPrd').attr('class', '');
+                fullFilledTable(data);
+                filters(data, categorySelected, storehouseSelected, inputSearch);
                 $('#storehouseSelected').val(storehouseSelected);
                 $('#offset').val(0);
             }
         })
     })
 
-    $('#filterByCategory').on('change', function () {
+    $('div').on('change', 'select#filterByCategory', function () {
         let storehouseSelected = $('#storehouseSelected').val();
         let categorySelected = $('#filterByCategory').val();
         let inputSearch = $('#searchProductId').val();
@@ -81,7 +86,8 @@ $(window).on('load', function () {
             data: {},
             success: function (data) {
                 $('#offset').val(0);
-                fullFilledTable(data, historic);
+                fullFilledTable(data);
+                filters(data, categorySelected, storehouseSelected, inputSearch);
                 $('#categorySelected').val(categorySelected);
             }
         })
@@ -107,7 +113,8 @@ $(window).on('load', function () {
                         url: url + '/backoffice/storehousesManagement/showProductsAjax/' + storehouseSelected + '/' + categorySelected + '/' + 0 + '/' + offset + '/' + historic,
                         data: {},
                         success: function (data) {
-                            fullFilledTable(data, historic);
+                            fullFilledTable(data);
+                            filters(data, categorySelected, storehouseSelected, inputSearch);
                         }
                     })
                 } else {
@@ -140,7 +147,9 @@ $(window).on('load', function () {
             url: url + '/backoffice/storehousesManagement/showProductsAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + 0 + '/' + historic,
             data: {},
             success: function (data) {
-                fullFilledTable(data, historic);
+                fullFilledTable(data);
+                filters(data, categorySelected, storehouseSelected, inputSearch);
+                (storehouseSelected != 0 && inputSearch != 0) ? addNewPrd(data) : $('#addNewPrd').empty() && $('#addNewPrd').attr('class', '');
                 $('#searchProductId').val(inputSearch);
             }
         })
@@ -158,7 +167,8 @@ $(window).on('load', function () {
             url: url + '/backoffice/storehousesManagement/showProductsAjax/' + storehouseSelected + '/' + categorySelected + '/' + inputSearch + '/' + offset + '/' + historic,
             data: {},
             success: function (data) {
-                fullFilledTable(data, historic);
+                fullFilledTable(data);
+                filters(data, categorySelected, storehouseSelected, inputSearch);
                 $('#offset').val(offset);
             }
         })
@@ -167,8 +177,72 @@ $(window).on('load', function () {
 
 })
 
+function filters(data, categorySelected, storehouseSelected, inputSearch) {
+    $('#filters').empty();
+    let divFilterSth = document.createElement('div');
+    divFilterSth.setAttribute('class', 'd-flex justify-content-evenly mb-4');
+    $('#filters').append(divFilterSth);
+    let labelFilerDth = document.createElement('label');
+    labelFilerDth.setAttribute('for', 'filterByStorehouse');
+    labelFilerDth.innerHTML = "Almacenes";
+    divFilterSth.appendChild(labelFilerDth);
+    let selectFilterDth = document.createElement('select');
+    selectFilterDth.setAttribute('id', 'filterByStorehouse');
+    selectFilterDth.setAttribute('class', 'w-50');
+    selectFilterDth.innerHTML = "<option value='0' class=''>Todos</option>";
+    data.storehouses.forEach(element => {
+        if (storehouseSelected == element.id) {
+            selectFilterDth.innerHTML += "<option value='" + element.id + "' class='' selected='selected'>" + element.name + "</option>";
+        } else {
+            selectFilterDth.innerHTML += "<option value='" + element.id + "' class=''>" + element.name + "</option>";
+        }
+    })
+    divFilterSth.appendChild(selectFilterDth);
 
-function fullFilledTable(data, historic) {
+    let divFilterCtg = document.createElement('div');
+    divFilterCtg.setAttribute('class', 'd-flex justify-content-evenly mb-4');
+    $('#filters').append(divFilterCtg);
+    let labelFilerCtg = document.createElement('label');
+    labelFilerCtg.setAttribute('for', 'filterByCategory');
+    labelFilerCtg.innerHTML = "Categorías";
+    divFilterCtg.appendChild(labelFilerCtg);
+    let selectFilterCtg = document.createElement('select');
+    selectFilterCtg.setAttribute('id', 'filterByCategory');
+    selectFilterCtg.setAttribute('class', 'w-50');
+    selectFilterCtg.innerHTML = "<option value='0' class=''>Todos</option>";
+    data.categories.forEach(element => {
+        if (categorySelected == element.id) {
+            selectFilterCtg.innerHTML += "<option value='" + element.id + "' class='' selected='selected'>" + element.name + "</option>";
+        } else {
+            selectFilterCtg.innerHTML += "<option value='" + element.id + "' class=''>" + element.name + "</option>";
+
+        }
+    })
+    divFilterCtg.appendChild(selectFilterCtg);
+
+    let divFilterPrd = document.createElement('div');
+    divFilterPrd.setAttribute('class', 'd-flex justify-content-evenly mb-4');
+    $('#filters').append(divFilterPrd);
+    let labelFilerPrd = document.createElement('label');
+    labelFilerPrd.setAttribute('for', 'productSelected');
+    labelFilerPrd.innerHTML = "Productos";
+    divFilterPrd.appendChild(labelFilerPrd);
+    let selectFilterPrd = document.createElement('select');
+    selectFilterPrd.setAttribute('id', 'productSelected');
+    selectFilterPrd.setAttribute('class', 'w-50');
+    selectFilterPrd.innerHTML = "<option value='0' class=''>Todos</option>";
+    data.products.forEach(element => {
+        if (inputSearch == element.id) {
+            selectFilterPrd.innerHTML += "<option value='" + element.id + "' class='' selected='selected'>" + element.name + "</option>";
+        } else {
+            selectFilterPrd.innerHTML += "<option value='" + element.id + "' class=''>" + element.name + "</option>";
+        }
+    })
+    divFilterPrd.appendChild(selectFilterPrd);
+
+}
+
+function fullFilledTable(data) {
     $('.fullfilledTable').empty();
     let thead = document.createElement('thead');
     let tr = document.createElement('tr');
@@ -195,17 +269,19 @@ function fullFilledTable(data, historic) {
     let thPrdCat = document.createElement('th');
     thPrdCat.innerHTML = 'Categoría';
     tr.appendChild(thPrdCat);
+    let thqtt = document.createElement('th');
+    thqtt.innerHTML = 'Cantidad';
+    tr.appendChild(thqtt);
     let thstc = document.createElement('th');
     thstc.innerHTML = 'Stock';
     tr.appendChild(thstc);
     let thUpdated = document.createElement('th');
     thUpdated.innerHTML = 'Fecha';
     tr.appendChild(thUpdated);
-    if (historic == false) {
-        let thDel = document.createElement('th');
-        thDel.innerHTML = 'Borrar';
-        tr.appendChild(thDel);
-    }
+    let thDel = document.createElement('th');
+    thDel.innerHTML = 'Borrar';
+    tr.appendChild(thDel);
+
     let tbody = document.createElement('tbody');
     $('.fullfilledTable').append(tbody);
     data.filtered.forEach(function (element) {
@@ -232,13 +308,16 @@ function fullFilledTable(data, historic) {
         let tdPrdCat = document.createElement('td');
         tdPrdCat.innerHTML = element.cname;
         tr.appendChild(tdPrdCat);
+        let tdQtt = document.createElement('td');
+        tdQtt.innerHTML = element.quantity;
+        tr.appendChild(tdQtt);
         let tdStc = document.createElement('td');
         tdStc.innerHTML = element.stock;
         tr.appendChild(tdStc);
         let tdUpdated = document.createElement('td');
         tdUpdated.innerHTML = element.updated_at;
         tr.appendChild(tdUpdated);
-        if (element.stock > 0 && element.quantity > 0 && element.action == 'purchase' && historic == false) {
+        if (element.stock > 0 && element.quantity > 0) {
             let tdDel = document.createElement('td');
             tdDel.innerHTML = "<button class='btn btn-danger btn-sm' id='removeProduct' data-id=" + element.id + ">Borrar</button>";
             tr.appendChild(tdDel);
@@ -281,9 +360,6 @@ function addNewPrd(data) {
     tableAddPrd.appendChild(thead);
     let tr = document.createElement('tr');
     thead.appendChild(tr);
-    let thProduct = document.createElement('th');
-    thProduct.innerHTML = 'Producto';
-    tr.appendChild(thProduct);
     let thAction = document.createElement('th');
     thAction.innerHTML = 'Acción';
     tr.appendChild(thAction);
@@ -297,20 +373,6 @@ function addNewPrd(data) {
     tableAddPrd.appendChild(tbody);
     tr = document.createElement('tr');
     tbody.appendChild(tr);
-    let tdSelectContainer = document.createElement('td');
-    tr.appendChild(tdSelectContainer);
-    let tdSelect = document.createElement('select');
-    tdSelect.setAttribute('id', 'productSelected');
-    tdSelectContainer.appendChild(tdSelect);
-    let inputSearchId = $('#searchProductId').val();
-    tdSelect.innerHTML = "<option value='0'>Selecciona un producto</option>";
-    data.products.forEach(function (element) {
-        if (element.id == inputSearchId) {
-            tdSelect.innerHTML += "<option value='" + element.id + "'selected='selected'>" + element.name + "</option>";
-        } else {
-            tdSelect.innerHTML += "<option value=" + element.id + ">" + element.name + "</option>";
-        }
-    })
     let tdAction = document.createElement('td');
     let tdActionSelect = document.createElement('select');
     tdActionSelect.setAttribute('id', 'action');

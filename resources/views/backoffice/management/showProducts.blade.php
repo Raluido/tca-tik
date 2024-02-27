@@ -8,26 +8,7 @@
 
     <div class="filtersWidth mb-5 shadow-lg">
         <h5 class="mb-5 text-center">Filtros</h5>
-        <div class="">
-            <div class="d-flex justify-content-evenly mb-4">
-                <label for="filterByStorehouse" class="">Almacenes</label>
-                <select name="" id="filterByStorehouse" class="w-50">
-                    <option value="0" class="">Todos</option>
-                    @foreach($storehouses as $storehouse)
-                    <option value="{{ $storehouse->id }}">{{ $storehouse->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="d-flex justify-content-evenly mb-4">
-                <label for="filterByCategory" class="">Categorias</label>
-                <select name="" id="filterByCategory" class="w-50">
-                    <option value="0" class="">Todas</option>
-                    @foreach($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
+        <div id="filters"></div>
         <div class="">
             <div class="d-flex justify-content-center" id="historicContainer">
                 <label for="historic" class="me-4">Historico</label>

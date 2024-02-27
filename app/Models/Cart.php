@@ -18,7 +18,6 @@ class Cart extends Model
     protected $fillable = [
         'cart_has_products',
         'session_id',
-        'quantity',
-        'total'
+        'quantity'
     ];
 }

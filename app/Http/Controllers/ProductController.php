@@ -12,6 +12,7 @@ use App\Models\Discount;
 use App\Models\Image;
 use App\Models\Item;
 use App\Models\User;
+use App\Models\Cart;
 use ArrayObject;
 use Illuminate\Support\Facades\DB;
 use Faker\Extension\FileExtension;
@@ -162,10 +163,12 @@ class ProductController extends Controller
         $added = false;
 
         if (session()->has('cartList')) {
+            $sessionId = session()->getId();
             $cartList = session("cartList");
             foreach ($cartList as $cartItem) {
                 if ($cartItem['id'] == $product->id) {
                     $cartItem['quantity'] += $quantity;
+                    Cart::where('session_id', $sessionId)->where('cart_has_products', $product->id)->increase('quantity', $quantity);
                     $added = true;
                 }
             }
@@ -174,46 +177,47 @@ class ProductController extends Controller
         }
 
         if (!$added) {
-            $cartList[] = new ArrayObject([
-                'id' =>  $product->id,
+            $temp = array(
+                'id' => $product->id,
                 'quantity' => 0
+            );
+            $cartList[] = $temp;
+            Cart::create([
+                'cart_has_products' => $product->id,
+                'session_id' => $sessionId,
+                'quantity' => $quantity
             ]);
         }
 
         session()->forget('cartList');
         session(['cartList' => $cartList]);
 
-        return end($cartList)->quantity;
+        return end($cartList)['quantity'];
     }
 
     public function removeFromCart(Product $product, $quantity)
     {
-        $cartList = array();
-        $added = false;
+        $sessionId = session()->getId();
 
         if (session()->has('cartList')) {
             $cartList = session("cartList");
-            foreach ($cartList as $cartItem) {
+            foreach ($cartList as $key => $cartItem) {
                 if ($cartItem['id'] == $product->id) {
                     $cartItem['quantity'] += $quantity;
-                    $added = true;
+                    Cart::where('cart_has_products', $product->id)->where('session_id', $sessionId)->decrease('quantity', $quantity);
+                }
+                if ($cartItem['quantity'] == 0) {
+                    unset($cartList[$key]);
+                    Cart::where('cart_has_products', $product->id)->where('session_id', $sessionId)->delete();
                 }
             }
-        } else {
-            $cartList = [];
-        }
-
-        if (!$added) {
-            $cartList[] = new ArrayObject([
-                'id' =>  $product->id,
-                'quantity' => 0
-            ]);
         }
 
         session()->forget('cartList');
-        session(['cartList' => $cartList]);
 
-        return end($cartList)->quantity;
+        if (count($cartList) != 0) session(['cartList' => $cartList]);
+
+        return end($cartList)['quantity'];
     }
 
     public function showCart()
@@ -230,8 +234,6 @@ class ProductController extends Controller
                 $products[] = $result[0];
 
                 end($products)->quantity = $cartItem['quantity'];
-
-                log::info($cartItem['quantity']);
             }
         } else {
             $products = "El carro está vacío!";
