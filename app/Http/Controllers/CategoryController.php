@@ -43,22 +43,16 @@ class CategoryController extends Controller
         return redirect()->back()->withSuccess('La categoría se ha actualizado correctamente.');
     }
 
-    public function backOfficeDestroy(Category $category)
+    public function backOfficeDestroy($categoryId)
     {
-        Db::table('product_storehouses')
-            ->join('storehouses', 'storehouses.id', 'product_storehouses.product_storehouse_has_storehouses')
-            ->join('products', 'products.id', 'product_storehouses.product_storehouse_has_products')
-            ->where('product_has_category', $category->id)
-            ->delete();
+        $delete = Category::find($categoryId);
 
-        Db::table('products')
-            ->where('product_has_category', $category->id)
-            ->delete();
+        try {
+            $delete->delete();
+        } catch (\Throwable $th) {
+            return false;
+        }
 
-        $delete = Category::find($category->id);
-
-        $delete->delete();
-
-        return redirect()->back()->withSuccess('La categoría se ha eliminado correctamente');
+        return true;
     }
 }

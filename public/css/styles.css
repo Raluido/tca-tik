@@ -278,6 +278,7 @@ td {
     text-align: center;
     position: absolute;
     left: 1.5em;
+    cursor: pointer;
 }
 
 .card {

@@ -120,22 +120,36 @@ class ProductController extends Controller
         return redirect()->back()->withSuccess('El producto se ha actulizado correctamente.');
     }
 
-    public function backOfficeDestroy(Product $product)
+    public function backOfficeDestroy($productId)
     {
-        Product_storehouse::where('product_storehouse_has_products', $product->id)->delete();
+        try {
+            Product_storehouse::where('product_storehouse_has_products', $productId)->delete();
+        } catch (\Throwable $th) {
+            return false;
+        }
 
-        $delete = Product::find($product->id);
+        $images = Image::where('image_has_product', $productId)->get();
+
+        if (count($images) > 0) {
+            foreach ($images as $key => $image) {
+                if (Storage::exists('images/' + $image->filename)) Storage::delete('images/' + $image->filename);
+            }
+        }
+
+        $delete = Product::find($productId);
 
         $delete->delete();
 
-        return $delete;
+        return true;
     }
 
-    public function backOfficeDestroyImg(Image $image)
+    public function backOfficeDestroyImg($imageId)
     {
-        if (Storage::exists('images/' . $image->filename)) {
-            Storage::delete('images/' . $image->filename);
-            Image::find($image->id)->delete();
+        $delete = Image::find($imageId);
+
+        if (Storage::exists('images/' . $delete->filename)) {
+            Storage::delete('images/' . $delete->filename);
+            $delete->delete();
         }
 
         return true;

@@ -63,12 +63,14 @@ class StorehouseController extends Controller
         return redirect()->back()->withSuccess('El almacén se ha actulizado correctamente.');
     }
 
-    public function backOfficeDestroy(Storehouse $storehouse)
+    public function backOfficeDestroy($storehouseId)
     {
-        Product_storehouse::where('product_storehouse_has_storehouses', $storehouse->id)->delete();
+        try {
+            Storehouse::find($storehouseId)->delete();
+        } catch (\Throwable $th) {
+            return false;
+        }
 
-        Storehouse::find($storehouse->id)->delete();
-
-        return redirect()->back()->withSuccess('El almacén se ha eliminado correctamente');
+        return true;
     }
 }
