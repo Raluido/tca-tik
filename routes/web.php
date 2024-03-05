@@ -34,6 +34,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::group(['middleware' => 'auth'], function () {
         Route::get('/logout', 'LoginController@logout')->name('login.logout');
 
+        Route::post('/tokens/create', 'GeneralController@generateToken')->name('main.generateToken');
 
         // Back office
 
